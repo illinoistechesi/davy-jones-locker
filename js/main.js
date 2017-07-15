@@ -694,10 +694,10 @@ function battleship() {
 		WaitTimeBetweenAction: 1 
 	};
 
-	var m_ocean;
-	var m_ships = {};
-	var m_turns;
-    var m_chain = [];
+	var m_ocean; 
+	var m_ships = {}; // stores html elements of ships
+	var m_turns; 
+    var m_chain = []; // stores chainable actions in a turn
 
 	// public
 	var app = {
@@ -804,6 +804,10 @@ function battleship() {
 
 		},
 
+        sinkShip: (data) => {
+
+        },
+
         // Data passed in must be weapon firing of one ship, coordinates may differ
         fireShip: (data) => {
             var fireCoords = [{"x": 3, "y": 1, "shots": 3}];
@@ -829,42 +833,30 @@ function battleship() {
             });
 
             ship.setAttribute('alongpath', 'curve: #track; rotation: true; constraint: 0 0 1; delay: 3000; dur: 5000;');
-
+            
+            ship.addEventListener('movingended', function (event) {
+                console.log('movingended', event);
+            });
 		},
 
 		simulate: () => {
-			var actions = []; // store atomic actions
-			var index = 0;
+            // m_chain.forEach((entry) => {
+            //     switch(entry.type) {
+            //         case "MOVE":
+            //             app.moveShip(entry);
+            //             break;
+            //         case "FIRE":
+            //             app.fireShip(entry);
+            //             break;
+            //         case "SINK":
+            //             app.sinkShip(entry);
+            //             break;
+            //         default:
+            //             console.log("Unknown Action Type in simulate function");
+            //     }
+            // });
 
-			while(index < m_turns.length-1) {
 
-				var atomic = true;
-				while(atomic) {
-                    if (index == m_turns.length)
-                        break;
-
-					if (actions.length === 0) {
-						actions.push(m_turns[index]);
-                        index++;
-					}
-					else if (actions[0].id === m_turns[index].id && actions[0].type === m_turns[index].type){
-						actions.push(m_turns[index]);
-                        index++;
-					}
-					else {
-						atomic = false;
-					}
-				}
-				// start plotting a path for the ship to move
-				if (actions[0].type === "MOVE") {
-					app.moveShip(actions);
-				}
-                else if (actions[0].type === "FIRE") {
-                    app.fireShip(actions);
-                }
-				// reset atomic actions
-				actions = [];
-			}
 			var tmp = [
         {
             "x": 5,
