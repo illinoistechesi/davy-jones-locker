@@ -5,6 +5,8 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no,maximum-scale=1">
 	<title>Battleship</title>
+	<!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<!-- A Frame import -->
 	<script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
 	<!-- <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script> -->
@@ -47,15 +49,15 @@
 
 		<!-- Dynamically Spawned in for objects below... -->
 		<!-- Ships-->
-		<a-curve id="track">
+		<a-curve id="track1">
 			<a-curve-point position="5 0 12"></a-curve-point>
 			<a-curve-point position="12 0 12"></a-curve-point>
 			<a-curve-point position="12 0 3"></a-curve-point>
 		</a-curve>
 
-		<a-draw-curve curveref="#track" material="shader: line; color: blue;"></a-draw-curve>
+		<a-draw-curve curveref="#track1" material="shader: line; color: blue;"></a-draw-curve>
 
-		<a-collada-model alongpath="curve: #track; rotate: true; constraint: 0 0 -1; delay: 1000; dur: 5000;" position="0 0 0" rotation="0 0 0" src="#ship"></a-collada-model>
+		<a-collada-model alongpath="curve: #track1; rotate: true; constraint: 0 0 -1; delay: 1000; dur: 5000;" position="0 0 0" rotation="0 0 0" src="#ship"></a-collada-model>
 		<!-- <a-collada-model lerp="duration: 1000;" position="18 0 18" src="#ship"></a-collada-model> -->
 
 		<!-- Ocean -->

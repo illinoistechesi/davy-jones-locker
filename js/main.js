@@ -1,654 +1,681 @@
 var turnsInput = [
-	{
-        "x": 5,
-        "y": 4,
-        "health": 2,
-        "turn": 0,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 3,
-        "health": 2,
-        "turn": 0,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 2,
-        "health": 2,
-        "turn": 0,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "atX": 3,
-        "atY": 1,
-        "x": 5,
-        "y": 2,
-        "health": 2,
-        "turn": 1,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "atX": 3,
-        "atY": 1,
-        "x": 5,
-        "y": 2,
-        "health": 2,
-        "turn": 1,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 1,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 1,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 1,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "atX": 3,
-        "atY": 1,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 2,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "atX": 3,
-        "atY": 1,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 2,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 2,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 2,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 2,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "atX": 3,
-        "atY": 1,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 3,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "atX": 3,
-        "atY": 1,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 3,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 3,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 3,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 3,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "atX": 3,
-        "atY": 1,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 4,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "atX": 3,
-        "atY": 1,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 4,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 4,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 4,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 4,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "atX": 4,
-        "atY": 0,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 5,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "atX": 4,
-        "atY": 0,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 5,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 5,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 5,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 5,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "atX": 4,
-        "atY": 0,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 6,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "atX": 4,
-        "atY": 0,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 6,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 6,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 6,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 6,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "atX": 4,
-        "atY": 0,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 7,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "atX": 4,
-        "atY": 0,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 7,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 7,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 7,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 7,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "atX": 4,
-        "atY": 0,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 8,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "atX": 4,
-        "atY": 0,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 8,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 8,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 8,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 8,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "atX": 5,
-        "atY": 0,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 9,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "atX": 5,
-        "atY": 0,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 9,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 9,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 9,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 9,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "atX": 5,
-        "atY": 0,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 10,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "atX": 5,
-        "atY": 0,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 10,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 10,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 10,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 10,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "atX": 5,
-        "atY": 0,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 11,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "atX": 5,
-        "atY": 0,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 11,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 11,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 11,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 11,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "atX": 5,
-        "atY": 0,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 12,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "atX": 5,
-        "atY": 0,
-        "x": 5,
-        "y": 1,
-        "health": 2,
-        "turn": 12,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "FIRE"
-    },
-    {
-        "x": 5,
-        "y": 0,
-        "health": 2,
-        "turn": 12,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 0,
-        "health": 2,
-        "turn": 12,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    },
-    {
-        "x": 5,
-        "y": 0,
-        "health": 2,
-        "turn": 12,
-        "id": "ships.DeltaShip@4141ee32",
-        "type": "MOVE",
-        "direction": "North"
-    }
-]
+        {
+            "x": 5,
+            "y": 4,
+            "health": 2,
+            "turn": 0,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 3,
+            "health": 2,
+            "turn": 0,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 2,
+            "health": 2,
+            "turn": 0,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "atX": 3,
+            "atY": 1,
+            "x": 5,
+            "y": 2,
+            "health": 2,
+            "turn": 1,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "atX": 3,
+            "atY": 1,
+            "x": 5,
+            "y": 2,
+            "health": 2,
+            "turn": 1,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 1,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 1,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 1,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "atX": 3,
+            "atY": 1,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 2,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "atX": 3,
+            "atY": 1,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 2,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 2,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 2,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 2,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "atX": 3,
+            "atY": 1,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 3,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "atX": 3,
+            "atY": 1,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 3,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 3,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 3,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 3,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 3,
+            "y": 1,
+            "health": 0,
+            "attacker": "ships.DeltaShip@3ef86d9b",
+            "turn": 4,
+            "id": "games.DummyShip@2979dc98",
+            "type": "SINK"
+        },
+        {
+            "atX": 3,
+            "atY": 1,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 4,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "atX": 3,
+            "atY": 1,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 4,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 4,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 4,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 4,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "atX": 4,
+            "atY": 0,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 5,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "atX": 4,
+            "atY": 0,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 5,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 5,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 5,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 5,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "atX": 4,
+            "atY": 0,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 6,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "atX": 4,
+            "atY": 0,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 6,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 6,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 6,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 6,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "atX": 4,
+            "atY": 0,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 7,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "atX": 4,
+            "atY": 0,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 7,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 7,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 7,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 7,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 4,
+            "y": 0,
+            "health": 0,
+            "attacker": "ships.DeltaShip@3ef86d9b",
+            "turn": 8,
+            "id": "games.DummyShip@21b573b3",
+            "type": "SINK"
+        },
+        {
+            "atX": 4,
+            "atY": 0,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 8,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "atX": 4,
+            "atY": 0,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 8,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 8,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 8,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 8,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "atX": 5,
+            "atY": 0,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 9,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "atX": 5,
+            "atY": 0,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 9,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 9,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 9,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 9,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "atX": 5,
+            "atY": 0,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 10,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "atX": 5,
+            "atY": 0,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 10,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 10,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 10,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 10,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "atX": 5,
+            "atY": 0,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 11,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "atX": 5,
+            "atY": 0,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 11,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 11,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 11,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 11,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 0,
+            "health": 0,
+            "attacker": "ships.DeltaShip@3ef86d9b",
+            "turn": 12,
+            "id": "games.DummyShip@5d88b413",
+            "type": "SINK"
+        },
+        {
+            "atX": 5,
+            "atY": 0,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 12,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "atX": 5,
+            "atY": 0,
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 12,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "FIRE"
+        },
+        {
+            "x": 5,
+            "y": 0,
+            "health": 2,
+            "turn": 12,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 0,
+            "health": 2,
+            "turn": 12,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 0,
+            "health": 2,
+            "turn": 12,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        }
+    ]
 
 var shipsInput = [
-{
-	"owner": "Vinesh",
-	"firepower": 2,
-	"name": "Delta Ship",
-	"x": 5,
-	"y": 5,
-	"range": 3,
-	"id": "ships.DeltaShip@ad2ed6e",
-	"hull": 2,
-	"speed": 3
-},
-{
-	"owner": "The Evil Fleet",
-	"firepower": 1,
-	"name": "Dummy Ship",
-	"x": 4,
-	"y": 0,
-	"range": 1,
-	"id": "games.DummyShip@35929985",
-	"hull": 7,
-	"speed": 1
-},
-{
-	"owner": "The Evil Fleet",
-	"firepower": 1,
-	"name": "Dummy Ship",
-	"x": 5,
-	"y": 0,
-	"range": 1,
-	"id": "games.DummyShip@43798867",
-	"hull": 7,
-	"speed": 1
-},
-{
-	"owner": "The Evil Fleet",
-	"firepower": 1,
-	"name": "Dummy Ship",
-	"x": 3,
-	"y": 1,
-	"range": 1,
-	"id": "games.DummyShip@1800ae4e",
-	"hull": 7,
-	"speed": 1
-},
-{
-	"owner": "The Evil Fleet",
-	"firepower": 1,
-	"name": "Dummy Ship",
-	"x": 6,
-	"y": 1,
-	"range": 1,
-	"id": "games.DummyShip@52499bd",
-	"hull": 7,
-	"speed": 1
-}
-];
+            {
+                "owner": "Vinesh",
+                "firepower": 2,
+                "name": "Delta Ship",
+                "x": 5,
+                "y": 5,
+                "range": 3,
+                "id": "ships.DeltaShip@3ef86d9b",
+                "hull": 2,
+                "speed": 3
+            },
+            {
+                "owner": "The Evil Fleet",
+                "firepower": 1,
+                "name": "Dummy Ship",
+                "x": 4,
+                "y": 0,
+                "range": 1,
+                "id": "games.DummyShip@21b573b3",
+                "hull": 7,
+                "speed": 1
+            },
+            {
+                "owner": "The Evil Fleet",
+                "firepower": 1,
+                "name": "Dummy Ship",
+                "x": 5,
+                "y": 0,
+                "range": 1,
+                "id": "games.DummyShip@5d88b413",
+                "hull": 7,
+                "speed": 1
+            },
+            {
+                "owner": "The Evil Fleet",
+                "firepower": 1,
+                "name": "Dummy Ship",
+                "x": 3,
+                "y": 1,
+                "range": 1,
+                "id": "games.DummyShip@2979dc98",
+                "hull": 7,
+                "speed": 1
+            },
+            {
+                "owner": "The Evil Fleet",
+                "firepower": 1,
+                "name": "Dummy Ship",
+                "x": 6,
+                "y": 1,
+                "range": 1,
+                "id": "games.DummyShip@5410f899",
+                "hull": 7,
+                "speed": 1
+            }
+        ];
 
 var oceanInput = {
 	"x": 10,
@@ -668,8 +695,9 @@ function battleship() {
 	};
 
 	var m_ocean;
-	var m_Ships;
+	var m_ships = {};
 	var m_turns;
+    var m_chain = [{"type": "MOVE", "actions:": []}];
 
 	// public
 	var app = {
@@ -678,18 +706,63 @@ function battleship() {
 			// to be implemented
 		},
 
+        preprocess: (turnData) => {
+            var actions = [];
+            var index = 0;
+            //var count = 0;
+
+            while(index < turnData.length-1) {
+                var chain = true;
+                while(chain) {
+                    if (index == turnData.length)
+                        break;
+
+                    if (actions.length === 0) {
+                        actions.push(turnData[index]);
+                        index++;
+                    }
+                    // Ship id and action type has to be the same to be considered a chain-able action
+                    else if (actions[0].id === turnData[index].id && actions[0].type === turnData[index].type) {
+                        if (actions[0].type === "MOVE") {
+                            actions.push(turnData[index++]);
+                        }
+                        // Firing must be at the same coordinates to be considered a chain-able action
+                        else if (actions[0].type === "FIRE" && actions[0].atX === turnData[index].atX && actions[0].atY === turnData[index].atY) {
+                            actions.push(turnData[index++]);
+                        }
+                        else if(actions[0].type === "SINK") {
+                            actions.push(turnData[index++]);
+                        }
+                        else {
+                            chain = false;
+                        }
+                    }
+                    else {
+                        chain = false;
+                    }
+                }
+                //console.log(actions.length + " " + count++);
+                if (actions.length > 0)
+                    m_chain.push({"type": actions[0].type, "actions": jQuery.extend(true, [], actions)});
+                // reset chain actions
+                actions = [];
+            }
+            console.log(m_chain);
+        },
+
 		init: () => {
-			m_Ships = shipsInput;
 			m_ocean = oceanInput;
 			m_turns = turnsInput;
-			app.render();
+            app.preprocess(turnsInput);
+			app.render(shipsInput);
 			// call function to wait a bit before starting simulation
-			//app.simulate();
+			app.simulate();
 		},
+
 
 		// Displays the ocean, and ships
 		// TODO: check the edge cases with the map edges/sizes
-		render: () => {
+		render: (shipData) => {
 			var doc = document.getElementById('scene'); // <a-scene> reference
 
 			// re-position camera: camera must be already present when html loads
@@ -708,7 +781,7 @@ function battleship() {
 			doc.appendChild(map);
 
 			// Spawn Ships
-			m_Ships.forEach((entry) => {
+			shipData.forEach((entry) => {
 				var coord = {"x": entry.x, "y": entry.y};
 				var ship = document.createElement('a-collada-model');
 				ship.setAttribute('position', app.getCoord(coord, m_Constants.ShipYOffset));
@@ -724,15 +797,37 @@ function battleship() {
 				ship.dataset.range = entry.range;
 				ship.setAttribute('src', '#ship');
 				doc.appendChild(ship);
+                m_ships[entry.id] = ship;
+
 			});
 
 		},
 
+        // Data passed in must be weapon firing of one ship, coordinates may differ
+        fireShip: (data) => {
+            var fireCoords = [{"x": 3, "y": 1, "shots": 3}];
+            data.forEach((entry) => {
+
+            });
+        },
+
 		// Data passed in must be for movement of one ship
 		moveShip: (data) => {
 			var doc = document.getElementById('scene'); // <a-scene> reference
+            var ship = m_ships[data[0].id]; // html element
 
+            var track = document.createElement('a-curve');
+            track.setAttribute('id', 'track');
+            doc.appendChild(track);
 
+            data.forEach((entry) => {
+                var coord = app.getCoord({"x": entry.x, "y": entry.y}, m_Constants.ShipYOffset);
+                var point = document.createElement('a-curve-point');
+                point.setAttribute('position', coord);
+                track.appendChild(point);
+            });
+
+            ship.setAttribute('alongpath', 'curve: #track; rotation: true; constraint: 0 0 1; delay: 3000; dur: 5000;');
 
 		},
 
@@ -741,14 +836,19 @@ function battleship() {
 			var index = 0;
 
 			while(index < m_turns.length-1) {
-				// Get action groups from the m_turns
+
 				var atomic = true;
 				while(atomic) {
+                    if (index == m_turns.length)
+                        break;
+
 					if (actions.length === 0) {
-						actions.push(m_turns[index++]);
+						actions.push(m_turns[index]);
+                        index++;
 					}
 					else if (actions[0].id === m_turns[index].id && actions[0].type === m_turns[index].type){
-						actions.push(m_turns[index++]);
+						actions.push(m_turns[index]);
+                        index++;
 					}
 					else {
 						atomic = false;
@@ -758,40 +858,42 @@ function battleship() {
 				if (actions[0].type === "MOVE") {
 					app.moveShip(actions);
 				}
-
-
-
+                else if (actions[0].type === "FIRE") {
+                    app.fireShip(actions);
+                }
 				// reset atomic actions
 				actions = [];
 			}
-			var tmp = [{
-		        "x": 5,
-		        "y": 4,
-		        "health": 2,
-		        "turn": 0,
-		        "id": "ships.DeltaShip@4141ee32",
-		        "type": "MOVE",
-		        "direction": "North"
-		    },
-		    {
-		        "x": 5,
-		        "y": 3,
-		        "health": 2,
-		        "turn": 0,
-		        "id": "ships.DeltaShip@4141ee32",
-		        "type": "MOVE",
-		        "direction": "North"
-		    },
-		    {
-		        "x": 5,
-		        "y": 2,
-		        "health": 2,
-		        "turn": 0,
-		        "id": "ships.DeltaShip@4141ee32",
-		        "type": "MOVE",
-		        "direction": "North"
-		    }];
+			var tmp = [
+        {
+            "x": 5,
+            "y": 4,
+            "health": 2,
+            "turn": 0,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 3,
+            "health": 2,
+            "turn": 0,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 2,
+            "health": 2,
+            "turn": 0,
+            "id": "ships.DeltaShip@3ef86d9b",
+            "type": "MOVE",
+            "direction": "North"
+        }];
 
+        app.moveShip(tmp);
 
 
 		},
@@ -807,7 +909,7 @@ function battleship() {
 		},
 
 		getShips: () => {
-			return m_Ships;
+			return m_ships;
 		}
 
 	}
