@@ -690,7 +690,9 @@ function battleship() {
 		OceanYOffset: 0,
 		ShipYOffset: 0,
         SinkDistance: 5,
-		WaitTimeBetweenAction: 1000 // in miliseconds
+        BulletArc: 1,
+		WaitTimeBetweenAction: 500 // in miliseconds
+
 	};
 
     var m_input = {};
@@ -765,7 +767,7 @@ function battleship() {
                             index++;
                         }
                         // Firing must be at the same coordinates to be considered a chain-able action
-                        else if (actions[0].type === "FIRE" && actions[0].atX === translate(data.turns[index]).atX && actions[0].atY === translate(data.turns[index]).atY) {
+                        else if (actions[0].type === "FIRE" && actions[0].atX === 4*(data.turns[index].atX) && actions[0].atY === 4*(data.turns[index].atY)) {
                             actions.push(translate(data.turns[index]));
                             index++;
                         }
@@ -839,7 +841,7 @@ function battleship() {
 
                 var debug = document.createElement('a-draw-curve');
                 debug.setAttribute('curveref', '#track');
-                debug.setAttribute('material', 'shader: line; color: blue;');
+                debug.setAttribute('material', 'shader: line; color: black;');
                 doc.appendChild(debug);
 
                 var point1 = document.createElement('a-curve-point');
@@ -849,7 +851,7 @@ function battleship() {
                 m_track.appendChild(point1);
                 m_track.appendChild(point2);
 
-                shipDom.setAttribute('alongpath', 'curve: #track; rotation: true; constraint: 0 0 1; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: 3000;');
+                shipDom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 1 0; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: 3000;');
 
                 var done = (event) => {
                     shipDom.removeAttribute('alongpath');
@@ -875,9 +877,48 @@ function battleship() {
         // Data passed in are one ships action of firing at one and only one coordinate
         fireShip: (data) => {
             return new Promise((resolve, reject) => {
-                console.log(data);
-                console.log("Firing to be implemented");
-                resolve();
+                var doc = document.getElementById('scene');
+
+                var bullet = document.createElement('a-sphere');
+                var source = document.createElement('a-curve-point');
+                var arc = document.createElement('a-curve-point');
+                var target = document.createElement('a-curve-point');
+                bullet.setAttribute('color', 'gray');
+                bullet.setAttribute('radius', '0.1');
+                bullet.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
+                source.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
+                target.setAttribute('position', data[0].atX + " " + data[0].atY + " " + data[0].atZ);
+                arc.setAttribute('position', (data[0].atX+data[0].x)/2 + " " + (((data[0].atY+data[0].y)/2)+m_Constants.BulletArc) + " " + (data[0].atZ+data[0].z)/2);
+                m_track.appendChild(source);
+                m_track.appendChild(arc);
+                m_track.appendChild(target);
+
+                var debug = document.createElement('a-draw-curve');
+                debug.setAttribute('curveref', '#track');
+                debug.setAttribute('material', 'shader: line; color: red;');
+                doc.appendChild(debug);
+
+                var tmp = doc.appendChild(bullet);
+                tmp.setAttribute('alongpath', 'curve: #track; rotate: true; constant: 0 0 1; delay: 200; dur: 500');
+
+                var done = (event) => {
+                    tmp.removeAttribute('alongpath');
+                    if (debug.parentNode) {
+                        doc.removeChild(debug);
+                    }
+                    while(m_track.hasChildNodes()) {
+                        m_track.removeChild(m_track.lastChild);
+                    }
+
+                    tmp.removeEventListener('movingended', done);
+                    if (tmp.parentNode) {
+                        doc.removeChild(tmp);
+                    }
+
+                    resolve(event);
+                }
+
+                tmp.addEventListener('movingended', done);
             });
         },
 
