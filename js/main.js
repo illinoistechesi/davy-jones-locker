@@ -730,8 +730,8 @@ function battleship() {
                 var res = d;
                 if (res.hasOwnProperty("atX") && res.hasOwnProperty("atY")) {
                     res['atX'] = 4*d.atX;
+                    res['atZ'] = 4*d.atY; // make sure to move the y property before overriding it
                     res['atY'] = m_Constants.ShipYOffset;
-                    res['atZ'] = 4*d.atY;
                 }
                 res.x = 4*d.x;
                 res.z = 4*d.y; // make sure to move the y property before overriding it
