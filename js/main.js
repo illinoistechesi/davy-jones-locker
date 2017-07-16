@@ -714,17 +714,11 @@ function battleship() {
             m_input = {"ships": shipsInput, "turns": turnsInput, "ocean": oceanInput};
             app.preprocess(m_input);
 
-            var doc = document.getElementById('scene'); // <a-scene> reference
-
-
-            // var track = document.createElement('a-curve');
-            // track.setAttribute('id', 'track');
-            // doc.appendChild(track);
-
-            // m_track = document.getElementById('track');
-            // m_ocean = oceanInput;
-            // m_turns = turnsInput;
-            // app.preprocess(turnsInput);
+            var doc = document.getElementById('scene');
+            var track = document.createElement('a-curve');
+            track.setAttribute('id', 'track');
+            doc.appendChild(track);
+            m_track = document.getElementById('track');
 
             app.render(m_ships);
             // call function to wait a bit before starting simulation
@@ -897,15 +891,10 @@ function battleship() {
                     console.log("walled");
                     resolve("Skipped");
                 }
-
                 console.log("test1");
 
                 var doc = document.getElementById('scene'); // <a-scene> reference
                 //var startCoord = {"x": data[0].x};
-
-                track = document.createElement('a-curve');
-                track.setAttribute('id', 'track');
-                doc.appendChild(track);
 
                 var debug = document.createElement('a-draw-curve');
                 debug.setAttribute('curveref', '#track');
@@ -915,45 +904,50 @@ function battleship() {
                 // add current location as a starting point of the curve
                 var point = document.createElement('a-curve-point');
                 point.setAttribute('position', String(shipDom.dataset.x + " " + shipDom.dataset.y + " " + shipDom.dataset.z));
-                track.appendChild(point);
+                m_track.appendChild(point);
                 // add chain-able goal locations to the curve
-                data.forEach((entry) => {
+                console.log('ship:', shipDom);
+                console.log("data:", data);
+                for (var i = 0; i < data.length; i++) {
                     point = document.createElement('a-curve-point');
-                    point.setAttribute('position', String(entry.x + " " + entry.y + " " + entry.z));
-
-                    track.appendChild(point);
-                });
-
-                console.log("test2");
-                if (document.getElementById('track')) {
-                    console.log("TEST!@#")
+                    point.setAttribute('position', data[i].x + " " + data[i].y + " " + data[i].z);
+                    if (i + 1 < data.length && data[i].x === data[i+1].x && data[i].z === data[i+1].z) {
+                        i++;
+                    }
+                    m_track.appendChild(point);
                 }
 
                 shipDom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 0 1; delay: 5000; dur: 5000;');
-                console.log("test3");
 
                 var done = function (event) {
                     console.log("test4");
+                    // var list = document.getElementByTagName('a-draw-curve');
+                    // for (var i = 0; i < list.length; i++) {
+                    //     list[0].parentNode.removeChild(list[0]);
+                    // }
                     if (debug.parentNode) {
                         doc.removeChild(debug);
-                        console.log("testA");
                     }
-                    if (track.parentNode) {
-                        doc.removeChild(track);
-                        console.log("testB");
+
+                    while(m_track.hasChildNodes()) {
+                        m_track.removeChild(m_track.lastChild);
                     }
+                    
                     console.log("test5");
-                    ship.removeAttribute('alongpath');
+                    shipDom.removeAttribute('alongpath');
                     shipDom.dataset.x = data[data.length-1].x;
                     shipDom.dataset.z = data[data.length-1].z;
                     shipDom.dataset.y = data[data.length-1].y;
 
                     console.log("test6");
-                    shipDom.removeEventListener('movingended', done);
+                    //shipDom.removeEventListener('movingended', done);
+                    this.curveCount++;
                     resolve(event);
                 };
 
                 shipDom.addEventListener('movingended', done);
+
+                
             });
 		},
 
@@ -995,7 +989,7 @@ function battleship() {
             } else {
                 alert("Simulation Done");
             }
-            
+
 		},
 
 		/** translates the coordinate in the java game to this scene's coordinate
