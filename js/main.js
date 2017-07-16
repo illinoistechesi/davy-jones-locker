@@ -4,7 +4,7 @@ var turnsInput = [
             "y": 4,
             "health": 2,
             "turn": 0,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -13,7 +13,7 @@ var turnsInput = [
             "y": 3,
             "health": 2,
             "turn": 0,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -22,7 +22,7 @@ var turnsInput = [
             "y": 2,
             "health": 2,
             "turn": 0,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -33,7 +33,7 @@ var turnsInput = [
             "y": 2,
             "health": 2,
             "turn": 1,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -43,7 +43,7 @@ var turnsInput = [
             "y": 2,
             "health": 2,
             "turn": 1,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -51,16 +51,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 1,
-            "id": "ships.DeltaShip@3ef86d9b",
-            "type": "MOVE",
-            "direction": "North"
-        },
-        {
-            "x": 5,
-            "y": 1,
-            "health": 2,
-            "turn": 1,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -69,7 +60,16 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 1,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 1,
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -80,7 +80,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 2,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -90,7 +90,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 2,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -98,7 +98,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 2,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -107,7 +107,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 2,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -116,7 +116,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 2,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -127,7 +127,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 3,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -137,7 +137,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 3,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -145,7 +145,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 3,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -154,7 +154,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 3,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -163,7 +163,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 3,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -171,9 +171,9 @@ var turnsInput = [
             "x": 3,
             "y": 1,
             "health": 0,
-            "attacker": "ships.DeltaShip@3ef86d9b",
+            "attacker": "esi17.vkannan3.DeltaShip@7420679",
             "turn": 4,
-            "id": "games.DummyShip@2979dc98",
+            "id": "battleship.ships.DummyShip@7d28616a",
             "type": "SINK"
         },
         {
@@ -183,7 +183,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 4,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -193,7 +193,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 4,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -201,16 +201,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 4,
-            "id": "ships.DeltaShip@3ef86d9b",
-            "type": "MOVE",
-            "direction": "North"
-        },
-        {
-            "x": 5,
-            "y": 1,
-            "health": 2,
-            "turn": 4,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -219,7 +210,16 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 4,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 4,
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -230,7 +230,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 5,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -240,7 +240,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 5,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -248,16 +248,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 5,
-            "id": "ships.DeltaShip@3ef86d9b",
-            "type": "MOVE",
-            "direction": "North"
-        },
-        {
-            "x": 5,
-            "y": 1,
-            "health": 2,
-            "turn": 5,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -266,7 +257,16 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 5,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 5,
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -277,7 +277,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 6,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -287,7 +287,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 6,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -295,7 +295,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 6,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -304,7 +304,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 6,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -313,7 +313,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 6,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -324,7 +324,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 7,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -334,7 +334,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 7,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -342,7 +342,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 7,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -351,7 +351,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 7,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -360,7 +360,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 7,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -368,9 +368,9 @@ var turnsInput = [
             "x": 4,
             "y": 0,
             "health": 0,
-            "attacker": "ships.DeltaShip@3ef86d9b",
+            "attacker": "esi17.vkannan3.DeltaShip@7420679",
             "turn": 8,
-            "id": "games.DummyShip@21b573b3",
+            "id": "battleship.ships.DummyShip@13b2df00",
             "type": "SINK"
         },
         {
@@ -380,7 +380,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 8,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -390,7 +390,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 8,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -398,16 +398,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 8,
-            "id": "ships.DeltaShip@3ef86d9b",
-            "type": "MOVE",
-            "direction": "North"
-        },
-        {
-            "x": 5,
-            "y": 1,
-            "health": 2,
-            "turn": 8,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -416,7 +407,16 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 8,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 8,
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -427,7 +427,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 9,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -437,7 +437,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 9,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -445,16 +445,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 9,
-            "id": "ships.DeltaShip@3ef86d9b",
-            "type": "MOVE",
-            "direction": "North"
-        },
-        {
-            "x": 5,
-            "y": 1,
-            "health": 2,
-            "turn": 9,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -463,7 +454,16 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 9,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
+            "type": "MOVE",
+            "direction": "North"
+        },
+        {
+            "x": 5,
+            "y": 1,
+            "health": 2,
+            "turn": 9,
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -474,7 +474,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 10,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -484,7 +484,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 10,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -492,7 +492,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 10,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -501,7 +501,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 10,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -510,7 +510,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 10,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -521,7 +521,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 11,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -531,7 +531,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 11,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -539,7 +539,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 11,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -548,7 +548,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 11,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -557,7 +557,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 11,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -565,9 +565,9 @@ var turnsInput = [
             "x": 5,
             "y": 0,
             "health": 0,
-            "attacker": "ships.DeltaShip@3ef86d9b",
+            "attacker": "esi17.vkannan3.DeltaShip@7420679",
             "turn": 12,
-            "id": "games.DummyShip@5d88b413",
+            "id": "battleship.ships.DummyShip@64033463",
             "type": "SINK"
         },
         {
@@ -577,7 +577,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 12,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -587,7 +587,7 @@ var turnsInput = [
             "y": 1,
             "health": 2,
             "turn": 12,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "FIRE"
         },
         {
@@ -595,7 +595,7 @@ var turnsInput = [
             "y": 0,
             "health": 2,
             "turn": 12,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -604,7 +604,7 @@ var turnsInput = [
             "y": 0,
             "health": 2,
             "turn": 12,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         },
@@ -613,11 +613,11 @@ var turnsInput = [
             "y": 0,
             "health": 2,
             "turn": 12,
-            "id": "ships.DeltaShip@3ef86d9b",
+            "id": "esi17.vkannan3.DeltaShip@7420679",
             "type": "MOVE",
             "direction": "North"
         }
-    ]
+    ];
 
 var shipsInput = [
             {
@@ -627,7 +627,7 @@ var shipsInput = [
                 "x": 5,
                 "y": 5,
                 "range": 3,
-                "id": "ships.DeltaShip@3ef86d9b",
+                "id": "esi17.vkannan3.DeltaShip@7420679",
                 "hull": 2,
                 "speed": 3
             },
@@ -638,7 +638,7 @@ var shipsInput = [
                 "x": 4,
                 "y": 0,
                 "range": 1,
-                "id": "games.DummyShip@21b573b3",
+                "id": "battleship.ships.DummyShip@13b2df00",
                 "hull": 7,
                 "speed": 1
             },
@@ -649,7 +649,7 @@ var shipsInput = [
                 "x": 5,
                 "y": 0,
                 "range": 1,
-                "id": "games.DummyShip@5d88b413",
+                "id": "battleship.ships.DummyShip@64033463",
                 "hull": 7,
                 "speed": 1
             },
@@ -660,7 +660,7 @@ var shipsInput = [
                 "x": 3,
                 "y": 1,
                 "range": 1,
-                "id": "games.DummyShip@2979dc98",
+                "id": "battleship.ships.DummyShip@7d28616a",
                 "hull": 7,
                 "speed": 1
             },
@@ -671,7 +671,7 @@ var shipsInput = [
                 "x": 6,
                 "y": 1,
                 "range": 1,
-                "id": "games.DummyShip@5410f899",
+                "id": "battleship.ships.DummyShip@6a4ed178",
                 "hull": 7,
                 "speed": 1
             }
@@ -689,6 +689,7 @@ function battleship() {
 		CameraYOffset: 4,
 		OceanYOffset: 0,
 		ShipYOffset: 0,
+        SinkDistance: 5,
 		WaitTimeToStartSimulate: 10,
 		WaitTimeBetweenTurn: 5,
 		WaitTimeBetweenAction: 1 
@@ -698,6 +699,11 @@ function battleship() {
 	
     var m_ships = []; // stores formatted json of ship initialization
     var m_chain = []; // stores chainable actions in a turn
+    var m_entity = {}; // object with id to html dom element of ships
+    
+    var m_track;
+
+    var m_test = 0;
 
     var m_ocean; 
 
@@ -708,17 +714,21 @@ function battleship() {
             m_input = {"ships": shipsInput, "turns": turnsInput, "ocean": oceanInput};
             app.preprocess(m_input);
 
-            m_chain.forEach((entry) => {
-                console.log(JSON.stringify(entry));
-            });
+            var doc = document.getElementById('scene'); // <a-scene> reference
 
+
+            // var track = document.createElement('a-curve');
+            // track.setAttribute('id', 'track');
+            // doc.appendChild(track);
+
+            // m_track = document.getElementById('track');
             // m_ocean = oceanInput;
             // m_turns = turnsInput;
             // app.preprocess(turnsInput);
 
             app.render(m_ships);
             // call function to wait a bit before starting simulation
-            //app.simulate();
+            app.simulate();
         },
 
         preprocess: (data) => {
@@ -823,7 +833,7 @@ function battleship() {
 				ship.dataset.range = entry.range;
 				ship.setAttribute('src', '#ship');
 				doc.appendChild(ship);
-                m_ships[entry.id] = ship;
+                m_entity[entry.id] = ship;
 
 			});
 
@@ -831,7 +841,40 @@ function battleship() {
 
         sinkShip: (data) => {
             return new Promise((resolve, reject) => {
-                console.log("Ship sink to be implemented");
+                // var doc = document.getElementById('scene');
+                // var ship = m_entity[data[0].id];
+
+                // var track = document.createElement('a-curve');
+                // track.setAttribute('id', 'track');
+                // doc.appendChild('track');
+
+                // var debug = document.createElement('a-draw-curve');
+                // debug.setAttribute('curveref', '#track');
+                // debug.setAttribute('material', 'shader: line; color: blue;');
+                // doc.appendChild(debug);
+
+                // var point1 = document.createElement('a-curve-point');
+                // var point2 = document.createElement('a-curve-point');
+                // point1.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
+                // point1.setAttribute('position', data[0].x + " " + (data[0].y-m_Constant.SinkDistance) + " " + data[0].z);
+                // track.appendChild(point1);
+                // track.appendChild(point2);
+
+                // ship.setAttribute('alongpath', 'curve: #track; rotation: true; constraint: 0 0 1; delay: 3000; dur: 3000;');
+
+                // ship.addEventListener('movingended', function (event) {
+                //     ship.removeAttribute('alongpath');
+                //     if (track.parentNode) {
+                //         doc.removeChild(track);
+                //     }
+                //     if (debug.parentNode) {
+                //         doc.removeChild(debug);
+                //     }
+                //     if (ship.parentNode) {
+                //         doc.removeChild(ship);
+                //     }
+                //     resolve(event);
+                // });
                 resolve();
             });
         },
@@ -847,11 +890,20 @@ function battleship() {
 		// Data passed in must be for movement of one ship
 		moveShip: (data) => {
             return new Promise((resolve, reject) => {
-                var doc = document.getElementById('scene'); // <a-scene> reference
-                var ship = m_ships[data[0].id]; // html element
-                var startCoord = {"x": data[0].x};
 
-                var track = document.createElement('a-curve');
+                var shipDom = m_entity[data[0].id]; // html element
+                if (data.length === 1 && data[0].x === shipDom.dataset.x && data[0].z === shipDom.dataset.z) {
+                    // if shipDom tries to move against edge or occupied place
+                    console.log("walled");
+                    resolve("Skipped");
+                }
+
+                console.log("test1");
+
+                var doc = document.getElementById('scene'); // <a-scene> reference
+                //var startCoord = {"x": data[0].x};
+
+                track = document.createElement('a-curve');
                 track.setAttribute('id', 'track');
                 doc.appendChild(track);
 
@@ -860,47 +912,79 @@ function battleship() {
                 debug.setAttribute('material', 'shader: line; color: blue;');
                 doc.appendChild(debug);
 
+                // add current location as a starting point of the curve
+                var point = document.createElement('a-curve-point');
+                point.setAttribute('position', String(shipDom.dataset.x + " " + shipDom.dataset.y + " " + shipDom.dataset.z));
+                track.appendChild(point);
+                // add chain-able goal locations to the curve
                 data.forEach((entry) => {
-                    var point = document.createElement('a-curve-point');
-                    point.setAttribute('position', entry.x + " " + entry.y + " " + entry.z);
+                    point = document.createElement('a-curve-point');
+                    point.setAttribute('position', String(entry.x + " " + entry.y + " " + entry.z));
+
                     track.appendChild(point);
                 });
 
-                ship.setAttribute('alongpath', 'curve: #track; rotation: true; constraint: 0 0 1; delay: 3000; dur: 5000;');
+                console.log("test2");
+                if (document.getElementById('track')) {
+                    console.log("TEST!@#")
+                }
 
-                ship.addEventListener('movingended', function (event) {
+                shipDom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 0 1; delay: 5000; dur: 5000;');
+                console.log("test3");
+
+                var done = function (event) {
+                    console.log("test4");
+                    if (debug.parentNode) {
+                        doc.removeChild(debug);
+                        console.log("testA");
+                    }
+                    if (track.parentNode) {
+                        doc.removeChild(track);
+                        console.log("testB");
+                    }
+                    console.log("test5");
                     ship.removeAttribute('alongpath');
-                    doc.removeChild(track);
-                    doc.removeChild(debug);
-                    resolve(event);
-                });
+                    shipDom.dataset.x = data[data.length-1].x;
+                    shipDom.dataset.z = data[data.length-1].z;
+                    shipDom.dataset.y = data[data.length-1].y;
 
+                    console.log("test6");
+                    shipDom.removeEventListener('movingended', done);
+                    resolve(event);
+                };
+
+                shipDom.addEventListener('movingended', done);
             });
 		},
 
 		simulate: () => {
             var current = m_chain.shift();
-
             if (current) {
-                console.log(current);
+                m_test += current.actions.length;
+                console.log(m_test);
                 switch(current.type) {
                     case "MOVE":
+                        console.log(m_entity[current.actions[0].id]);
+                        console.log(current.actions);
                         app.moveShip(current.actions).then((done) => {
-                            //app.simulate();
+                            //alert("Moved " + m_chain.length + " actions left");
+                            app.simulate();
                         }).catch((err) => {
                             console.log(err);
                         });
                         break;
                     case "FIRE":
                         app.fireShip(current.actions).then((done) => {
-                            //app.simulate();
+                            //alert("Fired " + m_chain.length + " actions left");
+                            app.simulate();
                         }).catch((err) => {
                             console.log(err);
                         });
                         break;
                     case "SINK":
                         app.sinkShip(current.actions).then((done) => {
-                            //app.simulate();
+                            //alert("Sunk "+ m_chain.length + " actions left");
+                            app.simulate();
                         }).catch((err) => {
                             console.log(err);
                         });
@@ -908,56 +992,10 @@ function battleship() {
                     default:
                         console.log("Unknown Action Type " + current.type + " in simulate function");
                 }
+            } else {
+                alert("Simulation Done");
             }
-            // m_chain.forEach((entry) => {
-            //     switch(entry.type) {
-            //         case "MOVE":
-            //             app.moveShip(entry);
-            //             break;
-            //         case "FIRE":
-            //             app.fireShip(entry);
-            //             break;
-            //         case "SINK":
-            //             app.sinkShip(entry);
-            //             break;
-            //         default:
-            //             console.log("Unknown Action Type in simulate function");
-            //     }
-            // });
-
-
-			// var tmp = [
-   //      {
-   //          "x": 4*5,
-   //          "y": 4*4,
-   //          "health": 2,
-   //          "turn": 0,
-   //          "id": "ships.DeltaShip@3ef86d9b",
-   //          "type": "MOVE",
-   //          "direction": "North"
-   //      },
-   //      {
-   //          "x": 4*5,
-   //          "y": 4*3,
-   //          "health": 2,
-   //          "turn": 0,
-   //          "id": "ships.DeltaShip@3ef86d9b",
-   //          "type": "MOVE",
-   //          "direction": "North"
-   //      },
-   //      {
-   //          "x": 4*5,
-   //          "y": 4*2,
-   //          "health": 2,
-   //          "turn": 0,
-   //          "id": "ships.DeltaShip@3ef86d9b",
-   //          "type": "MOVE",
-   //          "direction": "North"
-   //      }];
-
-   //      app.moveShip(tmp);
-
-
+            
 		},
 
 		/** translates the coordinate in the java game to this scene's coordinate
