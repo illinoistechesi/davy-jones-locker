@@ -690,9 +690,7 @@ function battleship() {
 		OceanYOffset: 0,
 		ShipYOffset: 0,
         SinkDistance: 5,
-		WaitTimeToStartSimulate: 10,
-		WaitTimeBetweenTurn: 5,
-		WaitTimeBetweenAction: 1 
+		WaitTimeBetweenAction: 1000 // in miliseconds
 	};
 
     var m_input = {};
@@ -835,38 +833,41 @@ function battleship() {
 
         sinkShip: (data) => {
             return new Promise((resolve, reject) => {
-                // var doc = document.getElementById('scene');
-                // var shipDom = m_entity[data[0].id];
+                var doc = document.getElementById('scene');
+                var shipDom = m_entity[data[0].id];
 
-                // var debug = document.createElement('a-draw-curve');
-                // debug.setAttribute('curveref', '#track');
-                // debug.setAttribute('material', 'shader: line; color: blue;');
-                // doc.appendChild(debug);
+                var debug = document.createElement('a-draw-curve');
+                debug.setAttribute('curveref', '#track');
+                debug.setAttribute('material', 'shader: line; color: blue;');
+                doc.appendChild(debug);
 
-                // var point1 = document.createElement('a-curve-point');
-                // var point2 = document.createElement('a-curve-point');
-                // point1.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
-                // point2.setAttribute('position', data[0].x + " " + (data[0].y-m_Constants.SinkDistance) + " " + data[0].z);
-                // m_track.appendChild(point1);
-                // m_track.appendChild(point2);
+                var point1 = document.createElement('a-curve-point');
+                var point2 = document.createElement('a-curve-point');
+                point1.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
+                point2.setAttribute('position', data[0].x + " " + (data[0].y-m_Constants.SinkDistance) + " " + data[0].z);
+                m_track.appendChild(point1);
+                m_track.appendChild(point2);
 
-                // shipDom.setAttribute('alongpath', 'curve: #track; rotation: true; constraint: 0 0 1; delay: 3000; dur: 3000;');
+                shipDom.setAttribute('alongpath', 'curve: #track; rotation: true; constraint: 0 0 1; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: 3000;');
 
-                // var done = (event) => {
-                //     shipDom.removeAttribute('alongpath');
-                //     if (debug.parentNode) {
-                //         doc.removeChild(debug);
-                //     }
-                //     if (shipDom.parentNode) {
-                //         doc.removeChild(shipDom);
-                //     }
+                var done = (event) => {
+                    shipDom.removeAttribute('alongpath');
+                    if (debug.parentNode) {
+                        doc.removeChild(debug);
+                    }
+                    if (shipDom.parentNode) {
+                        doc.removeChild(shipDom);
+                    }
+                    while(m_track.hasChildNodes()) {
+                        m_track.removeChild(m_track.lastChild);
+                    }
 
-                //     shipDom.removeEventListener('movingended', done);
-                //     resolve(event);
-                // };
+                    shipDom.removeEventListener('movingended', done);
+                    resolve(event);
+                };
 
-                // shipDom.addEventListener('movingended', done);
-                resolve();
+                shipDom.addEventListener('movingended', done);
+                //resolve();
             });
         },
 
@@ -911,7 +912,7 @@ function battleship() {
                     m_track.appendChild(point);
                 }
 
-                shipDom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 0 1; delay: 5000; dur: 5000;');
+                shipDom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 0 1; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: 5000;');
 
                 var done = (event) => {
                     // var list = document.getElementByTagName('a-draw-curve');
