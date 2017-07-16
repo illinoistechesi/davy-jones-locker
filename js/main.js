@@ -765,7 +765,7 @@ function battleship() {
                             index++;
                         }
                         // Firing must be at the same coordinates to be considered a chain-able action
-                        else if (actions[0].type === "FIRE" && actions[0].atX === data.turns[index].atX && actions[0].atY === data.turns[index].atY) {
+                        else if (actions[0].type === "FIRE" && actions[0].atX === translate(data.turns[index]).atX && actions[0].atY === translate(data.turns[index]).atY) {
                             actions.push(translate(data.turns[index]));
                             index++;
                         }
@@ -781,11 +781,12 @@ function battleship() {
                         chain = false;
                     }
                 }
-                // add
+                // add action chain to variable
                 m_chain.push({"type": actions[0].type, "actions": actions});
                 // reset chain actions
                 actions = [];
             }
+            console.log(m_chain);
         },
 
 		// Displays the ocean, and ships
@@ -871,9 +872,10 @@ function battleship() {
             });
         },
 
-        // Data passed in must be weapon firing of one ship, coordinates may differ
+        // Data passed in are one ships action of firing at one and only one coordinate
         fireShip: (data) => {
             return new Promise((resolve, reject) => {
+                console.log(data);
                 console.log("Firing to be implemented");
                 resolve();
             });
