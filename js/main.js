@@ -24,8 +24,6 @@ function battleship() {
     var m_ships = []; // stores formatted json of ship initialization
     var m_chain = []; // stores chainable actions in a turn
     var m_entity = {}; // object with id to html dom element of ships
-    
-    var m_track;
 
     var m_test = 0;
 
@@ -41,9 +39,8 @@ function battleship() {
             var doc = document.getElementById('scene');
             var track = document.createElement('a-curve');
             track.setAttribute('id', 'track');
-            //track.setAttribute('type', 'QuadraticBezier');
+            track.setAttribute('type', 'Line');
             doc.appendChild(track);
-            m_track = document.getElementById('track');
 
             app.render(m_ships);
             // call function to wait a bit before starting simulation
@@ -162,6 +159,7 @@ function battleship() {
         sinkShip: (data) => {
             return new Promise((resolve, reject) => {
                 var doc = document.getElementById('scene');
+                var track = document.getElementById('track');
                 var shipDom = m_entity[data[0].id];
 
                 var debug = document.createElement('a-draw-curve');
@@ -173,8 +171,8 @@ function battleship() {
                 var point2 = document.createElement('a-curve-point');
                 point1.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
                 point2.setAttribute('position', data[0].x + " " + (data[0].y-m_Constants.SinkDistance) + " " + data[0].z);
-                m_track.appendChild(point1);
-                m_track.appendChild(point2);
+                track.appendChild(point1);
+                track.appendChild(point2);
 
                 shipDom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 1 0; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: 3000;');
 
@@ -183,19 +181,22 @@ function battleship() {
                     if (debug.parentNode) {
                         doc.removeChild(debug);
                     }
+
+                    while(track.hasChildNodes()) {
+                        track.removeChild(track.childNodes[0]);
+                    }
+
+                    //shipDom.removeEventListener('movingended', done);
+
                     if (shipDom.parentNode) {
                         doc.removeChild(shipDom);
                     }
-                    while(m_track.hasChildNodes()) {
-                        m_track.removeChild(m_track.lastChild);
-                    }
 
-                    shipDom.removeEventListener('movingended', done);
                     resolve(event);
                 };
 
                 shipDom.addEventListener('movingended', done);
-                //resolve();
+                // resolve();
             });
         },
 
@@ -203,6 +204,7 @@ function battleship() {
         fireShip: (data) => {
             return new Promise((resolve, reject) => {
                 var doc = document.getElementById('scene');
+                var track = document.getElementById('track');
 
                 var bullet = document.createElement('a-sphere');
                 var source = document.createElement('a-curve-point');
@@ -214,9 +216,9 @@ function battleship() {
                 source.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
                 target.setAttribute('position', data[0].atX + " " + data[0].atY + " " + data[0].atZ);
                 arc.setAttribute('position', (data[0].atX+data[0].x)/2 + " " + (((data[0].atY+data[0].y)/2)+m_Constants.BulletArc) + " " + (data[0].atZ+data[0].z)/2);
-                m_track.appendChild(source);
-                m_track.appendChild(arc);
-                m_track.appendChild(target);
+                track.appendChild(source);
+                track.appendChild(arc);
+                track.appendChild(target);
 
                 var debug = document.createElement('a-draw-curve');
                 debug.setAttribute('curveref', '#track');
@@ -231,11 +233,11 @@ function battleship() {
                     if (debug.parentNode) {
                         doc.removeChild(debug);
                     }
-                    while(m_track.hasChildNodes()) {
-                        m_track.removeChild(m_track.lastChild);
+                    while(track.hasChildNodes()) {
+                        track.removeChild(track.childNodes[0]);
                     }
 
-                    tmp.removeEventListener('movingended', done);
+                    //tmp.removeEventListener('movingended', done);
                     if (tmp.parentNode) {
                         doc.removeChild(tmp);
                     }
@@ -244,6 +246,7 @@ function battleship() {
                 }
 
                 tmp.addEventListener('movingended', done);
+                //resolve();
             });
         },
 
@@ -260,6 +263,7 @@ function battleship() {
                 // }
 
                 var doc = document.getElementById('scene'); // <a-scene> reference
+                var track = document.getElementById('track');
                 //var startCoord = {"x": data[0].x};
 
                 var debug = document.createElement('a-draw-curve');
@@ -270,11 +274,12 @@ function battleship() {
                 // add current location as a starting point of the curve
                 var point = document.createElement('a-curve-point');
                 point.setAttribute('position', String(shipDom.dataset.x + " " + shipDom.dataset.y + " " + shipDom.dataset.z));
-                m_track.appendChild(point);
+                track.appendChild(point);
                 // add chain-able goal locations to the curve
                 var previous = {'x': shipDom.dataset.x, 'z': shipDom.dataset.z};
                 var xDistance = 0;
                 var zDistance = 0;
+                console.log("Moving: ", data);
                 for (var i = 0; i < data.length; i++) {
                     point = document.createElement('a-curve-point');
                     point.setAttribute('position', data[i].x + " " + data[i].y + " " + data[i].z);
@@ -283,7 +288,7 @@ function battleship() {
                     if (i + 1 < data.length && data[i].x === data[i+1].x && data[i].z === data[i+1].z) {
                         i++;
                     }
-                    m_track.appendChild(point);
+                    track.appendChild(point);
                     previous = {'x': data[i].x, 'z': data[i].z};
                 }
                 var dur = (xDistance+zDistance)*m_Constants.WaitTimePerTileMoved;
@@ -298,8 +303,8 @@ function battleship() {
                         doc.removeChild(debug);
                     }
 
-                    while(m_track.hasChildNodes()) {
-                        m_track.removeChild(m_track.lastChild);
+                    while(track.hasChildNodes()) {
+                        track.removeChild(track.childNodes[0]);
                     }
                     
                     shipDom.removeAttribute('alongpath');
@@ -307,7 +312,7 @@ function battleship() {
                     shipDom.dataset.z = data[data.length-1].z;
                     shipDom.dataset.y = data[data.length-1].y;
 
-                    shipDom.removeEventListener('movingended', done);
+                    //shipDom.removeEventListener('movingended', done);
                     resolve(event);
                 };
 
@@ -318,8 +323,10 @@ function battleship() {
 		},
 
 		simulate: () => {
+            console.log("chain: ", m_chain);
             var current = m_chain.shift();
-            if (current) {
+            if (current && m_chain.length != 0) {
+                console.log("current: ", current);
                 switch(current.type) {
                     case "MOVE":
                         app.moveShip(current.actions).then((done) => {
@@ -372,6 +379,7 @@ function battleship() {
             return m_ocean;
         }
 
+
 	}
 
 	return app;
@@ -383,8 +391,12 @@ var BATTLE_SERVER_URL = 'https://battleship-vingkan.c9users.io/evilfleet/63';// 
 $.get(BATTLE_SERVER_URL).then(data => {
     input = data;
     app.init();
+}).done(() => {
+    console.log("Data successfully retrieved from server");
+}).fail(() => {
+    console.log("Unable to retrieve data, starting with local data");
+    app.init();
 });
-
 
 
 

@@ -8,7 +8,8 @@
 	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<!-- A Frame import -->
-	<script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
+	<!-- <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script> -->
+	<script src="https://aframe.io/releases/0.6.0/aframe.js"></script>
 	<!-- <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script> -->
 	<!-- A Frame Extras Component -->
 	<script type="text/javascript" src="./lib/aframe-extras.min.js"></script>
@@ -18,17 +19,18 @@
 	<script type="text/javascript" src="./lib/aframe-alongpath-component.js"></script>
 	<!-- <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script> -->
 	<!-- A Frame Lerp Component -->
-	<script src="https://unpkg.com/aframe-lerp-component/dist/aframe-lerp-component.min.js"></script>
+	<!-- <script src="https://unpkg.com/aframe-lerp-component/dist/aframe-lerp-component.min.js"></script> -->
 
 	<script type="text/javascript" src="./js/input.js"></script>
 
 </head>
 <body>
-	<a-scene id="scene" fog="type: exponential; color: #FFF; density: 0.05;">
+	<a-scene id="scene" fog="type: exponential; color: #FFF; density: 0.03;">
 
 		<a-assets>
 			<!-- Ship model -->
-			<a-asset-item id="ship" src="./assets/ship.dae"></a-asset-item>
+			<!-- <a-asset-item id="ship" src="./assets/ship.dae"></a-asset-item> -->
+			<a-asset-item id="ship" src="./assets/ship-model.dae"></a-asset-item>
 			<!-- Possible Ship classes 
 				+5 Hull: Aircraft Carrier
 				+5 Firepower: Torpedo Ship
