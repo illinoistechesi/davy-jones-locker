@@ -836,11 +836,7 @@ function battleship() {
         sinkShip: (data) => {
             return new Promise((resolve, reject) => {
                 // var doc = document.getElementById('scene');
-                // var ship = m_entity[data[0].id];
-
-                // var track = document.createElement('a-curve');
-                // track.setAttribute('id', 'track');
-                // doc.appendChild('track');
+                // var shipDom = m_entity[data[0].id];
 
                 // var debug = document.createElement('a-draw-curve');
                 // debug.setAttribute('curveref', '#track');
@@ -850,25 +846,26 @@ function battleship() {
                 // var point1 = document.createElement('a-curve-point');
                 // var point2 = document.createElement('a-curve-point');
                 // point1.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
-                // point1.setAttribute('position', data[0].x + " " + (data[0].y-m_Constant.SinkDistance) + " " + data[0].z);
-                // track.appendChild(point1);
-                // track.appendChild(point2);
+                // point2.setAttribute('position', data[0].x + " " + (data[0].y-m_Constants.SinkDistance) + " " + data[0].z);
+                // m_track.appendChild(point1);
+                // m_track.appendChild(point2);
 
-                // ship.setAttribute('alongpath', 'curve: #track; rotation: true; constraint: 0 0 1; delay: 3000; dur: 3000;');
+                // shipDom.setAttribute('alongpath', 'curve: #track; rotation: true; constraint: 0 0 1; delay: 3000; dur: 3000;');
 
-                // ship.addEventListener('movingended', function (event) {
-                //     ship.removeAttribute('alongpath');
-                //     if (track.parentNode) {
-                //         doc.removeChild(track);
-                //     }
+                // var done = (event) => {
+                //     shipDom.removeAttribute('alongpath');
                 //     if (debug.parentNode) {
                 //         doc.removeChild(debug);
                 //     }
-                //     if (ship.parentNode) {
-                //         doc.removeChild(ship);
+                //     if (shipDom.parentNode) {
+                //         doc.removeChild(shipDom);
                 //     }
+
+                //     shipDom.removeEventListener('movingended', done);
                 //     resolve(event);
-                // });
+                // };
+
+                // shipDom.addEventListener('movingended', done);
                 resolve();
             });
         },
@@ -888,10 +885,9 @@ function battleship() {
                 var shipDom = m_entity[data[0].id]; // html element
                 if (data.length === 1 && data[0].x === shipDom.dataset.x && data[0].z === shipDom.dataset.z) {
                     // if shipDom tries to move against edge or occupied place
-                    console.log("walled");
+                    alert("Skipped");
                     resolve("Skipped");
                 }
-                console.log("test1");
 
                 var doc = document.getElementById('scene'); // <a-scene> reference
                 //var startCoord = {"x": data[0].x};
@@ -906,8 +902,6 @@ function battleship() {
                 point.setAttribute('position', String(shipDom.dataset.x + " " + shipDom.dataset.y + " " + shipDom.dataset.z));
                 m_track.appendChild(point);
                 // add chain-able goal locations to the curve
-                console.log('ship:', shipDom);
-                console.log("data:", data);
                 for (var i = 0; i < data.length; i++) {
                     point = document.createElement('a-curve-point');
                     point.setAttribute('position', data[i].x + " " + data[i].y + " " + data[i].z);
@@ -919,8 +913,7 @@ function battleship() {
 
                 shipDom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 0 1; delay: 5000; dur: 5000;');
 
-                var done = function (event) {
-                    console.log("test4");
+                var done = (event) => {
                     // var list = document.getElementByTagName('a-draw-curve');
                     // for (var i = 0; i < list.length; i++) {
                     //     list[0].parentNode.removeChild(list[0]);
@@ -933,15 +926,12 @@ function battleship() {
                         m_track.removeChild(m_track.lastChild);
                     }
                     
-                    console.log("test5");
                     shipDom.removeAttribute('alongpath');
                     shipDom.dataset.x = data[data.length-1].x;
                     shipDom.dataset.z = data[data.length-1].z;
                     shipDom.dataset.y = data[data.length-1].y;
 
-                    console.log("test6");
-                    //shipDom.removeEventListener('movingended', done);
-                    this.curveCount++;
+                    shipDom.removeEventListener('movingended', done);
                     resolve(event);
                 };
 
@@ -954,17 +944,13 @@ function battleship() {
 		simulate: () => {
             var current = m_chain.shift();
             if (current) {
-                m_test += current.actions.length;
-                console.log(m_test);
                 switch(current.type) {
                     case "MOVE":
-                        console.log(m_entity[current.actions[0].id]);
-                        console.log(current.actions);
                         app.moveShip(current.actions).then((done) => {
                             //alert("Moved " + m_chain.length + " actions left");
                             app.simulate();
                         }).catch((err) => {
-                            console.log(err);
+                            console.error(err);
                         });
                         break;
                     case "FIRE":
@@ -972,7 +958,7 @@ function battleship() {
                             //alert("Fired " + m_chain.length + " actions left");
                             app.simulate();
                         }).catch((err) => {
-                            console.log(err);
+                            console.error(err);
                         });
                         break;
                     case "SINK":
@@ -980,7 +966,7 @@ function battleship() {
                             //alert("Sunk "+ m_chain.length + " actions left");
                             app.simulate();
                         }).catch((err) => {
-                            console.log(err);
+                            console.error(err);
                         });
                         break;
                     default:
