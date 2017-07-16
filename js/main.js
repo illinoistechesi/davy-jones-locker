@@ -690,9 +690,9 @@ function battleship() {
 		OceanYOffset: 0,
 		ShipYOffset: 0,
         SinkDistance: 5,
-        BulletArc: 1,
-		WaitTimeBetweenAction: 500 // in miliseconds
-
+        BulletArc: 2,
+        WaitTimePerTileMoved: 200,
+		WaitTimeBetweenAction: 100 // in miliseconds
 	};
 
     var m_input = {};
@@ -717,6 +717,7 @@ function battleship() {
             var doc = document.getElementById('scene');
             var track = document.createElement('a-curve');
             track.setAttribute('id', 'track');
+            //track.setAttribute('type', 'QuadraticBezier');
             doc.appendChild(track);
             m_track = document.getElementById('track');
 
@@ -927,11 +928,12 @@ function battleship() {
             return new Promise((resolve, reject) => {
 
                 var shipDom = m_entity[data[0].id]; // html element
-                if (data.length === 1 && data[0].x === shipDom.dataset.x && data[0].z === shipDom.dataset.z) {
-                    // if shipDom tries to move against edge or occupied place
-                    alert("Skipped");
-                    resolve("Skipped");
-                }
+                // if statement is not working
+                // if (data.length === 1 && data[0].x === shipDom.dataset.x && data[0].z === shipDom.dataset.z) {
+                //     // if shipDom tries to move against edge or occupied place
+                //     alert("Skipped");
+                //     resolve("Skipped");
+                // }
 
                 var doc = document.getElementById('scene'); // <a-scene> reference
                 //var startCoord = {"x": data[0].x};
@@ -946,16 +948,22 @@ function battleship() {
                 point.setAttribute('position', String(shipDom.dataset.x + " " + shipDom.dataset.y + " " + shipDom.dataset.z));
                 m_track.appendChild(point);
                 // add chain-able goal locations to the curve
+                var previous = {'x': shipDom.dataset.x, 'z': shipDom.dataset.z};
+                var xDistance = 0;
+                var zDistance = 0;
                 for (var i = 0; i < data.length; i++) {
                     point = document.createElement('a-curve-point');
                     point.setAttribute('position', data[i].x + " " + data[i].y + " " + data[i].z);
+                    xDistance += Math.abs(data[i].x - previous.x);
+                    zDistance += Math.abs(data[i].z - previous.z);
                     if (i + 1 < data.length && data[i].x === data[i+1].x && data[i].z === data[i+1].z) {
                         i++;
                     }
                     m_track.appendChild(point);
+                    previous = {'x': data[i].x, 'z': data[i].z};
                 }
-
-                shipDom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 0 1; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: 5000;');
+                var dur = (xDistance+zDistance)*m_Constants.WaitTimePerTileMoved;
+                shipDom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 0 1; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: '+dur+';');
 
                 var done = (event) => {
                     // var list = document.getElementByTagName('a-draw-curve');
