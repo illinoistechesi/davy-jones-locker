@@ -139,7 +139,8 @@ function battleship() {
                 var name = document.createElement('a-entity');
                 name.setAttribute('position', "0 2 0");
                 name.setAttribute('look-at', '#camera');
-                name.setAttribute('text-geometry', "value: "+entry.name + "; font: #pacifico");
+                name.setAttribute('text-geometry', "value: "+entry.name.substring(0, Math.min(entry.name.length, 24)) + "; font: #play");
+                name.setAttribute('material', 'color: black;')
 				ship.setAttribute('position', entry.x + " " + entry.y + " " + entry.z);
 				ship.dataset.id = entry.id;
 				ship.dataset.name = entry.name;
