@@ -136,6 +136,11 @@ function battleship() {
 			// Spawn Ships
 			shipData.forEach((entry) => {
 				var ship = document.createElement('a-collada-model');
+                var name = document.createElement('a-entity');
+                name.setAttribute('position', "0 2 0");
+                name.setAttribute('look-at', '#camera');
+                name.setAttribute('text-geometry', "value: "+entry.name.substring(0, Math.min(entry.name.length, 24)) + "; font: #play");
+                name.setAttribute('material', 'color: black;')
 				ship.setAttribute('position', entry.x + " " + entry.y + " " + entry.z);
 				ship.dataset.id = entry.id;
 				ship.dataset.name = entry.name;
@@ -150,6 +155,7 @@ function battleship() {
 				ship.dataset.range = entry.range;
 				ship.setAttribute('src', '#ship');
 				doc.appendChild(ship);
+                ship.appendChild(name);
                 m_entity[entry.id] = ship;
 
 			});
