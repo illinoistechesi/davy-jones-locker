@@ -12,6 +12,7 @@ function battleship() {
 	var m_Constants = {
 		CameraYOffset: 10,
 		OceanYOffset: 0,
+        OceanPadding: 10,
 		ShipYOffset: 0,
         SinkDistance: 5,
         BulletArc: 2,
@@ -64,7 +65,21 @@ function battleship() {
             var index = 0;
 
             // preprocess initial map information
-            m_ocean = {"x": (4*Math.floor(data.ocean.x/2))-2, "y": m_Constants.OceanYOffset, "z": (4*Math.floor(data.ocean.y/2))-2, "width": (4*data.ocean.x), "depth": (4*data.ocean.y), "density": Math.min(3*data.ocean.x, 3*data.ocean.y)};
+            // m_ocean = { "x": ((4*Math.floor(data.ocean.x/2))-2) + (m_Constants.OceanPadding/2),
+            //             "y": m_Constants.OceanYOffset, 
+            //             "z": ((4*Math.floor(data.ocean.y/2))) + (m_Constants.OceanPadding/2), 
+            //             "width": (4*data.ocean.x)+m_Constants.OceanPadding, 
+            //             "depth": (4*data.ocean.y)+m_Constants.OceanPadding, 
+            //             "density": Math.min(3*data.ocean.x, 3*data.ocean.y)+m_Constants.OceanPadding
+            //         };
+            m_ocean = { "x": ((4*Math.floor(data.ocean.x/2))-2),
+                        "y": m_Constants.OceanYOffset, 
+                        "z": ((4*Math.floor(data.ocean.y/2))),
+                        "width": 200, 
+                        "depth": 200,
+                        "density": 120,
+                    };
+
 
             // preprocess initial ship information
             data.ships.forEach((entry) => {
@@ -140,7 +155,7 @@ function battleship() {
                 name.setAttribute('position', "0 2 0");
                 name.setAttribute('look-at', '#camera');
                 name.setAttribute('text-geometry', "value: "+entry.name.substring(0, Math.min(entry.name.length, 24)) + "; font: #play");
-                name.setAttribute('material', 'color: black;')
+                name.setAttribute('material', 'color: blue;')
 				ship.setAttribute('position', entry.x + " " + entry.y + " " + entry.z);
 				ship.dataset.id = entry.id;
 				ship.dataset.name = entry.name;
@@ -330,8 +345,12 @@ function battleship() {
 
 		simulate: () => {
             console.log("chain: ", m_chain);
-            var current = m_chain.shift();
-            if (current && m_chain.length != 0) {
+            var notStop = true;
+            if (m_chain.length == 0) {
+                notStop = false;
+            }
+            var current = m_chain.shift(); // don't shift when length is zero
+            if (current && notStop) {
                 console.log("current: ", current);
                 switch(current.type) {
                     case "MOVE":
@@ -392,7 +411,9 @@ function battleship() {
 }
 
 var app = battleship();
-var BATTLE_SERVER_URL = 'https://battleship-vingkan.c9users.io/evilfleet/63';// + Math.ceil(Math.random() * 100);
+//app.init();
+
+var BATTLE_SERVER_URL = 'https://battleship-vingkan.c9users.io/1v1?p1=esi17.DoomDawn.RandomShip&p2=esi17.cs.RandomShip';// + Math.ceil(Math.random() * 100);
 
 $.get(BATTLE_SERVER_URL).then(data => {
     input = data;
