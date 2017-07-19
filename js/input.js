@@ -1,1 +1,351 @@
-var input = {"init":{"ships":[{"owner":"The Random Evil","firepower":2,"name":"Freddy Random","x":2,"y":2,"range":3,"id":"esi17.DoomDawn.RandomShip@28d9df98","hull":1,"speed":4},{"owner":"The Evil Fleet","firepower":2,"name":"Vinesh Random","x":7,"y":2,"range":3,"id":"esi17.cs.RandomShip@451472de","hull":2,"speed":2}],"map":{"x":10,"y":5}},"turns":[{"x":2,"y":1,"health":1,"turn":0,"id":"esi17.DoomDawn.RandomShip@28d9df98","type":"MOVE","direction":"North"},{"x":7,"y":3,"health":2,"turn":0,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"South"},{"x":8,"y":3,"health":2,"turn":0,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"East"},{"x":1,"y":1,"health":1,"turn":1,"id":"esi17.DoomDawn.RandomShip@28d9df98","type":"MOVE","direction":"West"},{"x":7,"y":3,"health":2,"turn":1,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"West"},{"x":7,"y":4,"health":2,"turn":1,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"South"},{"x":1,"y":0,"health":1,"turn":2,"id":"esi17.DoomDawn.RandomShip@28d9df98","type":"MOVE","direction":"North"},{"x":6,"y":4,"health":2,"turn":2,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"West"},{"x":6,"y":4,"health":2,"turn":2,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"South"},{"x":2,"y":0,"health":1,"turn":3,"id":"esi17.DoomDawn.RandomShip@28d9df98","type":"MOVE","direction":"East"},{"x":7,"y":4,"health":2,"turn":3,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"East"},{"x":7,"y":3,"health":2,"turn":3,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"North"},{"x":1,"y":0,"health":1,"turn":4,"id":"esi17.DoomDawn.RandomShip@28d9df98","type":"MOVE","direction":"West"},{"x":7,"y":4,"health":2,"turn":4,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"South"},{"x":6,"y":4,"health":2,"turn":4,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"West"},{"x":1,"y":1,"health":1,"turn":5,"id":"esi17.DoomDawn.RandomShip@28d9df98","type":"MOVE","direction":"South"},{"x":6,"y":4,"health":2,"turn":5,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"South"},{"x":6,"y":4,"health":2,"turn":5,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"South"},{"x":0,"y":1,"health":1,"turn":6,"id":"esi17.DoomDawn.RandomShip@28d9df98","type":"MOVE","direction":"West"},{"x":7,"y":4,"health":2,"turn":6,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"East"},{"x":8,"y":4,"health":2,"turn":6,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"East"},{"x":0,"y":2,"health":1,"turn":7,"id":"esi17.DoomDawn.RandomShip@28d9df98","type":"MOVE","direction":"South"},{"x":8,"y":3,"health":2,"turn":7,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"North"},{"x":7,"y":3,"health":2,"turn":7,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"West"},{"x":0,"y":3,"health":1,"turn":8,"id":"esi17.DoomDawn.RandomShip@28d9df98","type":"MOVE","direction":"South"},{"x":7,"y":2,"health":2,"turn":8,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"North"},{"x":8,"y":2,"health":2,"turn":8,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"East"},{"x":0,"y":4,"health":1,"turn":9,"id":"esi17.DoomDawn.RandomShip@28d9df98","type":"MOVE","direction":"South"},{"x":7,"y":2,"health":2,"turn":9,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"West"},{"x":7,"y":1,"health":2,"turn":9,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"North"},{"x":0,"y":4,"health":1,"turn":10,"id":"esi17.DoomDawn.RandomShip@28d9df98","type":"MOVE","direction":"West"},{"x":8,"y":1,"health":2,"turn":10,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"East"},{"x":7,"y":1,"health":2,"turn":10,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"West"},{"x":1,"y":4,"health":1,"turn":11,"id":"esi17.DoomDawn.RandomShip@28d9df98","type":"MOVE","direction":"East"},{"x":7,"y":2,"health":2,"turn":11,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"South"},{"x":6,"y":2,"health":2,"turn":11,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"West"},{"x":2,"y":4,"health":1,"turn":12,"id":"esi17.DoomDawn.RandomShip@28d9df98","type":"MOVE","direction":"East"},{"x":5,"y":2,"health":2,"turn":12,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"West"},{"atX":2,"atY":4,"x":5,"y":2,"health":2,"turn":12,"id":"esi17.cs.RandomShip@451472de","type":"FIRE"},{"x":2,"y":4,"health":0,"attacker":"esi17.cs.RandomShip@451472de","turn":12,"id":"esi17.DoomDawn.RandomShip@28d9df98","type":"SINK"},{"x":6,"y":2,"health":2,"turn":12,"id":"esi17.cs.RandomShip@451472de","type":"MOVE","direction":"East"}]}
+var input = {
+    "init": {
+        "ships": [
+            {
+                "owner": "Austin Worley",
+                "firepower": 3,
+                "name": "Mars",
+                "x": 2,
+                "y": 2,
+                "range": 2,
+                "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+                "hull": 4,
+                "speed": 1
+            },
+            {
+                "owner": "The Evil Fleet",
+                "firepower": 1,
+                "name": "Dummy Ship",
+                "x": 7,
+                "y": 2,
+                "range": 1,
+                "id": "battleship.ships.DummyShip@157e99d4",
+                "hull": 7,
+                "speed": 1
+            },
+            {
+                "owner": "The Evil Fleet",
+                "firepower": 1,
+                "name": "Dummy Ship",
+                "x": 12,
+                "y": 2,
+                "range": 1,
+                "id": "battleship.ships.DummyShip@21798f2b",
+                "hull": 7,
+                "speed": 1
+            }
+        ],
+        "map": {
+            "x": 15,
+            "y": 5
+        }
+    },
+    "turns": [
+        {
+            "x": 3,
+            "y": 2,
+            "health": 4,
+            "turn": 0,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "MOVE",
+            "direction": "East"
+        },
+        {
+            "x": 4,
+            "y": 2,
+            "health": 4,
+            "turn": 1,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "MOVE",
+            "direction": "East"
+        },
+        {
+            "x": 5,
+            "y": 2,
+            "health": 4,
+            "turn": 2,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "MOVE",
+            "direction": "East"
+        },
+        {
+            "atX": 7,
+            "atY": 2,
+            "x": 5,
+            "y": 2,
+            "health": 4,
+            "turn": 3,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "atX": 7,
+            "atY": 2,
+            "x": 5,
+            "y": 2,
+            "health": 4,
+            "turn": 3,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "atX": 7,
+            "atY": 2,
+            "x": 5,
+            "y": 2,
+            "health": 4,
+            "turn": 3,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "x": 6,
+            "y": 2,
+            "health": 4,
+            "turn": 3,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "MOVE",
+            "direction": "East"
+        },
+        {
+            "atX": 7,
+            "atY": 2,
+            "x": 6,
+            "y": 2,
+            "health": 4,
+            "turn": 4,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "atX": 7,
+            "atY": 2,
+            "x": 6,
+            "y": 2,
+            "health": 4,
+            "turn": 4,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "atX": 7,
+            "atY": 2,
+            "x": 6,
+            "y": 2,
+            "health": 4,
+            "turn": 4,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "x": 6,
+            "y": 2,
+            "health": 4,
+            "turn": 4,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "MOVE",
+            "direction": "East"
+        },
+        {
+            "atX": 7,
+            "atY": 2,
+            "x": 6,
+            "y": 2,
+            "health": 4,
+            "turn": 5,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "x": 7,
+            "y": 2,
+            "health": 0,
+            "attacker": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "turn": 5,
+            "id": "battleship.ships.DummyShip@157e99d4",
+            "type": "SINK"
+        },
+        {
+            "atX": 7,
+            "atY": 2,
+            "x": 6,
+            "y": 2,
+            "health": 4,
+            "turn": 5,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "atX": 7,
+            "atY": 2,
+            "x": 6,
+            "y": 2,
+            "health": 4,
+            "turn": 5,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "x": 7,
+            "y": 2,
+            "health": 4,
+            "turn": 5,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "MOVE",
+            "direction": "East"
+        },
+        {
+            "x": 8,
+            "y": 2,
+            "health": 4,
+            "turn": 6,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "MOVE",
+            "direction": "East"
+        },
+        {
+            "x": 9,
+            "y": 2,
+            "health": 4,
+            "turn": 7,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "MOVE",
+            "direction": "East"
+        },
+        {
+            "x": 10,
+            "y": 2,
+            "health": 4,
+            "turn": 8,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "MOVE",
+            "direction": "East"
+        },
+        {
+            "atX": 12,
+            "atY": 2,
+            "x": 10,
+            "y": 2,
+            "health": 4,
+            "turn": 9,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "atX": 12,
+            "atY": 2,
+            "x": 10,
+            "y": 2,
+            "health": 4,
+            "turn": 9,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "atX": 12,
+            "atY": 2,
+            "x": 10,
+            "y": 2,
+            "health": 4,
+            "turn": 9,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "x": 11,
+            "y": 2,
+            "health": 4,
+            "turn": 9,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "MOVE",
+            "direction": "East"
+        },
+        {
+            "atX": 12,
+            "atY": 2,
+            "x": 11,
+            "y": 2,
+            "health": 4,
+            "turn": 10,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "atX": 12,
+            "atY": 2,
+            "x": 11,
+            "y": 2,
+            "health": 4,
+            "turn": 10,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "atX": 12,
+            "atY": 2,
+            "x": 11,
+            "y": 2,
+            "health": 4,
+            "turn": 10,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "x": 11,
+            "y": 2,
+            "health": 4,
+            "turn": 10,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "MOVE",
+            "direction": "East"
+        },
+        {
+            "atX": 12,
+            "atY": 2,
+            "x": 11,
+            "y": 2,
+            "health": 4,
+            "turn": 11,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "x": 12,
+            "y": 2,
+            "health": 0,
+            "attacker": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "turn": 11,
+            "id": "battleship.ships.DummyShip@21798f2b",
+            "type": "SINK"
+        },
+        {
+            "atX": 12,
+            "atY": 2,
+            "x": 11,
+            "y": 2,
+            "health": 4,
+            "turn": 11,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "atX": 12,
+            "atY": 2,
+            "x": 11,
+            "y": 2,
+            "health": 4,
+            "turn": 11,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "FIRE"
+        },
+        {
+            "x": 12,
+            "y": 2,
+            "health": 4,
+            "turn": 11,
+            "id": "esi17.ausWorley1.Mars@4ea0e9b4",
+            "type": "MOVE",
+            "direction": "East"
+        }
+    ]
+}
