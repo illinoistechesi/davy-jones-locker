@@ -17,10 +17,10 @@ let getShareLink = (code) => {
 	let origin = document.location.origin;
 	let pathname = '';
 	let pathArray = document.location.pathname.split('/');
-	for (let p = 1; p < pathArray.length - 2; p++) {
+	for (let p = 1; p <= pathArray.length - 2; p++) {
 		pathname += '/' + pathArray[p];
 	}
-	let shareLink = `${origin}/${pathname}?code=${code}`;
+	let shareLink = `${origin}${pathname}?code=${code}`;
 	return shareLink;
 }
 
