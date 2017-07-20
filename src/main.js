@@ -7,9 +7,9 @@ var config = {
 	storageBucket: "esigamma.appspot.com",
 	messagingSenderId: "734163636039"
 };
-firebase.initializeApp(config);
+var FirebaseInstance = firebase.initializeApp(config, "Davy Jones' Locker");
 
-var database = firebase.database();
+var db = FirebaseInstance.database();
 
 function battleship() {
 	
@@ -437,7 +437,18 @@ function battleship() {
 }
 
 var app = battleship();
-app.init();
+var code = window.prompt("Enter Your Code", "GVH001");
+db.ref('davy-jones-locker/' + code).once('value', (snapshot) => {
+	var gameData = snapshot.val();
+	if (gameData) {
+		input = gameData;
+		app.init();
+	} else {
+		app.init();
+	}
+}).catch((err) => {
+	app.init();
+});
 
 // var BATTLE_SERVER_URL = 'https://battleship-vingkan.c9users.io/1v1?p1=esi17.cs.DestroyerShip&p2=esi17.hli109.Floater';// + Math.ceil(Math.random() * 100);
 
@@ -450,9 +461,6 @@ app.init();
 // 	console.log("Unable to retrieve data, starting with local data");
 // 	app.init();
 // });
-
-
-
 
 
 
