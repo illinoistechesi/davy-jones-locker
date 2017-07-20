@@ -263,6 +263,7 @@ function battleship() {
 			return new Promise((resolve, reject) => {
 				var doc = document.getElementById('scene');
 				var track = document.getElementById('track');
+				aimShip(data);
 
 				var bullet = document.createElement('a-sphere');
 				var source = document.createElement('a-curve-point');
@@ -309,7 +310,8 @@ function battleship() {
 		},
 
 		aimShip: (data) => {
-			
+			var ship = m_entity[data[0].id];
+			console.log("aim", ship);
 		},
 
 		// Data passed in must be for movement of one ship
