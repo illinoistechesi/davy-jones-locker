@@ -10,8 +10,8 @@ var livereload = require('gulp-livereload');
 
 gulp.task('build', function(){
 	var files = [
-		{file: 'main', dest: 'js'},
-		{file: 'aframe-alongpath-component', dest: 'lib'}
+		{file: 'main', dest: 'js'}/*,
+		{file: 'aframe-alongpath-component', dest: 'lib'}*/
 	];
 	return merge(files.map(function(fileData){
 		var file = fileData.file;
