@@ -13,6 +13,17 @@ var db = FirebaseInstance.database();
 
 let dataInput = document.getElementById('input-data');
 
+let getShareLink = (code) => {
+	let origin = document.location.origin;
+	let pathname = '';
+	let pathArray = document.location.pathname.split('/');
+	for (let p = 1; p < pathArray.length - 2; p++) {
+		pathname += '/' + pathArray[p];
+	}
+	let shareLink = `${origin}/${pathname}?code=${code}`;
+	return shareLink;
+}
+
 dataInput.addEventListener('keypress', (e) => {
 	let keyCode = e.keyCode || e.which;
 	if (keyCode == '13'){
@@ -26,7 +37,11 @@ dataInput.addEventListener('keypress', (e) => {
 					dataRef.once('value', (snapshot) => {
 						if (!snapshot.exists()) {
 							dataRef.set(data).then((done) => {
-								vex.dialog.alert("Data saved with code: " + code);
+								vex.dialog.prompt({
+									message: "Data saved with code: " + code,
+									value: getShareLink(code),
+									callback: () => {}
+								});
 							}).catch((err) => {
 								vex.dialog.alert("Something went wrong.");
 								console.log(err);
@@ -37,7 +52,11 @@ dataInput.addEventListener('keypress', (e) => {
 								callback: (yes) => {
 									if (yes) {
 										dataRef.set(data).then((done) => {
-											vex.dialog.alert("Data saved, overwriting code: " + code);
+											vex.dialog.prompt({
+												message: "Data saved, overwriting code: " + code,
+												value: getShareLink(code),
+												callback: () => {}
+											});
 										}).catch((err) => {
 											vex.dialog.alert("Something went wrong.");
 											console.log(err);
