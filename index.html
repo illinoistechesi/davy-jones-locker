@@ -29,6 +29,8 @@
 	<script type="text/javascript" src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script>
 	<!-- A Frame Look-At -->
 	<script type="text/javascript" src="https://unpkg.com/aframe-look-at-component@0.5.1/dist/aframe-look-at-component.min.js"></script>
+	<!-- A Frame Template -->
+	<script type="text/javascript" src="https://unpkg.com/aframe-template-component@^3.2.1/dist/aframe-template-component.min.js"></script>
 
 	<!-- A Frame Lerp Component -->
 	<!-- <script src="https://unpkg.com/aframe-lerp-component/dist/aframe-lerp-component.min.js"></script> -->
@@ -47,6 +49,7 @@
 			<a-asset-item id="ship" src="./assets/ship-model.dae"></a-asset-item>
 			<a-asset-item id="play" src="./assets/Play_Regular.json"></a-asset-item>
 
+			<a-asset-item id="sub" src="./assets/submarine-model.obj"></a-asset-item>
 			<a-asset-item id="shipHull" src="./assets/shipHull.obj"></a-asset-item>
 			<a-asset-item id="shipMount" src="./assets/shipMount.obj"></a-asset-item>
 			<a-asset-item id="shipCannon" src="./assets/shipCannon.obj"></a-asset-item>
@@ -63,6 +66,8 @@
 
 		<!-- Camera Spawn CANNOT be dynamically spawned -->
 		<a-entity id="camera" camera="userHeight: 4" universal-controls></a-entity>
+
+		<!-- <a-entity obj-model="obj: #sub" position="22 2 2"></a-entity> -->
 
 		<!-- Dynamically Spawned in for objects below... -->
 		<!-- Ships-->
