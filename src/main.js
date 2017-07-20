@@ -406,7 +406,8 @@ function battleship() {
 				}
 			} else {
 				setTimeout(() => {
-					alert("Simulation Done");
+					//alert("Simulation Done");
+					vex.dialog.alert("Simulation Completed.");
 				}, 10000);
 			}
 
@@ -437,18 +438,35 @@ function battleship() {
 }
 
 var app = battleship();
-var code = window.prompt("Enter Your Code", "GVH001");
-db.ref('davy-jones-locker/' + code).once('value', (snapshot) => {
-	var gameData = snapshot.val();
-	if (gameData) {
-		input = gameData;
-		app.init();
-	} else {
-		app.init();
-	}
-}).catch((err) => {
-	app.init();
-});
+
+let getCode = (message) => {
+	vex.dialog.prompt({
+		message: message,
+		callback: (value) => {
+			if (value) {
+				var code = value;
+				db.ref('davy-jones-locker/' + code).once('value', (snapshot) => {
+					var gameData = snapshot.val();
+					if (gameData) {
+						input = gameData;
+						app.init();
+					} else {
+						getCode(`No data for code ${code}. Enter another code:`);
+						//app.init();
+					}
+				}).catch((err) => {
+					getCode(`There was an error. Enter another code:`);
+					//app.init();
+				});
+			} else {
+				getCode("No code entered. Enter your code:");
+			}
+		}
+	});
+}
+
+getCode("Enter Your Code");
+
 
 // var BATTLE_SERVER_URL = 'https://battleship-vingkan.c9users.io/1v1?p1=esi17.cs.DestroyerShip&p2=esi17.hli109.Floater';// + Math.ceil(Math.random() * 100);
 

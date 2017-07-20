@@ -11,34 +11,36 @@ var FirebaseInstance = firebase.initializeApp(config, "Davy Jones' Locker");
 
 var db = FirebaseInstance.database();
 
-let codeInput = document.getElementById('input-code');
 let dataInput = document.getElementById('input-data');
-let submitButton = document.getElementById('submit');
 
-submitButton.addEventListener('click', (e) => {
+dataInput.addEventListener('keypress', (e) => {
+	let keyCode = e.keyCode || e.which;
+	if (keyCode == '13'){
+		let dataStr = dataInput.value;
+		vex.dialog.prompt({
+			message: "Choose a Code",
+			callback: (code) => {
+				if (code && dataStr) {
 
-	let code = codeInput.value;
-	let dataStr = dataInput.value;
+					let data = JSON.parse(dataStr);
 
-	if (code && dataStr) {
+					let dataRef = db.ref('davy-jones-locker/' + code);
+					dataRef.once('value', (snapshot) => {
+						if (!snapshot.exists()) {
+							dataRef.set(data).then((done) => {
+								vex.dialog.alert("Data saved with code: " + code);
+							}).catch((err) => {
+								console.log(err);
+							});
+						} else {
+							vex.dialog.alert("Code already in use.");
+						}
+					}).catch((err) => {
+						console.error(err);
+					});
 
-		let data = JSON.parse(dataStr);
-
-		let dataRef = db.ref('davy-jones-locker/' + code);
-		dataRef.once('value', (snapshot) => {
-			if (!snapshot.exists()) {
-				dataRef.set(data).then((done) => {
-					window.alert("Data saved with code: " + code);
-				}).catch((err) => {
-					console.log(err);
-				});
-			} else {
-				window.alert("Code already in use.");
+				}
 			}
-		}).catch((err) => {
-			console.error(err);
 		});
-
 	}
-
 });
