@@ -53,7 +53,7 @@ function battleship() {
 
 			setTimeout(() => {
 				app.simulate();
-			}, 5000);
+			}, 10000);
 			// call function to wait a bit before starting simulation
 			//app.simulate();
 		},
@@ -407,7 +407,7 @@ function battleship() {
 			} else {
 				setTimeout(() => {
 					alert("Simulation Done");
-				}, 3000);
+				}, 10000);
 			}
 
 		},
