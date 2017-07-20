@@ -15,7 +15,7 @@ function battleship() {
 	
 	// private
 	var m_Constants = {
-		CameraYOffset: 5,
+		CameraYOffset: 8,
 		OceanYOffset: 0,
 		OceanPadding: 10,
 		ShipYOffset: 0,
@@ -53,7 +53,7 @@ function battleship() {
 
 			setTimeout(() => {
 				app.simulate();
-			}, 3000);
+			}, 5000);
 			// call function to wait a bit before starting simulation
 			//app.simulate();
 		},
