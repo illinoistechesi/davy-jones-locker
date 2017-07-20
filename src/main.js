@@ -263,7 +263,7 @@ function battleship() {
 			return new Promise((resolve, reject) => {
 				var doc = document.getElementById('scene');
 				var track = document.getElementById('track');
-				aimShip(data);
+				
 
 				var bullet = document.createElement('a-sphere');
 				var source = document.createElement('a-curve-point');
@@ -310,8 +310,16 @@ function battleship() {
 		},
 
 		aimShip: (data) => {
-			var ship = m_entity[data[0].id];
-			console.log("aim", ship);
+			return new Promise((resolve, reject) => {
+				setTimeout(function() {
+					var ship = m_entity[data[0].id];
+					console.log("test");
+					console.log("aim: ", ship);
+         			resolve();
+      			}, 3000);
+				
+			});
+
 		},
 
 		// Data passed in must be for movement of one ship
@@ -405,12 +413,27 @@ function battleship() {
 						});
 						break;
 					case "FIRE":
-						app.fireShip(current.actions).then((done) => {
-							//alert("Fired " + m_chain.length + " actions left");
+
+						app.aimShip(current.actions).then(app.fireShip()).then((done) => {
 							app.simulate();
 						}).catch((err) => {
-							console.error(err);
+							console.error("error: ", err);
 						});
+
+
+						// app.aimShip(current.actions).then((done) => { 
+						// // app.fireShip(current.actions).then((done) => {
+						// 	//alert("Fired " + m_chain.length + " actions left");
+						// 	//app.simulate();
+						// 	app.fireShip(current.actions).then((done) => {
+						// 		app.simulate();
+						// 	}).catch((errFire) => {
+						// 		console.error(errFire);
+						// 	});
+						// }).catch((errAim) => {
+						// 	console.error(errAim);
+						// });
+
 						break;
 					case "SINK":
 						app.sinkShip(current.actions).then((done) => {
@@ -422,6 +445,7 @@ function battleship() {
 						break;
 					default:
 						console.log("Unknown Action Type " + current.type + " in simulate function");
+						app.simulate();
 				}
 			} else {
 				setTimeout(() => {

@@ -53,6 +53,27 @@
 			<a-asset-item id="shipHull" src="./assets/shipHull.obj"></a-asset-item>
 			<a-asset-item id="shipMount" src="./assets/shipMount.obj"></a-asset-item>
 			<a-asset-item id="shipCannon" src="./assets/shipCannon.obj"></a-asset-item>
+
+			<a-assets-item id="submarineHull" src="./assets/submarine/submarine.obj"></a-assets-item>
+			<a-assets-item id="submarineHatchR" src="./assets/submarine/submarine-hatchR.obj"></a-assets-item>
+			<a-assets-item id="submarineHatchL" src="./assets/submarine/submarine-hatchL.obj"></a-assets-item>
+			<a-assets-item id="submarineMissile" src="./assets/submarine/submarine-missile.obj"></a-assets-item>
+
+			<script id="submarine-template" type="text/html">
+				<a-entity obj-model="obj: #submarineHull"></a-entity>
+				<a-entity obj-model="obj: #submarineHatchL" position="-0.35 0.93379 0.41875"></a-entity>
+				<a-entity obj-model="obj: #submarineHatchR" position="0.35 0.93379 0.41875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0 0.59 0.41875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0.22 0.59 0.19875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="-0.22 0.59 0.63875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0.22 0.59 0.63875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="-0.22 0.59 0.19875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0.22 0.59 0.41875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0 0.59 0.19875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="-0.22 0.59 0.41875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0 0.59 0.63875"></a-entity>
+			</script>
+
 			<!-- Possible Ship classes 
 				+5 Hull: Aircraft Carrier
 				+5 Firepower: Torpedo Ship
@@ -67,7 +88,9 @@
 		<!-- Camera Spawn CANNOT be dynamically spawned -->
 		<a-entity id="camera" camera="userHeight: 4" universal-controls></a-entity>
 
-		<a-entity obj-model="obj: #sub" position="22 2 2"></a-entity>
+		<!-- <a-entity obj-model="obj: #sub" position="22 2 2"></a-entity> -->
+
+		<a-entity template="src: #submarine-template" position="22 1 22"></a-entity>
 
 		<!-- Dynamically Spawned in for objects below... -->
 		<!-- Ships-->
