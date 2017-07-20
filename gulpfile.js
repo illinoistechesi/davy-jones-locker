@@ -9,8 +9,13 @@ var sourcemaps = require('gulp-sourcemaps');
 var livereload = require('gulp-livereload');
 
 gulp.task('build', function(){
-	var files = ['main'];
-	return merge(files.map(function(file){
+	var files = [
+		{file: 'main', dest: 'js'},
+		{file: 'aframe-alongpath-component', dest: 'lib'}
+	];
+	return merge(files.map(function(fileData){
+		var file = fileData.file;
+		var dest = fileData.dest;
 		return browserify({entries: './src/' + file + '.js', debug: true})
 			.transform('babelify', {presets: ['es2015']})
 			.bundle()
@@ -19,7 +24,7 @@ gulp.task('build', function(){
 			.pipe(sourcemaps.init())
 			.pipe(uglify())
 			.pipe(sourcemaps.write('./maps'))
-			.pipe(gulp.dest('./js'))
+			.pipe(gulp.dest('./' + dest))
 			.pipe(livereload());
 	}));
 });
