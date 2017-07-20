@@ -11,6 +11,17 @@ var FirebaseInstance = firebase.initializeApp(config, "Davy Jones' Locker");
 
 var db = FirebaseInstance.database();
 
+function getQueryParams(qs) {
+	qs = qs.split('+').join(' ');
+	var params = {},
+		tokens,
+		re = /[?&]?([^=]+)=([^&]*)/g;
+	while (tokens = re.exec(qs)) {
+		params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+	}
+	return params;
+}
+
 function battleship() {
 	
 	// private
@@ -438,6 +449,23 @@ function battleship() {
 }
 
 var app = battleship();
+let params = getQueryParams(document.location.search);
+
+let getDataFromCode = (code) => {
+	db.ref('davy-jones-locker/' + code).once('value', (snapshot) => {
+		var gameData = snapshot.val();
+		if (gameData) {
+			input = gameData;
+			app.init();
+		} else {
+			getCode(`No data for code ${code}. Enter another code:`);
+			//app.init();
+		}
+	}).catch((err) => {
+		getCode(`There was an error. Enter another code:`);
+		//app.init();
+	});
+}
 
 let getCode = (message) => {
 	vex.dialog.prompt({
@@ -445,19 +473,7 @@ let getCode = (message) => {
 		callback: (value) => {
 			if (value) {
 				var code = value;
-				db.ref('davy-jones-locker/' + code).once('value', (snapshot) => {
-					var gameData = snapshot.val();
-					if (gameData) {
-						input = gameData;
-						app.init();
-					} else {
-						getCode(`No data for code ${code}. Enter another code:`);
-						//app.init();
-					}
-				}).catch((err) => {
-					getCode(`There was an error. Enter another code:`);
-					//app.init();
-				});
+				getDataFromCode(code);
 			} else {
 				getCode("No code entered. Enter your code:");
 			}
@@ -465,7 +481,11 @@ let getCode = (message) => {
 	});
 }
 
-getCode("Enter Your Code");
+if (params.code) {
+	getDataFromCode(params.code);
+} else {
+	getCode("Enter Your Code");
+}
 
 
 // var BATTLE_SERVER_URL = 'https://battleship-vingkan.c9users.io/1v1?p1=esi17.cs.DestroyerShip&p2=esi17.hli109.Floater';// + Math.ceil(Math.random() * 100);
