@@ -4,6 +4,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,user-scalable=no,maximum-scale=1">
+	<link rel="shortcut icon" href="./favicon.ico">
 	<title>Battleship</title>
 	<script type="text/javascript" src="./lib/vex.combined.min.js"></script>
 	<script type="text/javascript">vex.defaultOptions.className = 'vex-theme-plain';</script>
@@ -46,13 +47,54 @@
 		<a-assets>
 			<!-- Ship model -->
 			<!-- <a-asset-item id="ship" src="./assets/ship.dae"></a-asset-item> -->
-			<a-asset-item id="ship" src="./assets/ship-model.dae"></a-asset-item>
+			<!-- <a-asset-item id="ship" src="./assets/ship-model.dae"></a-asset-item> -->
 			<a-asset-item id="play" src="./assets/Play_Regular.json"></a-asset-item>
 
-			<a-asset-item id="sub" src="./assets/submarine-model.obj"></a-asset-item>
-			<a-asset-item id="shipHull" src="./assets/shipHull.obj"></a-asset-item>
+<!-- 			<a-asset-item id="shipHull" src="./assets/shipHull.obj"></a-asset-item>
 			<a-asset-item id="shipMount" src="./assets/shipMount.obj"></a-asset-item>
-			<a-asset-item id="shipCannon" src="./assets/shipCannon.obj"></a-asset-item>
+			<a-asset-item id="shipCannon" src="./assets/shipCannon.obj"></a-asset-item> -->
+
+			<!-- Ship Assets -->
+			<a-asset-item id="boatHull" src="./assets/ship/shipHull.obj"></a-asset-item>
+			<a-asset-item id="boatMount" src="./assets/ship/shipMount.obj"></a-asset-item>
+			<a-asset-item id="boatRotator" src="./assets/ship/shipRotator.obj"></a-asset-item>
+			<a-asset-item id="boatBarrel" src="./assets/ship/shipBarrel.obj"></a-asset-item>
+			<a-asset-item id="boatAmmo" src="./assets/ship/shipAmmo.obj"></a-asset-item>
+			<!-- Submarine Assets -->
+			<a-assets-item id="submarineHull" src="./assets/submarine/submarine.obj"></a-assets-item>
+			<a-assets-item id="submarineHatchR" src="./assets/submarine/submarine-hatchR.obj"></a-assets-item>
+			<a-assets-item id="submarineHatchL" src="./assets/submarine/submarine-hatchL.obj"></a-assets-item>
+			<a-assets-item id="submarineMissile" src="./assets/submarine/submarine-missile.obj"></a-assets-item>
+			<!-- Ship Template -->
+			<script id="boat-template" type="text/html">
+				<a-entity position="0 2 0" look-at="#camera" text-geometry="${ship_name}" material="color: blue;"></a-entity>
+				<a-entity position="0 1.5 0" look-at="#camera" scale="0.7 0.7 0.7" text-geometry="${ship_health}" material="color: red;" class="ship-health"></a-entity>
+				<a-entity obj-model="obj: #boatHull" class="shipHull" material="${ship_color}"></a-entity>
+				<a-entity obj-model="obj: #boatMount" position="0 0.6 1.2"></a-entity>
+				<a-entity obj-model="obj: #boatRotator" position="0 0.8 1.2" class="aimShip">
+					<a-entity obj-model="obj: #boatBarrel" position="0.15 0.48977 -0.8" class="boatBarrelR"></a-entity>
+					<a-entity obj-model="obj: #boatBarrel" position="-0.15 0.48977 -0.8" class="boatBarrelL"></a-entity>
+					<a-entity obj-model="obj: #boatAmmo" position="0.15 0.48921 -0.8" class="boatAmmoR"></a-entity>
+					<a-entity obj-model="obj: #boatAmmo" position="-0.15 0.48921 -0.8" class="boatAmmoL"></a-entity>
+				</a-entity>
+			</script>
+
+			<!-- Submarine Template - DO NOT put any text/comments inside the template script -->
+			<script id="submarine-template" type="text/html">
+				<a-entity obj-model="obj: #submarineHull"></a-entity>
+				<a-entity obj-model="obj: #submarineHatchL" position="-0.35 0.93379 0.41875"></a-entity>
+				<a-entity obj-model="obj: #submarineHatchR" position="0.35 0.93379 0.41875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0 0.59 0.41875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0.22 0.59 0.19875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="-0.22 0.59 0.63875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0.22 0.59 0.63875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="-0.22 0.59 0.19875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0.22 0.59 0.41875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0 0.59 0.19875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="-0.22 0.59 0.41875"></a-entity>
+				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0 0.59 0.63875"></a-entity>
+			</script>
+
 			<!-- Possible Ship classes 
 				+5 Hull: Aircraft Carrier
 				+5 Firepower: Torpedo Ship
@@ -67,7 +109,10 @@
 		<!-- Camera Spawn CANNOT be dynamically spawned -->
 		<a-entity id="camera" camera="userHeight: 4" universal-controls></a-entity>
 
-		<!-- <a-entity obj-model="obj: #sub" position="22 2 2"></a-entity> -->
+		<!-- <a-entity template="src: #boat-template" position="22 1 22"></a-entity> -->
+		<!-- <a-entity template="src: #boat-template" position="22 1 22"></a-entity> -->
+
+		<!-- <a-entity template="src: #submarine-template" position="22 1 22"></a-entity> -->
 
 		<!-- Dynamically Spawned in for objects below... -->
 		<!-- Ships-->
@@ -90,5 +135,6 @@
 	</a-scene>
 
 	<script type="text/javascript" src="./js/main.js"></script>
+	<!-- <script type="text/javascript" src="./src/main.js"></script> -->
 </body>
 </html>

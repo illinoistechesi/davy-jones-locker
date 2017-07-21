@@ -26,7 +26,7 @@ function battleship() {
 	
 	// private
 	var m_Constants = {
-		CameraYOffset: 8,
+		CameraYOffset: 10,
 		OceanYOffset: 0,
 		OceanPadding: 10,
 		ShipYOffset: 0,
@@ -149,6 +149,8 @@ function battleship() {
 			console.log(m_chain);
 		},
 
+
+
 		// Displays the ocean, and ships
 		// TODO: check the edge cases with the map edges/sizes
 		render: (shipData) => {
@@ -173,43 +175,34 @@ function battleship() {
 
 			// Spawn Ships
 			shipData.forEach((entry) => {
-				var shipHull = document.createElement('a-entity');
-				var shipMount = document.createElement('a-entity');
-				var shipCannon = document.createElement('a-entity');
-				var name = document.createElement('a-entity');
-				
-				name.setAttribute('position', "0 2 0");
-				name.setAttribute('look-at', '#camera');
-				name.setAttribute('text-geometry', "value: "+entry.name.substring(0, Math.min(entry.name.length, 24)) + "; font: #play");
-				name.setAttribute('material', 'color: blue;');
+				var ship = document.createElement('a-entity');
 
-				shipHull.setAttribute('position', entry.x + " " + entry.y + " " + entry.z);
-				shipHull.dataset.id = entry.id;
-				shipHull.dataset.name = entry.name;
-				shipHull.dataset.owner = entry.owner;
-				shipHull.dataset.x = entry.x;
-				shipHull.dataset.y = entry.y;
-				shipHull.dataset.z = entry.z;
-				shipHull.dataset.health = entry.hull;
-				shipHull.dataset.hull = entry.hull;
-				shipHull.dataset.firepower = entry.firepower;
-				shipHull.dataset.speed = entry.speed;
-				shipHull.dataset.range = entry.range;
-				// shipHull.setAttribute('src', '#ShipHull'); // for collada models
-				shipHull.setAttribute('obj-model', 'obj: #shipHull');
-				shipHull.setAttribute('material', 'color: '+entry.color+'; metalness: 0.4;');
+				ship.dataset.id = entry.id;
+				ship.dataset.name = entry.name;
+				ship.dataset.owner = entry.owner;
+				ship.dataset.x = entry.x;
+				ship.dataset.y = entry.y;
+				ship.dataset.z = entry.z;
+				ship.dataset.health = entry.hull;
+				ship.dataset.hull = entry.hull;
+				ship.dataset.firepower = entry.firepower;
+				ship.dataset.speed = entry.speed;
+				ship.dataset.range = entry.range;
 
-				//shipMount.setAttribute('material', 'color: '+entry.color+';');
-				shipMount.setAttribute('obj-model', 'obj: #shipMount');
-				shipCannon.setAttribute('obj-model', 'obj: #shipCannon');
+				var heart = "";
+				for (var i = 0; i < parseInt(entry.hull); i++) {
+					heart += " •";
+				}
 
+				ship.setAttribute('position', entry.x + " " + entry.y + " " + entry.z);
+				ship.setAttribute('template', 'src: #boat-template');
+				// ${variable} <- variable name be lower case
+				ship.setAttribute('data-ship_color', 'color: '+entry.color+'; metalness: 0.4;');
+				ship.setAttribute('data-ship_name', 'value: '+entry.name+'; font: #play;');
+				ship.setAttribute('data-ship_health', 'value: '+heart+';');
 
-				doc.appendChild(shipHull);
-				shipHull.appendChild(name);
-				shipHull.appendChild(shipMount);
-				shipHull.appendChild(shipCannon);
-				m_entity[entry.id] = shipHull;
-
+				var shipInstance = doc.appendChild(ship);
+				m_entity[entry.id] = shipInstance;
 			});
 
 		},
@@ -243,6 +236,7 @@ function battleship() {
 					while(track.hasChildNodes()) {
 						track.removeChild(track.childNodes[0]);
 					}
+
 
 					//shipDom.removeEventListener('movingended', done);
 
@@ -299,7 +293,6 @@ function battleship() {
 					if (tmp.parentNode) {
 						doc.removeChild(tmp);
 					}
-
 					resolve(event);
 				}
 
@@ -309,7 +302,35 @@ function battleship() {
 		},
 
 		aimShip: (data) => {
-			
+			return new Promise((resolve, reject) => {
+				setTimeout(function() {
+					var ship = m_entity[data[0].id];
+					console.log("aim: ", ship);
+         			resolve();
+      			}, 3000);
+				
+			});
+
+		},
+
+		hitShip: (data) => {
+			return new Promise((resolve, reject) => {
+				var ship = m_entity[data[0].id];
+				var heart = "";
+
+				for (var i = 0; i < data[0].health; i++) {
+					heart += " •";
+				}
+
+				for (var i = 0; i < ship.childNodes.length; i++) {
+					if (ship.childNodes[i].className == "ship-health") {
+						ship.childNodes[i].setAttribute('text-geometry', 'value: '+heart+';');
+						break;
+					}
+				}
+
+				resolve();
+			});
 		},
 
 		// Data passed in must be for movement of one ship
@@ -404,10 +425,16 @@ function battleship() {
 						break;
 					case "FIRE":
 						app.fireShip(current.actions).then((done) => {
-							//alert("Fired " + m_chain.length + " actions left");
 							app.simulate();
 						}).catch((err) => {
-							console.error(err);
+							console.error("error: ", err);
+						});
+						break;
+					case "HIT":
+						app.hitShip(current.actions).then((done) => {
+							app.simulate();
+						}).catch((err) => {
+							console.log(err);
 						});
 						break;
 					case "SINK":
@@ -419,7 +446,8 @@ function battleship() {
 						});
 						break;
 					default:
-						console.log("Unknown Action Type " + current.type + " in simulate function");
+						console.warn("Unknown Action Type " + current.type + " in simulate function, skipping.");
+						app.simulate();
 				}
 			} else {
 				setTimeout(() => {
