@@ -67,7 +67,7 @@
 			<!-- Ship Template -->
 			<script id="boat-template" type="text/html">
 				<a-entity position="0 2 0" look-at="#camera" text-geometry="${ship_name}" material="color: blue;"></a-entity>
-				<a-entity position="0 1.5 0" look-at="#camera" scale="0.7 0.7 0.7" text-geometry="${ship_health}" material="color: red;"></a-entity>
+				<a-entity position="0 1.5 0" look-at="#camera" scale="0.7 0.7 0.7" text-geometry="${ship_health}" material="color: red;" class="ship-health"></a-entity>
 				<a-entity obj-model="obj: #boatHull" class="shipHull" material="${ship_color}"></a-entity>
 				<a-entity obj-model="obj: #boatMount" position="0 0.6 1.2"></a-entity>
 				<a-entity obj-model="obj: #boatRotator" position="0 0.8 1.2" class="aimShip">
@@ -77,6 +77,7 @@
 					<a-entity obj-model="obj: #boatAmmo" position="-0.15 0.48921 -0.8" class="boatAmmoL"></a-entity>
 				</a-entity>
 			</script>
+
 			<!-- Submarine Template - DO NOT put any text/comments inside the template script -->
 			<script id="submarine-template" type="text/html">
 				<a-entity obj-model="obj: #submarineHull"></a-entity>

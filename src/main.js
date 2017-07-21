@@ -201,8 +201,8 @@ function battleship() {
 				ship.setAttribute('data-ship_name', 'value: '+entry.name+'; font: #play;');
 				ship.setAttribute('data-ship_health', 'value: '+heart+';');
 
-				doc.appendChild(ship);
-				m_entity[entry.id] = ship;
+				var shipInstance = doc.appendChild(ship);
+				m_entity[entry.id] = shipInstance;
 			});
 
 		},
@@ -316,7 +316,20 @@ function battleship() {
 		hitShip: (data) => {
 			return new Promise((resolve, reject) => {
 				var ship = m_entity[data[0].id];
-				//var property = ship.get
+				var heart = "";
+
+				for (var i = 0; i < data[0].health; i++) {
+					heart += " •";
+				}
+
+				for (var i = 0; i < ship.childNodes.length; i++) {
+					if (ship.childNodes[i].className == "ship-health") {
+						ship.childNodes[i].setAttribute('text-geometry', 'value: '+heart+';');
+						break;
+					}
+				}
+
+				resolve();
 			});
 		},
 
@@ -411,33 +424,17 @@ function battleship() {
 						});
 						break;
 					case "FIRE":
-
-						app.aimShip(current.actions).then(app.fireShip(current.actions)).then((done) => {
+						app.fireShip(current.actions).then((done) => {
 							app.simulate();
 						}).catch((err) => {
 							console.error("error: ", err);
 						});
-
-
-						// app.aimShip(current.actions).then((done) => { 
-						// // app.fireShip(current.actions).then((done) => {
-						// 	//alert("Fired " + m_chain.length + " actions left");
-						// 	//app.simulate();
-						// 	app.fireShip(current.actions).then((done) => {
-						// 		app.simulate();
-						// 	}).catch((errFire) => {
-						// 		console.error(errFire);
-						// 	});
-						// }).catch((errAim) => {
-						// 	console.error(errAim);
-						// });
-
 						break;
 					case "HIT":
 						app.hitShip(current.actions).then((done) => {
 							app.simulate();
 						}).catch((err) => {
-							console.log
+							console.log(err);
 						});
 						break;
 					case "SINK":
