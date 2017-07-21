@@ -26,7 +26,7 @@ function battleship() {
 	
 	// private
 	var m_Constants = {
-		CameraYOffset: 8,
+		CameraYOffset: 10,
 		OceanYOffset: 0,
 		OceanPadding: 10,
 		ShipYOffset: 0,
@@ -446,7 +446,7 @@ function battleship() {
 						});
 						break;
 					default:
-						console.log("Unknown Action Type " + current.type + " in simulate function");
+						console.warn("Unknown Action Type " + current.type + " in simulate function, skipping.");
 						app.simulate();
 				}
 			} else {
