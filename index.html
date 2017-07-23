@@ -24,7 +24,8 @@
 	<!-- A Frame Curve Component -->
 	<script src="https://unpkg.com/aframe-curve-component/dist/aframe-curve-component.min.js"></script> 
 	<!-- A Frame along path Component (Edited to allow customization of constraints during curve movement) -->
-	<script type="text/javascript" src="./lib/aframe-alongpath-component.js"></script>
+	<!-- <script type="text/javascript" src="./lib/aframe-alongpath-component.js"></script> -->
+	<script type="text/javascript" src="./src/aframe-alongpath-component.js"></script>
 	<!-- <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script> -->
 	<!-- A Frame Text-Geometry -->
 	<script type="text/javascript" src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script>
@@ -45,14 +46,10 @@
 	<a-scene id="scene" fog="type: exponential; color: #FFF; density: 0.03;">
 
 		<a-assets>
-			<!-- Ship model -->
-			<!-- <a-asset-item id="ship" src="./assets/ship.dae"></a-asset-item> -->
-			<!-- <a-asset-item id="ship" src="./assets/ship-model.dae"></a-asset-item> -->
+			<!-- Font Assets -->
 			<a-asset-item id="play" src="./assets/Play_Regular.json"></a-asset-item>
-
-<!-- 			<a-asset-item id="shipHull" src="./assets/shipHull.obj"></a-asset-item>
-			<a-asset-item id="shipMount" src="./assets/shipMount.obj"></a-asset-item>
-			<a-asset-item id="shipCannon" src="./assets/shipCannon.obj"></a-asset-item> -->
+			<!-- Debug model, checks if the grid size is correct -->
+			<a-asset-item id="box" src="./assets/debug.dae"></a-asset-item>
 
 			<!-- Ship Assets -->
 			<a-asset-item id="boatHull" src="./assets/ship/shipHull.obj"></a-asset-item>
@@ -80,7 +77,7 @@
 			</script>
 
 			<!-- Submarine Template - DO NOT put any text/comments inside the template script -->
-			<script id="submarine-template" type="text/html">
+			<script id="submarine-template" type="text/html" class="submarine">
 				<a-entity obj-model="obj: #submarineHull"></a-entity>
 				<a-entity obj-model="obj: #submarineHatchL" position="-0.35 0.93379 0.41875"></a-entity>
 				<a-entity obj-model="obj: #submarineHatchR" position="0.35 0.93379 0.41875"></a-entity>
@@ -102,8 +99,6 @@
 				+5 Range: Missile Submarine
 				Dummies: Rafts
 			 -->
-			<!-- Debug model, checks if the grid size is correct -->
-			<a-asset-item id="box" src="./assets/debug.dae"></a-asset-item>
 		</a-assets>
 
 		<!-- Camera Spawn CANNOT be dynamically spawned -->
@@ -134,7 +129,7 @@
 
 	</a-scene>
 
-	<script type="text/javascript" src="./js/main.js"></script>
-	<!-- <script type="text/javascript" src="./src/main.js"></script> -->
+	<!-- <script type="text/javascript" src="./js/main.js"></script> -->
+	<script type="text/javascript" src="./src/main.js"></script>
 </body>
 </html>

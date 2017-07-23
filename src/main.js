@@ -196,6 +196,7 @@ function battleship() {
 
 				ship.setAttribute('position', entry.x + " " + entry.y + " " + entry.z);
 				ship.setAttribute('template', 'src: #boat-template');
+				ship.setAttribute('class', 'boat');
 				// ${variable} <- variable name be lower case
 				ship.setAttribute('data-ship_color', 'color: '+entry.color+'; metalness: 0.4;');
 				ship.setAttribute('data-ship_name', 'value: '+entry.name+'; font: #play;');
@@ -257,6 +258,7 @@ function battleship() {
 			return new Promise((resolve, reject) => {
 				var doc = document.getElementById('scene');
 				var track = document.getElementById('track');
+				var ship = m_entity[data[0].id];
 
 				var bullet = document.createElement('a-sphere');
 				var source = document.createElement('a-curve-point');
@@ -302,13 +304,48 @@ function battleship() {
 		},
 
 		aimShip: (data) => {
+			var rotateVector = (vec2, deg) => {
+				var rad = deg * Math.PI / 180;
+				var cos = Math.cos(rad);
+				var sin = Math.sin(rad);
+				console.log("vector: ", vec2);
+				console.log("degree: ", deg);
+				// round the numbers
+				return {
+					"x": Math.round(100000*(vec2.atX * cos - vec2.atZ * sin))/100000, 
+					"y": vec2.atY,
+					"z": Math.round(100000*(vec2.atX * sin + vec2.atZ * cos))/100000
+				};
+			};
+
 			return new Promise((resolve, reject) => {
-				setTimeout(function() {
-					var ship = m_entity[data[0].id];
-					console.log("aim: ", ship);
-         			resolve();
-      			}, 3000);
-				
+				console.log('aim info: ', data);
+				var doc = document.getElementById('scene');
+				var track = document.getElementById('track');
+				var ship = m_entity[data[0].id];
+
+				var action = null;
+				if (ship.className == "boat") {
+					for(var i = 0; i < ship.childNodes.length; i++) {
+						if (ship.childNodes[i].className === "aimShip") {
+							action = ship.childNodes[i];
+							break;
+						}
+					}
+					if (action) {
+						var shipY = ship.getAttribute('rotation').y;
+						var current = action.getAttribute("rotation").y;
+						var radian = Math.atan((data[0].atZ-data[0].z)/(data[0].atX-data[0].x));
+						var degree = radian * 180 / Math.PI;
+
+						var rotated = rotateVector(data[0], shipY);
+						console.log("rotated: ", rotated);
+						action.setAttribute('look-at', rotated);
+						action.removeAttribute('look-at');
+					}
+				}
+
+				resolve();				
 			});
 
 		},
@@ -336,7 +373,6 @@ function battleship() {
 		// Data passed in must be for movement of one ship
 		moveShip: (data) => {
 			return new Promise((resolve, reject) => {
-
 				var shipDom = m_entity[data[0].id]; // html element
 				// if statement is not working
 				// if (data.length === 1 && data[0].x === shipDom.dataset.x && data[0].z === shipDom.dataset.z) {
@@ -359,6 +395,9 @@ function battleship() {
 				point.setAttribute('position', String(shipDom.dataset.x + " " + shipDom.dataset.y + " " + shipDom.dataset.z));
 				track.appendChild(point);
 				// add chain-able goal locations to the curve
+				
+				//previous is used to check for movement against walls, e.g. previous location same as current and next
+				//previous can also be used to get the last action which determines the final rotation where the ship should point
 				var previous = {'x': shipDom.dataset.x, 'z': shipDom.dataset.z};
 				var xDistance = 0;
 				var zDistance = 0;
@@ -372,9 +411,10 @@ function battleship() {
 						i++;
 					}
 					track.appendChild(point);
-					previous = {'x': data[i].x, 'z': data[i].z};
+					previous = {'x': data[i].x, 'z': data[i].z, 'direction': data[i].direction};
 				}
-				var dur = (xDistance+zDistance)*m_Constants.WaitTimePerTileMoved;
+
+				var dur = (xDistance+zDistance)*m_Constants.WaitTimePerTileMoved; // determines the length in time of the movement 
 				shipDom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 0 1; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: '+dur+';');
 
 				var done = (event) => {
@@ -424,8 +464,14 @@ function battleship() {
 						});
 						break;
 					case "FIRE":
-						app.fireShip(current.actions).then((done) => {
-							app.simulate();
+						app.aimShip(current.actions).then((done) => {
+
+							app.fireShip(current.actions).then((done) => {
+								app.simulate();
+							}).catch((err) => {
+								console.error("error: ", err);	
+							});
+
 						}).catch((err) => {
 							console.error("error: ", err);
 						});
