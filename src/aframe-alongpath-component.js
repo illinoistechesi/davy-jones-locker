@@ -128,11 +128,11 @@
 	                if ((this.data.loop === false) && i >= 1) {
 	                    // Set the end-position
 	                    this.el.setAttribute('position', curve.points[curve.points.length - 1]);
-	                    // Set the end-rotation, if rotate attribute is set to true
-	                    if (this.data.rotate === true) {
-	                    	var endRotation = this.el.object3D.rotation;
-	                    	this.el.setAttribute('rotation', (endRotation['_x'] * 180 / Math.PI) + ' ' + (endRotation['_y'] * 180 / Math.PI) + ' ' + (endRotation['_z'] * 180 / Math.PI));
-	                    }
+	                    // // Set the end-rotation, if rotate attribute is set to true
+	                    // if (this.data.rotate === true) {
+	                    // 	var endRotation = this.el.object3D.rotation;
+	                    // 	this.el.setAttribute('rotation', (endRotation['_x'] * 180 / Math.PI) + ' ' + (endRotation['_y'] * 180 / Math.PI) + ' ' + (endRotation['_z'] * 180 / Math.PI));
+	                    // }
 
 	                    // We have reached the end of the path and are not going
 	                    // to loop back to the beginning therefore set final state
@@ -191,6 +191,11 @@
 
 	    remove: function () {
 	        this.el.object3D.position.copy(this.initialPosition);
+	        // Set the end-rotation, if rotate attribute is set to true
+            if (this.data.rotate === true) {
+            	var endRotation = this.el.object3D.rotation;
+            	this.el.setAttribute('rotation', (endRotation['_x'] * 180 / Math.PI) + ' ' + (endRotation['_y'] * 180 / Math.PI) + ' ' + (endRotation['_z'] * 180 / Math.PI));
+            }
 	    },
 
 	    updateActiveTrigger: function() {

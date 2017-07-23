@@ -228,7 +228,7 @@ function battleship() {
 				track.appendChild(point1);
 				track.appendChild(point2);
 
-				shipDom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 1 0; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: 3000;');
+				shipDom.setAttribute('alongpath', 'curve: #track; rotate: false; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: 3000;');
 
 				var done = (event) => {
 					shipDom.removeAttribute('alongpath');
@@ -307,16 +307,16 @@ function battleship() {
 
 		aimShip: (data) => {
 			var rotateVector = (vec2, deg) => {
-				var rad = deg * Math.PI / 180;
+				var rad = -deg * Math.PI / 180;
 				var cos = Math.cos(rad);
 				var sin = Math.sin(rad);
 				console.log("vector: ", vec2);
 				console.log("degree: ", deg);
 				// round the numbers
 				return {
-					"x": Math.round(100000*(vec2.atX * cos - vec2.atZ * sin))/100000, 
-					"y": vec2.atY,
-					"z": Math.round(100000*(vec2.atX * sin + vec2.atZ * cos))/100000
+					"x": Math.round(100000*((vec2.x-vec2.atX) * cos - (vec2.z-vec2.atZ) * sin))/100000, 
+					"y": (vec2.y-vec2.atY),
+					"z": Math.round(100000*((vec2.x-vec2.atX) * sin + (vec2.z-vec2.atZ) * cos))/100000
 				};
 			};
 
@@ -326,26 +326,31 @@ function battleship() {
 				var track = document.getElementById('track');
 				var ship = m_entity[data[0].id];
 
-				var action = null;
-				if (ship.className == "boat") {
-					for(var i = 0; i < ship.childNodes.length; i++) {
-						if (ship.childNodes[i].className === "aimShip") {
-							action = ship.childNodes[i];
-							break;
-						}
-					}
-					if (action) {
-						var shipY = ship.getAttribute('rotation').y;
-						var current = action.getAttribute("rotation").y;
-						var radian = Math.atan((data[0].atZ-data[0].z)/(data[0].atX-data[0].x));
-						var degree = radian * 180 / Math.PI;
+				var shipRot = ship.getAttribute('rotation');
+				console.log("rot info: ", shipRot);
 
-						var rotated = rotateVector(data[0], shipY);
-						console.log("rotated: ", rotated);
-						action.setAttribute('look-at', rotated);
-						action.removeAttribute('look-at');
-					}
-				}
+				// var action = null;
+				// if (ship.className == "boat") {
+				// 	for(var i = 0; i < ship.childNodes.length; i++) {
+				// 		if (ship.childNodes[i].className === "aimShip") {
+				// 			action = ship.childNodes[i];
+				// 			break;
+				// 		}
+				// 	}
+				// 	if (action) {
+				// 		var shipY = ship.getAttribute('rotation').y;
+				// 		var current = action.getAttribute("rotation").y;
+				// 		var radian = Math.atan((data[0].atZ-data[0].z)/(data[0].atX-data[0].x));
+				// 		var degree = -radian * 180 / Math.PI;
+				// 		console.log("ship r: ", degree, current);
+				// 		console.log("ship current rotation", shipY);
+				// 		var rotated = rotateVector(data[0], shipY);
+				// 		console.log("aim r: ", rotated);
+				// 		//action.setAttribute('look-at', rotated);
+				// 		action.setAttribute('rotation', '0 ' + (degree-shipY) + ' 0');
+				// 		//action.removeAttribute('look-at');
+				// 	}
+				// }
 
 				resolve();				
 			});
@@ -417,7 +422,7 @@ function battleship() {
 				}
 
 				var dur = (xDistance+zDistance)*m_Constants.WaitTimePerTileMoved; // determines the length in time of the movement 
-				shipDom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 0 1; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: '+dur+';');
+				shipDom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 0 -1; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: '+dur+';');
 
 				var done = (event) => {
 					// var list = document.getElementByTagName('a-draw-curve');
