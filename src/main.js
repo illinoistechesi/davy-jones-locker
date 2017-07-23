@@ -172,7 +172,7 @@ function battleship() {
 			map.setAttribute('depth', String(m_ocean.depth));
 			map.setAttribute('density', String(m_ocean.density));
 			doc.appendChild(map);
-			
+
 			var spawnShip = (entry) => {
 				var ship = document.createElement('a-entity');
 
@@ -208,10 +208,6 @@ function battleship() {
 			shipData.forEach((entry) => {
 				spawnShip(entry);
 			})
-		},
-
-		spawnShip: (ships) => {
-			
 		},
 
 		sinkShip: (data) => {
@@ -470,14 +466,22 @@ function battleship() {
 						});
 						break;
 					case "FIRE":
-						app.aimShip(current.actions).then((done) => {
+						/*** Exclusive Or functions ***/
 
+						/* Fire without aiming */
+						// app.fireShip(current.actions).then((done) => {
+						// 	app.simulate();
+						// }).catch((err) => {
+						// 	console.error("error: ", err);	
+						// });
+
+						/* Aim then fire (currently buggy)*/
+						app.aimShip(current.actions).then((done) => {
 							app.fireShip(current.actions).then((done) => {
 								app.simulate();
 							}).catch((err) => {
 								console.error("error: ", err);	
 							});
-
 						}).catch((err) => {
 							console.error("error: ", err);
 						});
