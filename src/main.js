@@ -172,9 +172,8 @@ function battleship() {
 			map.setAttribute('depth', String(m_ocean.depth));
 			map.setAttribute('density', String(m_ocean.density));
 			doc.appendChild(map);
-
-			// Spawn Ships
-			shipData.forEach((entry) => {
+			
+			var spawnShip = (entry) => {
 				var ship = document.createElement('a-entity');
 
 				ship.dataset.id = entry.id;
@@ -204,8 +203,15 @@ function battleship() {
 
 				var shipInstance = doc.appendChild(ship);
 				m_entity[entry.id] = shipInstance;
-			});
+			};
+			// spawn the ships!
+			shipData.forEach((entry) => {
+				spawnShip(entry);
+			})
+		},
 
+		spawnShip: (ships) => {
+			
 		},
 
 		sinkShip: (data) => {
