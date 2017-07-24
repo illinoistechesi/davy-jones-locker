@@ -26,7 +26,7 @@ function battleship() {
 	
 	// private
 	var m_Constants = {
-		CameraYOffset: 10,
+		CameraYOffset: 15,
 		OceanYOffset: 0,
 		OceanPadding: 10,
 		ShipYOffset: 0,
@@ -96,9 +96,9 @@ function battleship() {
 			m_ocean = { "x": ((4*Math.floor(data.ocean.x/2))-2),
 						"y": m_Constants.OceanYOffset, 
 						"z": ((4*Math.floor(data.ocean.y/2))),
-						"width": 200, 
-						"depth": 200,
-						"density": 120,
+						"width": 300, 
+						"depth": 300,
+						"density": 180,
 					};
 
 			console.log(data);
