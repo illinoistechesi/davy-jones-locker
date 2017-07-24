@@ -16,15 +16,15 @@
 	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<!-- A Frame import -->
-	<!-- <script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script> -->
-	<script src="https://aframe.io/releases/0.6.0/aframe.js"></script>
-	<!-- <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script> -->
+	<script src="https://aframe.io/releases/0.6.0/aframe.min.js"></script>
+	<!-- <script src="https://aframe.io/releases/0.6.0/aframe.js"></script> -->
 	<!-- A Frame Extras Component -->
 	<script type="text/javascript" src="./lib/aframe-extras.min.js"></script>
 	<!-- A Frame Curve Component -->
 	<script src="https://unpkg.com/aframe-curve-component/dist/aframe-curve-component.min.js"></script> 
 	<!-- A Frame along path Component (Edited to allow customization of constraints during curve movement) -->
-	<script type="text/javascript" src="./lib/aframe-alongpath-component.js"></script>
+	<!-- <script type="text/javascript" src="./lib/aframe-alongpath-component.js"></script> -->
+	<script type="text/javascript" src="./src/aframe-alongpath-component.js"></script>
 	<!-- <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script> -->
 	<!-- A Frame Text-Geometry -->
 	<script type="text/javascript" src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script>
@@ -45,14 +45,10 @@
 	<a-scene id="scene" fog="type: exponential; color: #FFF; density: 0.03;">
 
 		<a-assets>
-			<!-- Ship model -->
-			<!-- <a-asset-item id="ship" src="./assets/ship.dae"></a-asset-item> -->
-			<!-- <a-asset-item id="ship" src="./assets/ship-model.dae"></a-asset-item> -->
+			<!-- Font Assets -->
 			<a-asset-item id="play" src="./assets/Play_Regular.json"></a-asset-item>
-
-<!-- 			<a-asset-item id="shipHull" src="./assets/shipHull.obj"></a-asset-item>
-			<a-asset-item id="shipMount" src="./assets/shipMount.obj"></a-asset-item>
-			<a-asset-item id="shipCannon" src="./assets/shipCannon.obj"></a-asset-item> -->
+			<!-- Debug model, checks if the grid size is correct -->
+			<a-asset-item id="box" src="./assets/debug.dae"></a-asset-item>
 
 			<!-- Ship Assets -->
 			<a-asset-item id="boatHull" src="./assets/ship/shipHull.obj"></a-asset-item>
@@ -62,6 +58,7 @@
 			<a-asset-item id="boatAmmo" src="./assets/ship/shipAmmo.obj"></a-asset-item>
 			<!-- Submarine Assets -->
 			<a-assets-item id="submarineHull" src="./assets/submarine/submarine.obj"></a-assets-item>
+			<a-assets-item id="submarineHatch" src="./assets/submarine/submarine-hatch.obj"></a-assets-item>
 			<a-assets-item id="submarineHatchR" src="./assets/submarine/submarine-hatchR.obj"></a-assets-item>
 			<a-assets-item id="submarineHatchL" src="./assets/submarine/submarine-hatchL.obj"></a-assets-item>
 			<a-assets-item id="submarineMissile" src="./assets/submarine/submarine-missile.obj"></a-assets-item>
@@ -81,19 +78,22 @@
 
 			<!-- Submarine Template - DO NOT put any text/comments inside the template script -->
 			<script id="submarine-template" type="text/html">
-				<a-entity obj-model="obj: #submarineHull"></a-entity>
-				<a-entity obj-model="obj: #submarineHatchL" position="-0.35 0.93379 0.41875"></a-entity>
-				<a-entity obj-model="obj: #submarineHatchR" position="0.35 0.93379 0.41875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0 0.59 0.41875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0.22 0.59 0.19875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="-0.22 0.59 0.63875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0.22 0.59 0.63875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="-0.22 0.59 0.19875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0.22 0.59 0.41875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0 0.59 0.19875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="-0.22 0.59 0.41875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0 0.59 0.63875"></a-entity>
+				<a-entity position="0 2 0" look-at="#camera" text-geometry="${ship_name}" material="color: blue;"></a-entity>
+				<a-entity position="0 1.5 0" look-at="#camera" scale="0.7 0.7 0.7" text-geometry="${ship_health}" material="color: red;" class="ship-health"></a-entity>
+				<a-entity obj-model="obj: #submarineHull" material="${ship_color}" class="submarineHull"></a-entity>
+				<a-entity obj-model="obj: #submarineHatch" position="0 0.93379 0.41875" material="${ship_color}" class="submarineHatch"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="0 0.58 0.41875"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="0.22 0.58 0.19875"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="-0.22 0.58 0.63875"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="0.22 0.58 0.63875"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="-0.22 0.58 0.19875"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="0.22 0.58 0.41875"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="0 0.58 0.19875"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="-0.22 0.58 0.41875"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="0 0.58 0.63875"></a-entity>
 			</script>
+				<!-- <a-entity obj-model="obj: #submarineHatchL" position="-0.35 0.93379 0.41875"></a-entity>
+				<a-entity obj-model="obj: #submarineHatchR" position="0.35 0.93379 0.41875"></a-entity> -->
 
 			<!-- Possible Ship classes 
 				+5 Hull: Aircraft Carrier
@@ -102,8 +102,6 @@
 				+5 Range: Missile Submarine
 				Dummies: Rafts
 			 -->
-			<!-- Debug model, checks if the grid size is correct -->
-			<a-asset-item id="box" src="./assets/debug.dae"></a-asset-item>
 		</a-assets>
 
 		<!-- Camera Spawn CANNOT be dynamically spawned -->
@@ -135,6 +133,6 @@
 	</a-scene>
 
 	<script type="text/javascript" src="./js/main.js"></script>
-	<!-- <script type="text/javascript" src="./src/main.js"></script> -->
+	<script type="text/javascript" src="./src/main.js"></script>
 </body>
 </html>
