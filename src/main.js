@@ -203,7 +203,7 @@ function battleship() {
 					ship.setAttribute('template', 'src: #boat-template');
 					ship.setAttribute('class', 'boat');
 				}
-				
+
 				// ${variable} <- variable name be lower case
 				ship.setAttribute('data-ship_color', 'color: '+entry.color+'; metalness: 0.4;');
 				ship.setAttribute('data-ship_name', 'value: '+entry.name+'; font: #play;');
@@ -294,7 +294,7 @@ function battleship() {
 				// }
 				// else {
 					bullet.setAttribute('color', 'gray');
-					bullet.setAttribute('radius', '0.1');
+					bullet.setAttribute('radius', '0.2');
 					bullet.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
 					source.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
 					arc.setAttribute('position', (data[0].atX+data[0].x)/2 + " " + (((data[0].atY+data[0].y)/2)+m_Constants.BulletArc) + " " + (data[0].atZ+data[0].z)/2);
@@ -310,7 +310,9 @@ function battleship() {
 				doc.appendChild(debug);
 
 				var tmp = doc.appendChild(bullet);
-				tmp.setAttribute('alongpath', 'curve: #track; rotate: true; constant: 0 -1 0; delay: 200; dur: 2000');
+				var distance = Math.sqrt((data[0].atX-data[0].x)*(data[0].atX-data[0].x) + (data[0].atZ-data[0].z)*(data[0].atZ-data[0].z))+m_Constants.BulletArc*m_Constants.BulletArc;
+				console.log("distance: ", distance);
+				tmp.setAttribute('alongpath', 'curve: #track; rotate: true; constant: 0 -1 0; delay: 200; dur: ' + 25*distance);
 
 				var done = (event) => {
 					tmp.removeAttribute('alongpath');
