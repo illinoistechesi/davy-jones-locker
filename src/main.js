@@ -33,7 +33,7 @@ function battleship() {
 		SinkDistance: 5,
 		BulletArc: 2,
 		WaitTimePerTileMoved: 300,
-		WaitTimeBetweenAction: 100 // in miliseconds
+		WaitTimeBetweenAction: 50 // in miliseconds
 	};
 
 	var m_input = {};
@@ -236,7 +236,7 @@ function battleship() {
 				track.appendChild(point1);
 				track.appendChild(point2);
 
-				shipDom.setAttribute('alongpath', 'curve: #track; rotate: false; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: 3000;');
+				shipDom.setAttribute('alongpath', 'curve: #track; rotate: false; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: 1000;');
 
 				var done = (event) => {
 					shipDom.removeAttribute('alongpath');
@@ -312,7 +312,7 @@ function battleship() {
 				var tmp = doc.appendChild(bullet);
 				var distance = Math.sqrt((data[0].atX-data[0].x)*(data[0].atX-data[0].x) + (data[0].atZ-data[0].z)*(data[0].atZ-data[0].z))+m_Constants.BulletArc*m_Constants.BulletArc;
 				console.log("distance: ", distance);
-				tmp.setAttribute('alongpath', 'curve: #track; rotate: true; constant: 0 -1 0; delay: 200; dur: ' + 25*distance);
+				tmp.setAttribute('alongpath', 'curve: #track; rotate: true; constant: 0 -1 0; delay: 100; dur: ' + 25*distance);
 
 				var done = (event) => {
 					tmp.removeAttribute('alongpath');
