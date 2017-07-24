@@ -59,6 +59,7 @@
 			<a-asset-item id="boatAmmo" src="./assets/ship/shipAmmo.obj"></a-asset-item>
 			<!-- Submarine Assets -->
 			<a-assets-item id="submarineHull" src="./assets/submarine/submarine.obj"></a-assets-item>
+			<a-assets-item id="submarineHatch" src="./assets/submarine/submarine-hatch.obj"></a-assets-item>
 			<a-assets-item id="submarineHatchR" src="./assets/submarine/submarine-hatchR.obj"></a-assets-item>
 			<a-assets-item id="submarineHatchL" src="./assets/submarine/submarine-hatchL.obj"></a-assets-item>
 			<a-assets-item id="submarineMissile" src="./assets/submarine/submarine-missile.obj"></a-assets-item>
@@ -77,20 +78,23 @@
 			</script>
 
 			<!-- Submarine Template - DO NOT put any text/comments inside the template script -->
-			<script id="submarine-template" type="text/html" class="submarine">
-				<a-entity obj-model="obj: #submarineHull"></a-entity>
-				<a-entity obj-model="obj: #submarineHatchL" position="-0.35 0.93379 0.41875"></a-entity>
-				<a-entity obj-model="obj: #submarineHatchR" position="0.35 0.93379 0.41875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0 0.59 0.41875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0.22 0.59 0.19875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="-0.22 0.59 0.63875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0.22 0.59 0.63875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="-0.22 0.59 0.19875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0.22 0.59 0.41875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0 0.59 0.19875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="-0.22 0.59 0.41875"></a-entity>
-				<a-entity class="missile" obj-model="obj: #submarineMissile" position="0 0.59 0.63875"></a-entity>
+			<script id="submarine-template" type="text/html">
+				<a-entity position="0 2 0" look-at="#camera" text-geometry="${ship_name}" material="color: blue;"></a-entity>
+				<a-entity position="0 1.5 0" look-at="#camera" scale="0.7 0.7 0.7" text-geometry="${ship_health}" material="color: red;" class="ship-health"></a-entity>
+				<a-entity obj-model="obj: #submarineHull" material="${ship_color}" class="submarineHull"></a-entity>
+				<a-entity obj-model="obj: #submarineHatch" position="0 0.93379 0.41875" material="${ship_color}" class="submarineHatch"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="0 0.58 0.41875"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="0.22 0.58 0.19875"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="-0.22 0.58 0.63875"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="0.22 0.58 0.63875"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="-0.22 0.58 0.19875"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="0.22 0.58 0.41875"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="0 0.58 0.19875"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="-0.22 0.58 0.41875"></a-entity>
+				<a-entity class="submarineMissile" obj-model="obj: #submarineMissile" position="0 0.58 0.63875"></a-entity>
 			</script>
+				<!-- <a-entity obj-model="obj: #submarineHatchL" position="-0.35 0.93379 0.41875"></a-entity>
+				<a-entity obj-model="obj: #submarineHatchR" position="0.35 0.93379 0.41875"></a-entity> -->
 
 			<!-- Possible Ship classes 
 				+5 Hull: Aircraft Carrier

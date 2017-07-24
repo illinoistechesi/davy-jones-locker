@@ -194,8 +194,16 @@ function battleship() {
 				}
 
 				ship.setAttribute('position', entry.x + " " + entry.y + " " + entry.z);
-				ship.setAttribute('template', 'src: #boat-template');
-				ship.setAttribute('class', 'boat');
+
+				if (entry.color === "rgb(255, 255, 0)") {
+					ship.setAttribute('template', 'src: #submarine-template');
+					ship.setAttribute('class', 'submarine');
+				}
+				else {
+					ship.setAttribute('template', 'src: #boat-template');
+					ship.setAttribute('class', 'boat');
+				}
+				
 				// ${variable} <- variable name be lower case
 				ship.setAttribute('data-ship_color', 'color: '+entry.color+'; metalness: 0.4;');
 				ship.setAttribute('data-ship_name', 'value: '+entry.name+'; font: #play;');
@@ -266,15 +274,35 @@ function battleship() {
 				var source = document.createElement('a-curve-point');
 				var arc = document.createElement('a-curve-point');
 				var target = document.createElement('a-curve-point');
-				bullet.setAttribute('color', 'gray');
-				bullet.setAttribute('radius', '0.1');
-				bullet.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
-				source.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
-				target.setAttribute('position', data[0].atX + " " + data[0].atY + " " + data[0].atZ);
-				arc.setAttribute('position', (data[0].atX+data[0].x)/2 + " " + (((data[0].atY+data[0].y)/2)+m_Constants.BulletArc) + " " + (data[0].atZ+data[0].z)/2);
-				track.appendChild(source);
-				track.appendChild(arc);
-				track.appendChild(target);
+
+				// var saves = null;
+				// if (ship.className === "submarine") {
+				// 	for (var i = 0; i < ship.childNodes.length; i++) {
+				// 		if (ship.childNodes[i].className === "submarineMissile") {
+				// 			bullet = ship.childNodes[i]
+				// 			saves = bullet.getAttribute('position');
+				// 			break;
+				// 		}
+				// 	}
+				// 	console.log('missile start', saves);
+				// 	source.setAttribute('position', (data[0].x+saves.x) + " " + (data[0].y+saves.y) + " " + (data[0].z+saves.z));
+				// 	arc.setAttribute('position', (data[0].x+saves.x) + " " + (data[0].y+saves.y+5) + " " + (data[0].z+saves.z));
+				// 	target.setAttribute('position', data[0].atX + " " + data[0].atY + " " + data[0].atZ);
+				// 	track.appendChild(source);
+				// 	track.appendChild(arc);
+				// 	track.appendChild(target);
+				// }
+				// else {
+					bullet.setAttribute('color', 'gray');
+					bullet.setAttribute('radius', '0.1');
+					bullet.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
+					source.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
+					arc.setAttribute('position', (data[0].atX+data[0].x)/2 + " " + (((data[0].atY+data[0].y)/2)+m_Constants.BulletArc) + " " + (data[0].atZ+data[0].z)/2);
+					target.setAttribute('position', data[0].atX + " " + data[0].atY + " " + data[0].atZ);
+					track.appendChild(source);
+					track.appendChild(arc);
+					track.appendChild(target);
+				// }
 
 				var debug = document.createElement('a-draw-curve');
 				debug.setAttribute('curveref', '#track');
@@ -282,7 +310,7 @@ function battleship() {
 				doc.appendChild(debug);
 
 				var tmp = doc.appendChild(bullet);
-				tmp.setAttribute('alongpath', 'curve: #track; rotate: true; constant: 0 0 1; delay: 200; dur: 500');
+				tmp.setAttribute('alongpath', 'curve: #track; rotate: true; constant: 0 -1 0; delay: 200; dur: 2000');
 
 				var done = (event) => {
 					tmp.removeAttribute('alongpath');
@@ -297,6 +325,14 @@ function battleship() {
 					if (tmp.parentNode) {
 						doc.removeChild(tmp);
 					}
+					// if (ship.className === "submarine") {
+					// 	var reload = document.createElement('a-entity');
+					// 	reload.setAttribute('class', 'submarineMissile');
+					// 	reload.setAttribute('obj-model', 'obj: #submarineMissile');
+					// 	reload.setAttribute('position', saves);
+					// 	ship.appendChild(reload);
+					// }
+
 					resolve(event);
 				}
 
@@ -474,22 +510,22 @@ function battleship() {
 						/*** Exclusive Or functions ***/
 
 						/* Fire without aiming */
-						// app.fireShip(current.actions).then((done) => {
-						// 	app.simulate();
-						// }).catch((err) => {
-						// 	console.error("error: ", err);	
-						// });
-
-						/* Aim then fire (currently buggy)*/
-						app.aimShip(current.actions).then((done) => {
-							app.fireShip(current.actions).then((done) => {
-								app.simulate();
-							}).catch((err) => {
-								console.error("error: ", err);	
-							});
+						app.fireShip(current.actions).then((done) => {
+							app.simulate();
 						}).catch((err) => {
-							console.error("error: ", err);
+							console.error("error: ", err);	
 						});
+
+						// /* Aim then fire (currently buggy)*/
+						// app.aimShip(current.actions).then((done) => {
+						// 	app.fireShip(current.actions).then((done) => {
+						// 		app.simulate();
+						// 	}).catch((err) => {
+						// 		console.error("error: ", err);	
+						// 	});
+						// }).catch((err) => {
+						// 	console.error("error: ", err);
+						// });
 						break;
 					case "HIT":
 						app.hitShip(current.actions).then((done) => {
