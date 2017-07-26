@@ -26,7 +26,7 @@ function battleship() {
 	
 	// private
 	var m_Constants = {
-		CameraYOffset: 15,
+		CameraYOffset: 25,
 		OceanYOffset: 0,
 		OceanPadding: 10,
 		ShipYOffset: 0,
