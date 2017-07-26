@@ -96,9 +96,9 @@ function battleship() {
 			m_ocean = { "x": ((4*Math.floor(data.ocean.x/2))-2),
 						"y": m_Constants.OceanYOffset, 
 						"z": ((4*Math.floor(data.ocean.y/2))),
-						"width": 300, 
-						"depth": 300,
-						"density": 180,
+						"width": 400, 
+						"depth": 400,
+						"density": 240,
 					};
 
 			console.log(data);
@@ -161,7 +161,8 @@ function battleship() {
 			//camera.setAttribute('position', m_ocean.x + " " + m_ocean.y + " " + m_ocean.z);
 			camera.setAttribute('position', m_ocean.x + " " + m_ocean.y + " " + (m_ocean.z+(1.5*m_ocean.x)));
 			camera.setAttribute('camera', 'userHeight: ' + m_Constants.CameraYOffset);
-			camera.setAttribute('rotation', -Math.atan(m_Constants.CameraYOffset/(m_ocean.z+m_ocean.x)));
+			//camera.setAttribute('rotation', -Math.atan(m_Constants.CameraYOffset/(m_ocean.z+m_ocean.x))); // TODO: check if the string is a vec3
+			camera.setAttribute('rotation', '-50 0 0');
 
 			// Generate Map
 			// TODO: Possible edge cases with the map edge not being big enough
