@@ -101,7 +101,6 @@ function battleship() {
 						"density": 240,
 					};
 
-			console.log(data);
 			// preprocess initial ship information
 			data.ships.forEach((entry) => {
 				m_ships.push(translate(entry));
@@ -146,7 +145,6 @@ function battleship() {
 				// reset chain actions
 				actions = [];
 			}
-			console.log(m_chain);
 		},
 
 
@@ -312,7 +310,7 @@ function battleship() {
 
 				var tmp = doc.appendChild(bullet);
 				var distance = Math.sqrt((data[0].atX-data[0].x)*(data[0].atX-data[0].x) + (data[0].atZ-data[0].z)*(data[0].atZ-data[0].z))+m_Constants.BulletArc*m_Constants.BulletArc;
-				console.log("distance: ", distance);
+				//console.log("distance: ", distance);
 				tmp.setAttribute('alongpath', 'curve: #track; rotate: true; constant: 0 -1 0; delay: 100; dur: ' + 25*distance);
 
 				var done = (event) => {
@@ -349,8 +347,8 @@ function battleship() {
 				var rad = -deg * Math.PI / 180;
 				var cos = Math.cos(rad);
 				var sin = Math.sin(rad);
-				console.log("vector: ", vec2);
-				console.log("degree: ", deg);
+				//console.log("vector: ", vec2);
+				//console.log("degree: ", deg);
 				// round the numbers
 				return {
 					"x": Math.round(100000*((vec2.x-vec2.atX) * cos - (vec2.z-vec2.atZ) * sin))/100000, 
@@ -360,13 +358,13 @@ function battleship() {
 			};
 
 			return new Promise((resolve, reject) => {
-				console.log('aim info: ', data);
+				//console.log('aim info: ', data);
 				var doc = document.getElementById('scene');
 				var track = document.getElementById('track');
 				var ship = m_entity[data[0].id];
 
 				var shipRot = ship.getAttribute('rotation');
-				console.log("rot info: ", shipRot);
+				//console.log("rot info: ", shipRot);
 
 				// var action = null;
 				// if (ship.className == "boat") {
@@ -447,7 +445,7 @@ function battleship() {
 				var previous = {'x': shipDom.dataset.x, 'z': shipDom.dataset.z};
 				var xDistance = 0;
 				var zDistance = 0;
-				console.log("Moving: ", data);
+				//console.log("Moving: ", data);
 				for (var i = 0; i < data.length; i++) {
 					point = document.createElement('a-curve-point');
 					point.setAttribute('position', data[i].x + " " + data[i].y + " " + data[i].z);
@@ -486,20 +484,19 @@ function battleship() {
 				};
 
 				shipDom.addEventListener('movingended', done);
-
 				
 			});
 		},
 
 		simulate: () => {
-			console.log("chain: ", m_chain);
+			//console.log("chain: ", m_chain);
 			var notStop = true;
 			if (m_chain.length == 0) {
 				notStop = false;
 			}
 			var current = m_chain.shift(); // don't shift when length is zero
 			if (current && notStop) {
-				console.log("current: ", current);
+				//console.log("current: ", current);
 				switch(current.type) {
 					case "MOVE":
 						app.moveShip(current.actions).then((done) => {
