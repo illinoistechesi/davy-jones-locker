@@ -26,14 +26,14 @@ function battleship() {
 	
 	// private
 	var m_Constants = {
-		CameraYOffset: 10,
+		CameraYOffset: 25,
 		OceanYOffset: 0,
 		OceanPadding: 10,
 		ShipYOffset: 0,
 		SinkDistance: 5,
 		BulletArc: 2,
 		WaitTimePerTileMoved: 300,
-		WaitTimeBetweenAction: 100 // in miliseconds
+		WaitTimeBetweenAction: 50 // in miliseconds
 	};
 
 	var m_input = {};
@@ -96,12 +96,11 @@ function battleship() {
 			m_ocean = { "x": ((4*Math.floor(data.ocean.x/2))-2),
 						"y": m_Constants.OceanYOffset, 
 						"z": ((4*Math.floor(data.ocean.y/2))),
-						"width": 200, 
-						"depth": 200,
-						"density": 120,
+						"width": 400, 
+						"depth": 400,
+						"density": 240,
 					};
 
-			console.log(data);
 			// preprocess initial ship information
 			data.ships.forEach((entry) => {
 				m_ships.push(translate(entry));
@@ -146,7 +145,6 @@ function battleship() {
 				// reset chain actions
 				actions = [];
 			}
-			console.log(m_chain);
 		},
 
 
@@ -161,7 +159,8 @@ function battleship() {
 			//camera.setAttribute('position', m_ocean.x + " " + m_ocean.y + " " + m_ocean.z);
 			camera.setAttribute('position', m_ocean.x + " " + m_ocean.y + " " + (m_ocean.z+(1.5*m_ocean.x)));
 			camera.setAttribute('camera', 'userHeight: ' + m_Constants.CameraYOffset);
-			camera.setAttribute('rotation', -Math.atan(m_Constants.CameraYOffset/(m_ocean.z+m_ocean.x)));
+			//camera.setAttribute('rotation', -Math.atan(m_Constants.CameraYOffset/(m_ocean.z+m_ocean.x))); // TODO: check if the string is a vec3
+			camera.setAttribute('rotation', '-50 0 0');
 
 			// Generate Map
 			// TODO: Possible edge cases with the map edge not being big enough
@@ -173,8 +172,7 @@ function battleship() {
 			map.setAttribute('density', String(m_ocean.density));
 			doc.appendChild(map);
 
-			// Spawn Ships
-			shipData.forEach((entry) => {
+			var spawnShip = (entry) => {
 				var ship = document.createElement('a-entity');
 
 				ship.dataset.id = entry.id;
@@ -195,7 +193,16 @@ function battleship() {
 				}
 
 				ship.setAttribute('position', entry.x + " " + entry.y + " " + entry.z);
-				ship.setAttribute('template', 'src: #boat-template');
+
+				if (entry.color === "rgb(255, 255, 0)") {
+					ship.setAttribute('template', 'src: #submarine-template');
+					ship.setAttribute('class', 'submarine');
+				}
+				else {
+					ship.setAttribute('template', 'src: #boat-template');
+					ship.setAttribute('class', 'boat');
+				}
+
 				// ${variable} <- variable name be lower case
 				ship.setAttribute('data-ship_color', 'color: '+entry.color+'; metalness: 0.4;');
 				ship.setAttribute('data-ship_name', 'value: '+entry.name+'; font: #play;');
@@ -203,8 +210,11 @@ function battleship() {
 
 				var shipInstance = doc.appendChild(ship);
 				m_entity[entry.id] = shipInstance;
-			});
-
+			};
+			// spawn the ships!
+			shipData.forEach((entry) => {
+				spawnShip(entry);
+			})
 		},
 
 		sinkShip: (data) => {
@@ -225,7 +235,7 @@ function battleship() {
 				track.appendChild(point1);
 				track.appendChild(point2);
 
-				shipDom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 1 0; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: 3000;');
+				shipDom.setAttribute('alongpath', 'curve: #track; rotate: false; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: 1000;');
 
 				var done = (event) => {
 					shipDom.removeAttribute('alongpath');
@@ -257,20 +267,41 @@ function battleship() {
 			return new Promise((resolve, reject) => {
 				var doc = document.getElementById('scene');
 				var track = document.getElementById('track');
+				var ship = m_entity[data[0].id];
 
 				var bullet = document.createElement('a-sphere');
 				var source = document.createElement('a-curve-point');
 				var arc = document.createElement('a-curve-point');
 				var target = document.createElement('a-curve-point');
-				bullet.setAttribute('color', 'gray');
-				bullet.setAttribute('radius', '0.1');
-				bullet.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
-				source.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
-				target.setAttribute('position', data[0].atX + " " + data[0].atY + " " + data[0].atZ);
-				arc.setAttribute('position', (data[0].atX+data[0].x)/2 + " " + (((data[0].atY+data[0].y)/2)+m_Constants.BulletArc) + " " + (data[0].atZ+data[0].z)/2);
-				track.appendChild(source);
-				track.appendChild(arc);
-				track.appendChild(target);
+
+				// var saves = null;
+				// if (ship.className === "submarine") {
+				// 	for (var i = 0; i < ship.childNodes.length; i++) {
+				// 		if (ship.childNodes[i].className === "submarineMissile") {
+				// 			bullet = ship.childNodes[i]
+				// 			saves = bullet.getAttribute('position');
+				// 			break;
+				// 		}
+				// 	}
+				// 	console.log('missile start', saves);
+				// 	source.setAttribute('position', (data[0].x+saves.x) + " " + (data[0].y+saves.y) + " " + (data[0].z+saves.z));
+				// 	arc.setAttribute('position', (data[0].x+saves.x) + " " + (data[0].y+saves.y+5) + " " + (data[0].z+saves.z));
+				// 	target.setAttribute('position', data[0].atX + " " + data[0].atY + " " + data[0].atZ);
+				// 	track.appendChild(source);
+				// 	track.appendChild(arc);
+				// 	track.appendChild(target);
+				// }
+				// else {
+					bullet.setAttribute('color', 'gray');
+					bullet.setAttribute('radius', '0.2');
+					bullet.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
+					source.setAttribute('position', data[0].x + " " + data[0].y + " " + data[0].z);
+					arc.setAttribute('position', (data[0].atX+data[0].x)/2 + " " + (((data[0].atY+data[0].y)/2)+m_Constants.BulletArc) + " " + (data[0].atZ+data[0].z)/2);
+					target.setAttribute('position', data[0].atX + " " + data[0].atY + " " + data[0].atZ);
+					track.appendChild(source);
+					track.appendChild(arc);
+					track.appendChild(target);
+				// }
 
 				var debug = document.createElement('a-draw-curve');
 				debug.setAttribute('curveref', '#track');
@@ -278,7 +309,9 @@ function battleship() {
 				doc.appendChild(debug);
 
 				var tmp = doc.appendChild(bullet);
-				tmp.setAttribute('alongpath', 'curve: #track; rotate: true; constant: 0 0 1; delay: 200; dur: 500');
+				var distance = Math.sqrt((data[0].atX-data[0].x)*(data[0].atX-data[0].x) + (data[0].atZ-data[0].z)*(data[0].atZ-data[0].z))+m_Constants.BulletArc*m_Constants.BulletArc;
+				//console.log("distance: ", distance);
+				tmp.setAttribute('alongpath', 'curve: #track; rotate: true; constant: 0 -1 0; delay: 100; dur: ' + 25*distance);
 
 				var done = (event) => {
 					tmp.removeAttribute('alongpath');
@@ -293,6 +326,14 @@ function battleship() {
 					if (tmp.parentNode) {
 						doc.removeChild(tmp);
 					}
+					// if (ship.className === "submarine") {
+					// 	var reload = document.createElement('a-entity');
+					// 	reload.setAttribute('class', 'submarineMissile');
+					// 	reload.setAttribute('obj-model', 'obj: #submarineMissile');
+					// 	reload.setAttribute('position', saves);
+					// 	ship.appendChild(reload);
+					// }
+
 					resolve(event);
 				}
 
@@ -302,13 +343,53 @@ function battleship() {
 		},
 
 		aimShip: (data) => {
+			var rotateVector = (vec2, deg) => {
+				var rad = -deg * Math.PI / 180;
+				var cos = Math.cos(rad);
+				var sin = Math.sin(rad);
+				//console.log("vector: ", vec2);
+				//console.log("degree: ", deg);
+				// round the numbers
+				return {
+					"x": Math.round(100000*((vec2.x-vec2.atX) * cos - (vec2.z-vec2.atZ) * sin))/100000, 
+					"y": (vec2.y-vec2.atY),
+					"z": Math.round(100000*((vec2.x-vec2.atX) * sin + (vec2.z-vec2.atZ) * cos))/100000
+				};
+			};
+
 			return new Promise((resolve, reject) => {
-				setTimeout(function() {
-					var ship = m_entity[data[0].id];
-					console.log("aim: ", ship);
-         			resolve();
-      			}, 3000);
-				
+				//console.log('aim info: ', data);
+				var doc = document.getElementById('scene');
+				var track = document.getElementById('track');
+				var ship = m_entity[data[0].id];
+
+				var shipRot = ship.getAttribute('rotation');
+				//console.log("rot info: ", shipRot);
+
+				// var action = null;
+				// if (ship.className == "boat") {
+				// 	for(var i = 0; i < ship.childNodes.length; i++) {
+				// 		if (ship.childNodes[i].className === "aimShip") {
+				// 			action = ship.childNodes[i];
+				// 			break;
+				// 		}
+				// 	}
+				// 	if (action) {
+				// 		var shipY = ship.getAttribute('rotation').y;
+				// 		var current = action.getAttribute("rotation").y;
+				// 		var radian = Math.atan((data[0].atZ-data[0].z)/(data[0].atX-data[0].x));
+				// 		var degree = -radian * 180 / Math.PI;
+				// 		console.log("ship r: ", degree, current);
+				// 		console.log("ship current rotation", shipY);
+				// 		var rotated = rotateVector(data[0], shipY);
+				// 		console.log("aim r: ", rotated);
+				// 		//action.setAttribute('look-at', rotated);
+				// 		action.setAttribute('rotation', '0 ' + (degree-shipY) + ' 0');
+				// 		//action.removeAttribute('look-at');
+				// 	}
+				// }
+
+				resolve();				
 			});
 
 		},
@@ -336,7 +417,6 @@ function battleship() {
 		// Data passed in must be for movement of one ship
 		moveShip: (data) => {
 			return new Promise((resolve, reject) => {
-
 				var shipDom = m_entity[data[0].id]; // html element
 				// if statement is not working
 				// if (data.length === 1 && data[0].x === shipDom.dataset.x && data[0].z === shipDom.dataset.z) {
@@ -359,10 +439,13 @@ function battleship() {
 				point.setAttribute('position', String(shipDom.dataset.x + " " + shipDom.dataset.y + " " + shipDom.dataset.z));
 				track.appendChild(point);
 				// add chain-able goal locations to the curve
+				
+				//previous is used to check for movement against walls, e.g. previous location same as current and next
+				//previous can also be used to get the last action which determines the final rotation where the ship should point
 				var previous = {'x': shipDom.dataset.x, 'z': shipDom.dataset.z};
 				var xDistance = 0;
 				var zDistance = 0;
-				console.log("Moving: ", data);
+				//console.log("Moving: ", data);
 				for (var i = 0; i < data.length; i++) {
 					point = document.createElement('a-curve-point');
 					point.setAttribute('position', data[i].x + " " + data[i].y + " " + data[i].z);
@@ -372,10 +455,11 @@ function battleship() {
 						i++;
 					}
 					track.appendChild(point);
-					previous = {'x': data[i].x, 'z': data[i].z};
+					previous = {'x': data[i].x, 'z': data[i].z, 'direction': data[i].direction};
 				}
-				var dur = (xDistance+zDistance)*m_Constants.WaitTimePerTileMoved;
-				shipDom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 0 1; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: '+dur+';');
+
+				var dur = (xDistance+zDistance)*m_Constants.WaitTimePerTileMoved; // determines the length in time of the movement 
+				shipDom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 0 -1; delay: '+m_Constants.WaitTimeBetweenAction+'; dur: '+dur+';');
 
 				var done = (event) => {
 					// var list = document.getElementByTagName('a-draw-curve');
@@ -400,20 +484,19 @@ function battleship() {
 				};
 
 				shipDom.addEventListener('movingended', done);
-
 				
 			});
 		},
 
 		simulate: () => {
-			console.log("chain: ", m_chain);
+			//console.log("chain: ", m_chain);
 			var notStop = true;
 			if (m_chain.length == 0) {
 				notStop = false;
 			}
 			var current = m_chain.shift(); // don't shift when length is zero
 			if (current && notStop) {
-				console.log("current: ", current);
+				//console.log("current: ", current);
 				switch(current.type) {
 					case "MOVE":
 						app.moveShip(current.actions).then((done) => {
@@ -424,11 +507,25 @@ function battleship() {
 						});
 						break;
 					case "FIRE":
+						/*** Exclusive Or functions ***/
+
+						/* Fire without aiming */
 						app.fireShip(current.actions).then((done) => {
 							app.simulate();
 						}).catch((err) => {
-							console.error("error: ", err);
+							console.error("error: ", err);	
 						});
+
+						// /* Aim then fire (currently buggy)*/
+						// app.aimShip(current.actions).then((done) => {
+						// 	app.fireShip(current.actions).then((done) => {
+						// 		app.simulate();
+						// 	}).catch((err) => {
+						// 		console.error("error: ", err);	
+						// 	});
+						// }).catch((err) => {
+						// 	console.error("error: ", err);
+						// });
 						break;
 					case "HIT":
 						app.hitShip(current.actions).then((done) => {
