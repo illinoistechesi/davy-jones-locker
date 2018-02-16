@@ -12,6 +12,7 @@ This project uses Gulp for easy, minimal building. To develop on this project, c
 
 ```
 $ npm install
+$ npm install gulp -g // Also install gulp globally
 $ gulp watch
 ```
 

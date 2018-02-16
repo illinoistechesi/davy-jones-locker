@@ -62,9 +62,25 @@ function battleship() {
 
 			app.render(m_ships);
 
-			setTimeout(() => {
+			/*setTimeout(() => {
 				app.simulate();
-			}, 10000);
+			}, 10000);*/
+			vex.dialog.confirm({
+				message: 'Ready to view the battle?',
+				buttons: [
+					$.extend({}, vex.dialog.buttons.YES, {
+						className: 'vex-dialog-button-primary',
+						text: 'Play'
+					})
+				],
+				callback: (doIt) => {
+					if (doIt) {
+						setTimeout(() => {
+							app.simulate();
+						}, 1000);
+					}
+				}
+			});
 			// call function to wait a bit before starting simulation
 			//app.simulate();
 		},
@@ -550,7 +566,7 @@ function battleship() {
 				setTimeout(() => {
 					//alert("Simulation Done");
 					vex.dialog.alert("Simulation Completed.");
-				}, 10000);
+				}, 1000);
 			}
 
 		},
