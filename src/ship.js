@@ -163,9 +163,7 @@ function Ship() {
 		},
 
 		moveShip: (model, data, OPTION) => {
-			console.log("moveShip() ", model, data);
 			return new Promise((resolve, reject) => {
-				console.log(data, model);
 				let doc = document.getElementById('scene');
 				let track = document.getElementById('track');
 				let ship = model[data[0].id];
@@ -181,19 +179,17 @@ function Ship() {
 				point.setAttribute('position', ship.x + ' ' + ship.y + ' ' + ship.z);
 				track.appendChild(point);
 				// add chain-able goal locations to the curve
-				let previous = {'x': ship.x, 'z': ship.z};
+				let previous = {x: ship.x, z: ship.z};
 				let xDistance = 0;
 				let zDistance = 0;
-				// console.log("current: ", model[data[0].id])
-				// console.log("length: ", data);
-				console.log('past the debug');
+
 				for (let i = 0; i < data.length; i++) {
 					point = document.createElement('a-curve-point');
 					point.setAttribute('position', data[i].x + ' ' + data[i].y + ' ' + data[i].z);
 					xDistance += Math.abs(data[i].x - previous.x);
 					zDistance += Math.abs(data[i].z - previous.z);
 					track.appendChild(point);
-					previous = {'x': data[i].x, 'y': data[i].z};
+					previous = {x: data[i].x, z: data[i].z};
 					if (i + 1 < data.length && data[i].x === data[i+1].x && data[i].z === data[i+1].z) {
 						i++;
 					}
@@ -202,22 +198,21 @@ function Ship() {
 				// define time for movement so that speed of difference distance is consistent
 				let duration = (xDistance+zDistance)*OPTION.WaitTimePerTileMoved;
 				ship.dom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 0 1; delay: '+OPTION.WaitTimeBetweenAction+'; dur: '+duration+';');
-				console.log('past the set attribute');
 
-				ship.dom.addEventListener('movingended', () => {
+				ship.dom.addEventListener('movingended', function() {
 					if (debug.parentNode) {
 						doc.removeChild(debug);
 					}
-
+					
 					while(track.hasChildNodes()) {
 						track.removeChild(track.childNodes[0]);
 					}
-					console.log(data);
+
 					ship.dom.removeAttribute('alongpath');
 					ship.x = data[data.length-1].x;
 					ship.y = data[data.length-1].y;
 					ship.z = data[data.length-1].z;
-					console.log('past the updater');
+
 					resolve();
 				});
 			});

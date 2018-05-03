@@ -13,6 +13,7 @@ let database = firebase.database();
 let battleship = Ship();
 
 let test;
+let counter = 0;
 
 function getParameterByName(name, url) {
 	if (!url) url = window.location.href;
@@ -219,7 +220,7 @@ function Simulation() {
 		data.ships.forEach((entry) => {
 			htmlElement[entry.id] = battleship.render(entry);
 		});
-		
+
 		return htmlElement;
 	}
 
@@ -268,6 +269,7 @@ function Simulation() {
 		let model = data.html;
 		if (current && !isDone) {
 			console.log("current: ", current);
+			console.log(`Turn Number ${counter++}, data: `, data);
 			switch(current.next.type) {
 				case "MOVE":
 					battleship.moveShip(model, current.next.actions, OPTION).then((done) => {
@@ -275,7 +277,7 @@ function Simulation() {
 						data.snapshots.past.push(data.snapshots.present);
 						data.snapshots.present = current;
 						// app.interrupt().then((done) => {
-							simulate(data, OPTION);
+						simulate(data, OPTION);
 							//app.interrupt(data, OPTION);
 						// });
 					}).catch((err) => {
