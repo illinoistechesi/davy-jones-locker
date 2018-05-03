@@ -114,9 +114,42 @@ function Simulation() {
 		return structure;
 	}
 
+	// Map a sequence of actions that are considered atomic into a chain-able list of actions for smooth animation and movements 
+	function actionChain(data) {
+		let result = [];
+		data.map((entry) => {
+			if (result && result.length > 0) { 
+				// result[i] will always have at least one item in its action attribute list
+				let last = result[result.length-1].actions;
+				// action can be chained if they are of the same type from the same ship id
+				// console.log("Comparing: ", result[result.length-1], last, entry);
+				if (last[0].id === entry.id && last[0].type === entry.type && 
+					((last[0].type === "MOVE") || 
+					 (last[0].type === "FIRE" && last[0].atX === entry.atX && last[0].atY === entry.atY) )) {
+					// Movement can be chained and firing at the same location can be chained
+					last.push(entry);
+				} 
+				else {
+					result.push({
+						type: entry.type,
+						actions: [entry]
+					});
+				}
+			} 
+			else { // if result is empty, initial case
+				result.push({
+					type: entry.type,
+					actions: [entry]
+				});
+			}
+		});
+		console.log(result);
+		return result;
+	}
+
 	function preprocess(data, OPTION) {
 		let result = {};
-		console.log("preprocess() ", data);
+		console.log("preprocess() ", data, OPTION);
 
 		// defines the ocean/map configuration
 		result.map = {
@@ -129,7 +162,7 @@ function Simulation() {
 		}
 
 		// scale up ship's initial locations
-		result.ships = transform(data.ships, OPTION.GridScale);
+		result.ships = transform(data.ships, OPTION.GridScale, OPTION);
 
 		// add sunk property into the initial state of the ships
 		result.ships.forEach((ship) => {
@@ -150,9 +183,9 @@ function Simulation() {
 
 		console.log('init states: ', result.ships);
 
-		let currentState = {states: result.ships, next: resutl.turns[0]};
+		let currentState = {states: result.ships, next: result.turns[0]};
 		result.turns.forEach((turn) => {
-			result.snapshots.future.append(currentState);
+			result.snapshots.future.unshift(currentState);
 			currentState = reducer(currentState, turn, OPTION);
 		});
 		// result.snapshots.future.reverse();
