@@ -163,6 +163,7 @@ function Ship() {
 		},
 
 		moveShip: (model, data, OPTION) => {
+			console.log("moveShip() ", model, data);
 			return new Promise((resolve, reject) => {
 				console.log(data, model);
 				let doc = document.getElementById('scene');

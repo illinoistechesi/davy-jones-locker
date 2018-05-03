@@ -29,7 +29,7 @@ function Simulation() {
 	// private
 	let Constants = {
 		GridScale: 4,
-		CameraYOffset: 25,
+		CameraYOffset: 15,
 		OceanYOffset: 0,
 		OceanPadding: 10,
 		ShipYOffset: 0,
@@ -219,6 +219,8 @@ function Simulation() {
 		data.ships.forEach((entry) => {
 			htmlElement[entry.id] = battleship.render(entry);
 		});
+		
+		return htmlElement;
 	}
 
 	function initScene(inputs) {
@@ -228,11 +230,11 @@ function Simulation() {
 		track.setAttribute('type', 'Line');
 		doc.appendChild(track);
 
-		console.log("initScene() ", inputs);
+		console.log("initScene() preprocess() ", inputs);
 		let data = preprocess(inputs, Constants);
 
 		let htmlElements = render(data, Constants);
-		console.log(data);
+		console.log("initScene() render() ", htmlElements);
 
 		let slide = document.getElementById('slider');
 		slide.setAttribute('min', 0);
@@ -248,72 +250,81 @@ function Simulation() {
 		// begin simulation
 		setTimeout(() => {
 			simulate(model, Constants);
-		}, 10000)
+		}, 1000)
 	}
 
-	function simulate() {
-		//console.log("chain: ", m_chain);
-		var notStop = true;
-		if (m_chain.length == 0) {
-			notStop = false;
+	function simulate(data, OPTION) {
+		console.log("simulate: ", data);
+		let slider = document.getElementById("slider");
+		slider.value = data.snapshots.past.length;
+		// app.interrupt().then((done) => {
+		// 	console.log(done);
+		// });
+		let isDone = false;
+		if (data.snapshots.future.length == 0) {
+			isDone = true
 		}
-		var current = m_chain.shift(); // don't shift when length is zero
-		if (current && notStop) {
-			//console.log("current: ", current);
-			switch(current.type) {
+		let current = data.snapshots.future.pop();
+		let model = data.html;
+		if (current && !isDone) {
+			console.log("current: ", current);
+			switch(current.next.type) {
 				case "MOVE":
-					battleship.moveShip(current.actions).then((done) => {
-						//alert("Moved " + m_chain.length + " actions left");
-						simulate();
+					battleship.moveShip(model, current.next.actions, OPTION).then((done) => {
+						//alert("Moved " + data.turns.length + " actions left");
+						data.snapshots.past.push(data.snapshots.present);
+						data.snapshots.present = current;
+						// app.interrupt().then((done) => {
+							simulate(data, OPTION);
+							//app.interrupt(data, OPTION);
+						// });
 					}).catch((err) => {
 						console.error(err);
 					});
 					break;
 				case "FIRE":
-					/*** Exclusive Or functions ***/
-
-					/* Fire without aiming */
-					battleship.fireShip(current.actions).then((done) => {
-						simulate();
-					}).catch((err) => {
-						console.error("error: ", err);	
-					});
-
-					// /* Aim then fire (currently buggy)*/
-					// battleship.aimShip(current.actions).then((done) => {
-					// 	battleship.fireShip(current.actions).then((done) => {
-					// 		simulate();
-					// 	}).catch((err) => {
-					// 		console.error("error: ", err);	
-					// 	});
-					// }).catch((err) => {
-					// 	console.error("error: ", err);
-					// });
-					break;
-				case "HIT":
-					battleship.hitShip(current.actions).then((done) => {
-						simulate();
-					}).catch((err) => {
-						console.log(err);
-					});
-					break;
-				case "SINK":
-					battleship.sinkShip(current.actions).then((done) => {
-						//alert("Sunk "+ m_chain.length + " actions left");
-						simulate();
+					battleship.fireShip(current.next.actions, OPTION).then((done) => {
+						//alert("Fired " + data.turns.length + " actions left");
+						data.snapshots.past.push(data.snapshots.present);
+						data.snapshots.present = current;
+						// app.interrupt().then((done) => {
+							simulate(data, OPTION);
+							//app.interrupt(data, OPTION);
+						// });
 					}).catch((err) => {
 						console.error(err);
 					});
 					break;
+				case "SINK":
+					battleship.sinkShip({html: data.html, present: current}, OPTION).then((done) => {
+						//alert("Sunk "+ data.turns.length + " actions left");
+						data.snapshots.past.push(data.snapshots.present);
+						data.snapshots.present = current;
+						// app.interrupt().then((done) => {
+							simulate(data, OPTION);
+							//app.interrupt(data, OPTION);
+						// });
+					}).catch((err) => {
+						console.error(err);
+					});
+					break;
+				case "HIT":
+
+					break;
+				case "END":
+					setTimeout(() => {
+						alert("Simulation Done");
+					}, 10000);
+					break;
 				default:
-					console.warn(`Unknown Action type ${current.type} in simulate function, skipping.`);
-					simulate();
+					console.log(`Unknown Action Type ${current.type} in simulate function, skipping.`);
+					// comment below during development to catch bugs, production code should continue along with simulation
+					//simulate(data, OPTION);
 			}
 		} else {
 			setTimeout(() => {
-				//alert("Simulation Done");
-				vex.dialog.alert("Simulation Completed.");
-			}, 1000);
+				alert("Simulation Done");
+			}, 10000);
 		}
 	}
 
