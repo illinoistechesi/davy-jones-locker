@@ -9,7 +9,7 @@ var config = {
 };
 var FirebaseInstance = firebase.initializeApp(config, "Davy Jones' Locker");
 
-var db = FirebaseInstance.database();
+var database = FirebaseInstance.database();
 
 let dataInput = document.getElementById('input-data');
 
@@ -33,7 +33,7 @@ dataInput.addEventListener('keypress', (e) => {
 			callback: (code) => {
 				if (code && dataStr) {
 					let data = JSON.parse(dataStr);
-					let dataRef = db.ref('davy-jones-locker/' + code);
+					let dataRef = database.ref('davy-jones-locker/' + code);
 					dataRef.once('value', (snapshot) => {
 						if (!snapshot.exists()) {
 							dataRef.set(data).then((done) => {
