@@ -1,7 +1,7 @@
 
 function Ship() {
 	let action = {
-		render: (data, OPTION) => {
+		render: (data) => {
 			let attr = {
 				"dom": null, // ships html dom component
 				"health": null, // ship's health bar, display as dots
@@ -49,6 +49,20 @@ function Ship() {
 			attr.dom = doc.appendChild(ship);
 
 			return attr;
+		},
+
+		update: (domElement, data) => {
+			data.states.forEach((state) => {
+				let ship = domElement[state.id];
+				let heart = '';
+				for (let i = 0; i < state.health; i++) {
+					heart += ' •';
+				}
+
+				ship.dom.setAttribute('position', `${state.x} ${state.y} ${state.z}`);
+				ship.dom.setAttribute('visible', state.sunk);
+				ship.dom.setAttribute('health', `value: ${heart}`);
+			});
 		},
 
 		sinkShip: (domElement, current, OPTION) => {

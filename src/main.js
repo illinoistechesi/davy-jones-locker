@@ -17,7 +17,7 @@ let test;
 function Simulation() {
 	
 	// private
-	let Constants = {
+	let OPTION = {
 		GridScale: 4,
 		CameraYOffset: 15,
 		OceanYOffset: 0,
@@ -27,6 +27,12 @@ function Simulation() {
 		BulletArc: 2,
 		WaitTimePerTileMoved: 300,
 		WaitTimeBetweenAction: 50 // in miliseconds
+	};
+
+	let EVENTS = {
+		SliderMouseDown: false,
+		SliderMouseUp: false,
+		SliderValue: 0
 	};
 
 	function getParameterByName(name, url) {
@@ -39,7 +45,7 @@ function Simulation() {
 		return decodeURIComponent(results[2].replace(/\+/g, " "));
 	}
 
-	function transform(data, scale, OPTION) {
+	function transform(data, scale) {
 		console.log("transform() ", data);
 		let result = data.map((entry) => {
 			if (entry.hasOwnProperty("atX") && entry.hasOwnProperty("atY")) {
@@ -55,7 +61,7 @@ function Simulation() {
 		return result;
 	};
 
-	function mapProperty(shipProp, action, OPTION) {
+	function mapProperty(shipProp, action) {
 		console.log(shipProp);
 		let structure = {
 			states: shipProp.states,
@@ -71,8 +77,11 @@ function Simulation() {
 						ship.z = last.z;
 						ship.x = last.x;
 						return ship;
-					case 'Sunk':
+					case 'SINK':
 						ship.sunk = true;
+						return ship;
+					case 'Hit':
+						ship.health--;
 						return ship;
 					default:
 						return ship;
@@ -118,9 +127,9 @@ function Simulation() {
 		return result;
 	}
 
-	function preprocess(data, OPTION) {
+	function preprocess(data) {
 		let result = {};
-		console.log("preprocess() ", data, OPTION);
+		console.log("preprocess() ", data);
 
 		// defines the ocean/map configuration
 		result.map = {
@@ -133,15 +142,16 @@ function Simulation() {
 		}
 
 		// scale up ship's initial locations
-		result.ships = transform(data.ships, OPTION.GridScale, OPTION);
+		result.ships = transform(data.ships, OPTION.GridScale);
 
 		// add sunk property into the initial state of the ships
 		result.ships.forEach((ship) => {
 			ship.sunk = false;
+			ship.health = ship.hull;
 		});
 
 		// scale up coordinates in the action list, then call the actionChain to group sequences of action into a unit
-		result.turns = actionChain( transform(data.turns, OPTION.GridScale, OPTION) );
+		result.turns = actionChain( transform(data.turns, OPTION.GridScale) );
 		result.turns.push({type: 'END', actions: undefined}); 
 		result.turns.unshift({type: 'START', actions: undefined});
 
@@ -157,7 +167,7 @@ function Simulation() {
 		// calculate ships' state for all the turns, used to animate later
 		result.turns.forEach((turn) => {
 			result.future.unshift(currentState);
-			currentState = mapProperty(currentState, turn, OPTION);
+			currentState = mapProperty(currentState, turn);
 		});
 		// result.future.reverse();
 		result.present = result.future.pop(0);
@@ -166,7 +176,7 @@ function Simulation() {
 		return result;
 	}
 
-	function render(data, OPTION) {
+	function render(data) {
 		let htmlElement = {};
 		let doc = document.getElementById('scene'); // <a-scene> reference
 
@@ -201,30 +211,61 @@ function Simulation() {
 		track.setAttribute('type', 'Line');
 		doc.appendChild(track);
 
-		console.log("initScene() preprocess() ", inputs);
-		let data = preprocess(inputs, Constants);
-
-		let htmlElements = render(data, Constants);
-		console.log("initScene() render() ", htmlElements);
+		let data = preprocess(inputs);
+		let htmlElements = render(data);
+		data['html'] = htmlElements
 
 		let slide = document.getElementById('slider');
 		slide.setAttribute('min', 0);
 		slide.setAttribute('max', data.future.length);
 		slide.value = 0;
-
-		data['html'] = htmlElements
+		slide.addEventListener('mousedown', () => {
+			EVENTS.SliderMouseDown = true;
+		});
+		slide.addEventListener('mouseup', () => {
+			EVENTS.SliderMouseDown = false;
+			EVENTS.SliderMouseUp = true;
+			EVENTS.SliderValue = slider.value;
+		});
 
 		test = data;
 
 		// begin simulation
 		setTimeout(() => {
-			simulate(data, Constants);
+			simulate(data);
 		}, 1000)
 	}
 
-	function simulate(data, OPTION) {
+	function resetState(data, value) {
+		console.log(`Reverting back to state ${value}`);
+
+		let timeline = data.past.concat([data.present].concat(data.future));
+		let past = [];
+		for (let i = 0; i < value; i++) {
+			past.push(timeline.pop(0));
+		}
+		data.present = timeline.pop(0);
+		data.past = past;
+		data.future = timeline;
+
+		battleship.update(data.html, data.present);
+
+		return data;
+	}
+
+	function simulate(data) {
+		if (EVENTS.SliderMouseUp) {
+			EVENTS.SliderMouseUp = false;
+			resetState(data, EVENTS.SliderValue);
+			// simulate(resetState(data, EVENTS.SliderValue));
+			return;
+		}
+
 		let slider = document.getElementById("slider");
-		slider.value = data.past.length;
+		// TODO: Use the OPTION's time between per action to animate slider increment
+		if (!EVENTS.SliderMouseDown)
+			slider.value = data.past.length;
+
 		// console.log(`Start simulate() with ${current.task.type}`);
 		let isDone = false;
 		if (data.future.length == 0)
@@ -239,9 +280,7 @@ function Simulation() {
 				case "MOVE":
 					battleship.moveShip(data.html, current, OPTION).then((done) => {
 						//alert("Moved " + data.turns.length + " actions left");
-						// app.interrupt().then((done) => {
-						simulate(data, OPTION);
-							//app.interrupt(data, OPTION);
+						simulate(data);
 						// });
 					}).catch((err) => {
 						console.error('Error at movement simulation: ', err);
@@ -251,9 +290,7 @@ function Simulation() {
 					battleship.fireShip(current, OPTION).then((done) => {
 						//alert("Fired " + data.turns.length + " actions left");
 						// console.log("Fire case 0: ", data.present.task.type);
-						// app.interrupt().then((done) => {
-						simulate(data, OPTION);
-							//app.interrupt(data, OPTION);
+						simulate(data);
 						// });
 					}).catch((err) => {
 						console.error('Error at firing simulation: ', err);
@@ -262,9 +299,7 @@ function Simulation() {
 				case "SINK":
 					battleship.sinkShip(data.html, current, OPTION).then((done) => {
 						//alert("Sunk "+ data.turns.length + " actions left");
-						// app.interrupt().then((done) => {
-						simulate(data, OPTION);
-							//app.interrupt(data, OPTION);
+						simulate(data);
 						// });
 					}).catch((err) => {
 						console.error('Error at sinking simulation: ', err);
@@ -272,7 +307,7 @@ function Simulation() {
 					break;
 				case "HIT":
 					battleship.hitShip(data.html, current).then((done) => {
-						simulate(data, OPTION);
+						simulate(data);
 					}).catch((err) => {
 						console.log('Error at ship damage simulation: ', err);
 					});
@@ -283,11 +318,13 @@ function Simulation() {
 					}, 10000);
 					break;
 				case "START":
-					simulate(data, OPTION);
+					console.log('Reading start of simulation marker.');
+					simulate(data);
+					break;
 				default:
 					console.log(`Unknown Action Type ${current.type} in simulate function, skipping.`);
 					// comment below during development to catch bugs, production code should continue along with simulation
-					//simulate(data, OPTION);
+					//simulate(data);;
 			}
 		} else {
 			setTimeout(() => {
