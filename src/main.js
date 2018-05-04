@@ -14,16 +14,6 @@ let battleship = Ship();
 
 let test;
 
-function getParameterByName(name, url) {
-	if (!url) url = window.location.href;
-	name = name.replace(/[\[\]]/g, "\\$&");
-	let regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
-	let results = regex.exec(url);
-	if (!results) return null;
-	if (!results[2]) return '';
-	return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
-
 function Simulation() {
 	
 	// private
@@ -39,15 +29,15 @@ function Simulation() {
 		WaitTimeBetweenAction: 50 // in miliseconds
 	};
 
-	let m_input = {};
-	
-	let m_ships = []; // stores formatted json of ship initialization
-	let m_chain = []; // stores chainable actions in a turn
-	let m_entity = {}; // object with id to html dom element of ships
-
-	let m_test = 0;
-
-	let m_ocean; 
+	function getParameterByName(name, url) {
+		if (!url) url = window.location.href;
+		name = name.replace(/[\[\]]/g, "\\$&");
+		let regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+		let results = regex.exec(url);
+		if (!results) return null;
+		if (!results[2]) return '';
+		return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
 
 	function transform(data, scale, OPTION) {
 		console.log("transform() ", data);
