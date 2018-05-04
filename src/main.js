@@ -13,7 +13,6 @@ let database = firebase.database();
 let battleship = Ship();
 
 let test;
-let counter = 0;
 
 function getParameterByName(name, url) {
 	if (!url) url = window.location.href;
@@ -66,37 +65,18 @@ function Simulation() {
 		return result;
 	};
 
-	function reducer(tree, action, OPTION) {
+	function mapProperty(tree, action, OPTION) {
 		console.log(tree);
 		let structure = {
 			states: tree.states,
-			next: action
+			task: action
 		};
 
 		structure.states = tree.states.map((ship) => {
 			if (action.id === ship.id) {
 				switch(action.type) {
 					case 'MOVE':
-						// iterate over all the chained actions and apply it the the state
-						// function would need to check validity in movement, which not checked in the data
-						// action.actions.forEach((a) => {
-						// 	if (a.direction === "North") {
-						// 		if (ship.z > 0)
-						// 			ship.z -= OPTION.GridScale;
-						// 	}
-						// 	else if (a.direction === "South") {
-						// 		ship.z += OPTION.GridScale;
-						// 	}
-						// 	else if (a.direction === "West") {
-						// 		if (ship.x > 0)
-						// 			ship.x -= OPTION.GridScale;
-						// 	}
-						// 	else if (a.direction === "East") {
-						// 		ship.x += OPTION.GridScale;
-						// 	}
-						// });
-
-						// shortcut, update state from the result of the last action list
+						// update state from the result of the last action list
 						let last = action.actions[action.actions.length-1];
 						ship.z = last.z;
 						ship.x = last.x;
@@ -176,21 +156,20 @@ function Simulation() {
 
 		console.log(result);
 
-		result.snapshots = {
-			past: [],
-			present: {},
-			future: []
-		};
+		result['past'] = [];
+		result['future'] = [];
+		result['present'] = {};
 
 		console.log('init states: ', result.ships);
 
-		let currentState = {states: result.ships, next: result.turns[0]};
+		let currentState = {states: result.ships, task: result.turns[0]};
+		// calculate ships' state for all the turns, used to animate later
 		result.turns.forEach((turn) => {
-			result.snapshots.future.unshift(currentState);
-			currentState = reducer(currentState, turn, OPTION);
+			result.future.unshift(currentState);
+			currentState = mapProperty(currentState, turn, OPTION);
 		});
-		// result.snapshots.future.reverse();
-		result.snapshots.present = result.snapshots.future.pop(0);
+		// result.future.reverse();
+		result.present = result.future.pop(0);
 
 		console.log(result);
 		return result;
@@ -239,79 +218,76 @@ function Simulation() {
 
 		let slide = document.getElementById('slider');
 		slide.setAttribute('min', 0);
-		slide.setAttribute('max', data.snapshots.future.length);
+		slide.setAttribute('max', data.future.length);
 		slide.value = 0;
 
-		let model = {
-			html: htmlElements,
-			snapshots:data.snapshots
-		};
-		test = model;
+		data['html'] = htmlElements
+
+		test = data;
 
 		// begin simulation
 		setTimeout(() => {
-			simulate(model, Constants);
+			simulate(data, Constants);
 		}, 1000)
 	}
 
 	function simulate(data, OPTION) {
 		console.log("simulate: ", data);
 		let slider = document.getElementById("slider");
-		slider.value = data.snapshots.past.length;
+		slider.value = data.past.length;
 		// app.interrupt().then((done) => {
 		// 	console.log(done);
 		// });
 		let isDone = false;
-		if (data.snapshots.future.length == 0) {
+		if (data.future.length == 0) {
 			isDone = true
 		}
-		let current = data.snapshots.future.pop();
-		let model = data.html;
+		let current = data.future.pop();
+		let domElement = data.html;
 		if (current && !isDone) {
 			console.log("current: ", current);
-			console.log(`Turn Number ${counter++}, data: `, data);
-			switch(current.next.type) {
+			switch(current.task.type) {
 				case "MOVE":
-					battleship.moveShip(model, current.next.actions, OPTION).then((done) => {
+					battleship.moveShip(domElement, current.task.actions, OPTION).then((done) => {
 						//alert("Moved " + data.turns.length + " actions left");
-						data.snapshots.past.push(data.snapshots.present);
-						data.snapshots.present = current;
+						data.past.push(data.present);
+						data.present = current;
 						// app.interrupt().then((done) => {
 						simulate(data, OPTION);
 							//app.interrupt(data, OPTION);
 						// });
 					}).catch((err) => {
-						console.error(err);
+						console.error('Error at movement simulation: ', err);
 					});
 					break;
 				case "FIRE":
-					battleship.fireShip(current.next.actions, OPTION).then((done) => {
+					battleship.fireShip(current.task.actions, OPTION).then((done) => {
 						//alert("Fired " + data.turns.length + " actions left");
-						data.snapshots.past.push(data.snapshots.present);
-						data.snapshots.present = current;
+						data.past.push(data.present);
+						data.present = current;
 						// app.interrupt().then((done) => {
 							simulate(data, OPTION);
 							//app.interrupt(data, OPTION);
 						// });
 					}).catch((err) => {
-						console.error(err);
+						console.error('Error at firing simulation: ', err);
 					});
 					break;
 				case "SINK":
 					battleship.sinkShip({html: data.html, present: current}, OPTION).then((done) => {
 						//alert("Sunk "+ data.turns.length + " actions left");
-						data.snapshots.past.push(data.snapshots.present);
-						data.snapshots.present = current;
+						data.past.push(data.present);
+						data.present = current;
 						// app.interrupt().then((done) => {
 							simulate(data, OPTION);
 							//app.interrupt(data, OPTION);
 						// });
 					}).catch((err) => {
-						console.error(err);
+						console.error('Error at sinking simulation: ', err);
 					});
 					break;
 				case "HIT":
-
+					console.log("HIT Action to be implemented: ", data, OPTION);
 					break;
 				case "END":
 					setTimeout(() => {

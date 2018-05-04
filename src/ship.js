@@ -56,7 +56,7 @@ function Ship() {
 			return new Promise((resolve, reject) => {
 				let doc = document.getElementById('scene');
 				let track = document.getElementById('track');
-				let action = data.present.next.actions[0]; // sink action should only have a size of one
+				let action = data.present.task.actions[0]; // sink action should only have a size of one
 				let ship = data.html[action.id];
 				
 				let debug = document.createElement('a-draw-curve');
@@ -97,7 +97,7 @@ function Ship() {
 
 		hitShip: (data) => {
 			return new Promise((resolve, reject) => {
-				let action = data.present.next.actions[0];
+				let action = data.present.task.actions[0];
 				let ship = data.html[action.id];
 				let heart = '';
 
@@ -162,11 +162,11 @@ function Ship() {
 			});
 		},
 
-		moveShip: (model, data, OPTION) => {
+		moveShip: (domElement, data, OPTION) => {
 			return new Promise((resolve, reject) => {
 				let doc = document.getElementById('scene');
 				let track = document.getElementById('track');
-				let ship = model[data[0].id];
+				let ship = domElement[data[0].id];
 
 				// add a path to show movement along the path
 				let debug = document.createElement('a-draw-curve');
@@ -203,7 +203,7 @@ function Ship() {
 					if (debug.parentNode) {
 						doc.removeChild(debug);
 					}
-					
+
 					while(track.hasChildNodes()) {
 						track.removeChild(track.childNodes[0]);
 					}
