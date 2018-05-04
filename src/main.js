@@ -65,14 +65,14 @@ function Simulation() {
 		return result;
 	};
 
-	function mapProperty(tree, action, OPTION) {
-		console.log(tree);
+	function mapProperty(shipProp, action, OPTION) {
+		console.log(shipProp);
 		let structure = {
-			states: tree.states,
+			states: shipProp.states,
 			task: action
 		};
 
-		structure.states = tree.states.map((ship) => {
+		structure.states = shipProp.states.map((ship) => {
 			if (action.id === ship.id) {
 				switch(action.type) {
 					case 'MOVE':
@@ -152,7 +152,8 @@ function Simulation() {
 
 		// scale up coordinates in the action list, then call the actionChain to group sequences of action into a unit
 		result.turns = actionChain( transform(data.turns, OPTION.GridScale, OPTION) );
-		result.turns.push({type: 'END', actions: undefined}); // add end of simulation marker
+		result.turns.push({type: 'END', actions: undefined}); 
+		result.turns.unshift({type: 'START', actions: undefined});
 
 		console.log(result);
 
@@ -232,26 +233,22 @@ function Simulation() {
 	}
 
 	function simulate(data, OPTION) {
-		console.log("simulate: ", data);
 		let slider = document.getElementById("slider");
 		slider.value = data.past.length;
-		// app.interrupt().then((done) => {
-		// 	console.log(done);
-		// });
+		// console.log(`Start simulate() with ${current.task.type}`);
 		let isDone = false;
-		if (data.future.length == 0) {
-			isDone = true
-		}
+		if (data.future.length == 0)
+			isDone = true;
+
 		let current = data.future.pop();
-		let domElement = data.html;
+		data.past.push(data.present);
+		data.present = current;
+
 		if (current && !isDone) {
-			console.log("current: ", current);
 			switch(current.task.type) {
 				case "MOVE":
-					battleship.moveShip(domElement, current.task.actions, OPTION).then((done) => {
+					battleship.moveShip(data.html, current, OPTION).then((done) => {
 						//alert("Moved " + data.turns.length + " actions left");
-						data.past.push(data.present);
-						data.present = current;
 						// app.interrupt().then((done) => {
 						simulate(data, OPTION);
 							//app.interrupt(data, OPTION);
@@ -261,12 +258,11 @@ function Simulation() {
 					});
 					break;
 				case "FIRE":
-					battleship.fireShip(current.task.actions, OPTION).then((done) => {
+					battleship.fireShip(current, OPTION).then((done) => {
 						//alert("Fired " + data.turns.length + " actions left");
-						data.past.push(data.present);
-						data.present = current;
+						// console.log("Fire case 0: ", data.present.task.type);
 						// app.interrupt().then((done) => {
-							simulate(data, OPTION);
+						simulate(data, OPTION);
 							//app.interrupt(data, OPTION);
 						// });
 					}).catch((err) => {
@@ -274,12 +270,10 @@ function Simulation() {
 					});
 					break;
 				case "SINK":
-					battleship.sinkShip({html: data.html, present: current}, OPTION).then((done) => {
+					battleship.sinkShip(data.html, current, OPTION).then((done) => {
 						//alert("Sunk "+ data.turns.length + " actions left");
-						data.past.push(data.present);
-						data.present = current;
 						// app.interrupt().then((done) => {
-							simulate(data, OPTION);
+						simulate(data, OPTION);
 							//app.interrupt(data, OPTION);
 						// });
 					}).catch((err) => {
@@ -287,13 +281,19 @@ function Simulation() {
 					});
 					break;
 				case "HIT":
-					console.log("HIT Action to be implemented: ", data, OPTION);
+					battleship.hitShip(data.html, current).then((done) => {
+						simulate(data, OPTION);
+					}).catch((err) => {
+						console.log('Error at ship damage simulation: ', err);
+					});
 					break;
 				case "END":
 					setTimeout(() => {
 						alert("Simulation Done");
 					}, 10000);
 					break;
+				case "START":
+					simulate(data, OPTION);
 				default:
 					console.log(`Unknown Action Type ${current.type} in simulate function, skipping.`);
 					// comment below during development to catch bugs, production code should continue along with simulation
@@ -316,6 +316,7 @@ function Simulation() {
 			if (code) {
 				let ref = database.ref('davy-jones-locker').child(code);
 				ref.once('value', (res) => {
+					console.log("Firebase: ", res.val());
 					inputs = {
 						"ids": res.val().init.ships.map((s) => { return s.id }),
 						"ships": res.val().init.ships,

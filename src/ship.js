@@ -51,13 +51,13 @@ function Ship() {
 			return attr;
 		},
 
-		sinkShip: (data, OPTION) => {
-			console.log('sink: ', data);
+		sinkShip: (domElement, current, OPTION) => {
 			return new Promise((resolve, reject) => {
 				let doc = document.getElementById('scene');
 				let track = document.getElementById('track');
-				let action = data.present.task.actions[0]; // sink action should only have a size of one
-				let ship = data.html[action.id];
+				console.log("sinkShip(): ", domElement, current);
+				let action = current.task.actions[0]; // sink action should only have a size of one
+				let ship = domElement[action.id];
 				
 				let debug = document.createElement('a-draw-curve');
 				debug.setAttribute('curveref', '#track');
@@ -95,19 +95,19 @@ function Ship() {
 			});
 		},
 
-		hitShip: (data) => {
+		hitShip: (domElement, current) => {
 			return new Promise((resolve, reject) => {
-				let action = data.present.task.actions[0];
-				let ship = data.html[action.id];
+				let action = current.task.actions[0];
+				let ship = domElement[action.id];
 				let heart = '';
 
-				for (let i = 0; i < data[0].health; i++) {
+				for (let i = 0; i < action.health; i++) {
 					heart += ' •';
 				}
-
+				console.log(ship.dom.childNodes.length);
 				for (let i = 0; i < ship.dom.childNodes.length; i++) {
 					if (ship.dom.childNodes[i].className === 'ship-health') {
-						ship.dom.childNodes[i].setAttribute('text-geometry', 'value: ' + heart + ';');
+						ship.dom.childNodes[i].setAttribute('text-geometry', `value: ${heart};`);
 						break;
 					}
 				}
@@ -116,10 +116,11 @@ function Ship() {
 			});
 		},
 
-		fireShip: (data, OPTION) => {
+		fireShip: (current, OPTION) => {
 			return new Promise((resolve, reject) => {
 				let doc = document.getElementById('scene');
 				let track = document.getElementById('track');
+				let data = current.task.actions;
 
 				let bullet = document.createElement('a-sphere');
 				let source = document.createElement('a-curve-point');
@@ -162,10 +163,11 @@ function Ship() {
 			});
 		},
 
-		moveShip: (domElement, data, OPTION) => {
+		moveShip: (domElement, current, OPTION) => {
 			return new Promise((resolve, reject) => {
 				let doc = document.getElementById('scene');
 				let track = document.getElementById('track');
+				let data = current.task.actions;
 				let ship = domElement[data[0].id];
 
 				// add a path to show movement along the path
