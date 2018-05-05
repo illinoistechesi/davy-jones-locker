@@ -157,20 +157,17 @@ function Simulation() {
 
 		console.log(result);
 
-		result['past'] = [];
-		result['future'] = [];
-		result['present'] = {};
+		result['timeline'] = [];
+		result['present'] = 0;
 
 		console.log('init states: ', result.ships);
 
 		let currentState = {states: result.ships, task: result.turns[0]};
 		// calculate ships' state for all the turns, used to animate later
 		result.turns.forEach((turn) => {
-			result.future.unshift(currentState);
 			currentState = mapProperty(currentState, turn);
+			result.timeline.push(currentState);
 		});
-		// result.future.reverse();
-		result.present = result.future.pop(0);
 
 		console.log(result);
 		return result;
@@ -217,7 +214,7 @@ function Simulation() {
 
 		let slide = document.getElementById('slider');
 		slide.setAttribute('min', 0);
-		slide.setAttribute('max', data.future.length);
+		slide.setAttribute('max', data.timeline.length);
 		slide.value = 0;
 		slide.addEventListener('mousedown', () => {
 			EVENTS.SliderMouseDown = true;
@@ -236,52 +233,31 @@ function Simulation() {
 		}, 1000)
 	}
 
-	function resetState(data, value) {
-		console.log(`Reverting back to state ${value}`);
-
-		let timeline = data.past.concat([data.present].concat(data.future));
-		let past = [];
-		for (let i = 0; i < value; i++) {
-			past.push(timeline.pop(0));
-		}
-		data.present = timeline.pop(0);
-		data.past = past;
-		data.future = timeline;
-
-		battleship.update(data.html, data.present);
-
-		return data;
-	}
-
 	function simulate(data) {
+		let slider = document.getElementById("slider");
+		let current = data.timeline[data.present++];
+		let isDone = false;
+		if (data.present == data.timeline.length)
+			isDone = true;
+		
+		// TODO: Use the OPTION's time between per action to animate slider increment
+		if (!EVENTS.SliderMouseDown) {
+			slider.value = data.present;
+		}
+
 		if (EVENTS.SliderMouseUp) {
 			EVENTS.SliderMouseUp = false;
-			resetState(data, EVENTS.SliderValue);
-			// simulate(resetState(data, EVENTS.SliderValue));
+			data.present = EVENTS.SliderValue;
+			battleship.update(data.html, current).then((done) => {
+				simulate(data);
+			});
 			return;
 		}
-
-		let slider = document.getElementById("slider");
-		// TODO: Use the OPTION's time between per action to animate slider increment
-		if (!EVENTS.SliderMouseDown)
-			slider.value = data.past.length;
-
-		// console.log(`Start simulate() with ${current.task.type}`);
-		let isDone = false;
-		if (data.future.length == 0)
-			isDone = true;
-
-		let current = data.future.pop();
-		data.past.push(data.present);
-		data.present = current;
-
-		if (current && !isDone) {
+		else if (current && !isDone) {
 			switch(current.task.type) {
 				case "MOVE":
 					battleship.moveShip(data.html, current, OPTION).then((done) => {
-						//alert("Moved " + data.turns.length + " actions left");
 						simulate(data);
-						// });
 					}).catch((err) => {
 						console.error('Error at movement simulation: ', err);
 					});
@@ -313,9 +289,13 @@ function Simulation() {
 					});
 					break;
 				case "END":
+					slider.addEventListener('change', () => {
+						simulate(data);
+						slider.removeEventListener('change');
+					});
 					setTimeout(() => {
-						alert("Simulation Done");
-					}, 10000);
+						alert("Simulation Done, use slider to playback.");
+					}, 5000);
 					break;
 				case "START":
 					console.log('Reading start of simulation marker.');
@@ -327,8 +307,12 @@ function Simulation() {
 					//simulate(data);;
 			}
 		} else {
+			slider.addEventListener('change', () => {
+				simulate(data);
+				slider.removeEventListener('change');
+			});
 			setTimeout(() => {
-				alert("Simulation Done");
+				alert("Simulation Done...");
 			}, 10000);
 		}
 	}

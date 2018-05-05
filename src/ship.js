@@ -26,7 +26,7 @@ function Ship() {
 			let ship = document.createElement('a-entity');
 
 			ship.setAttribute('position', data.x + ' ' + data.y + ' ' + data.z);
-			if (attr.color === 'rgb(255, 255, 0)') {
+			if (data.color === 'rgb(255, 255, 0)') {
 				ship.setAttribute('template', 'src: #submarine-template');
 				ship.setAttribute('class', 'submarine');
 			}
@@ -36,32 +36,40 @@ function Ship() {
 			}
 
 			let heart = '';
-			for (let i = 0; i < attr.hull; i++) {
+			for (let i = 0; i < data.hull; i++) {
 				heart += ' •';
 			}
-			attr.health = heart;
 
 			// ${variable} <- variable name be lower case
-			ship.setAttribute('data-ship_color', 'color: '+attr.color+'; metalness: 0.4;');
-			ship.setAttribute('data-ship_name', 'value: '+attr.name+'; font: #play;');
-			ship.setAttribute('data-ship_health', 'value: '+heart+';');
+			ship.setAttribute('data-ship_color', `color: ${data.color}; metalness: 0.4;`);
+			ship.setAttribute('data-ship_name', `value: ${data.name}; font: #play;`);
+			ship.setAttribute('data-ship_health', `value: ${heart}';`);
 
 			attr.dom = doc.appendChild(ship);
 
 			return attr;
 		},
 
-		update: (domElement, data) => {
-			data.states.forEach((state) => {
-				let ship = domElement[state.id];
-				let heart = '';
-				for (let i = 0; i < state.health; i++) {
-					heart += ' •';
-				}
+		update: (domElement, current) => {
+			return new Promise((resolve, reject) => {
+				console.log(current);
+				current.states.forEach((state) => {
+					let ship = domElement[state.id];
+					let heart = '';
+					for (let i = 0; i < state.health; i++) {
+						heart += ' •';
+					}
 
-				ship.dom.setAttribute('position', `${state.x} ${state.y} ${state.z}`);
-				ship.dom.setAttribute('visible', state.sunk);
-				ship.dom.setAttribute('health', `value: ${heart}`);
+					ship.dom.setAttribute('position', `${state.x} ${state.y} ${state.z}`);
+					ship.dom.setAttribute('visible', !state.sunk);
+					ship.dom.setAttribute('health', `value: ${heart}`);
+					ship.dom.removeAttribute('alongpath');
+				});
+				let track = document.getElementById('track');
+				while(track.hasChildNodes()) {
+					track.removeChild(track.childNodes[0]);
+				}
+				resolve();
 			});
 		},
 
@@ -80,15 +88,17 @@ function Ship() {
 
 				var point1 = document.createElement('a-curve-point');
 				var point2 = document.createElement('a-curve-point');
-				point1.setAttribute('position', action.x + ' ' + action.y + ' ' + action.z);
-				point2.setAttribute('position', action.x + ' ' + (action.y - OPTION.SinkDistance) + ' ' + action.z);
+				point1.setAttribute('position', `${action.x} ${action.y} ${action.z}`);
+				point2.setAttribute('position', `${action.x} ${(action.y - OPTION.SinkDistance)} ${action.z}`);
 				track.appendChild(point1);
 				track.appendChild(point2);
 
-				ship.dom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 1 0; delay: ' + OPTION.WaitTimeBetweenAction + '; dur: 3000;');
+				ship.dom.setAttribute('alongpath', `curve: #track; rotate: true; constraint: 0 1 0; delay: ${OPTION.WaitTimeBetweenAction}; dur: 3000;`);
 
 				ship.dom.addEventListener('movingended', () => {
 					ship.dom.removeAttribute('alongpath');
+					ship.dom.setAttribute('visible', false);
+
 					if (debug.parentNode) {
 						doc.removeChild(debug);
 					}
@@ -96,13 +106,6 @@ function Ship() {
 					while(track.hasChildNodes()) {
 						track.removeChild(track.childNodes[0]);
 					}
-
-					ship.dom.removeAttribute('alongpath');
-					ship.dom.setAttribute('visible', false);
-					// shipDom.childNodes.forEach((node) => {
-					// 	console.log(node);
-					// 	node.setAttribute('visible', false);
-					// });
 
 					resolve();
 				});
@@ -142,10 +145,10 @@ function Ship() {
 				let target = document.createElement('a-curve-point');
 				bullet.setAttribute('color', 'gray');
 				bullet.setAttribute('radius', '0.1');
-				bullet.setAttribute('position', data[0].x + ' ' + data[0].y + ' ' + data[0].z);
-				source.setAttribute('position', data[0].x + ' ' + data[0].y + ' ' + data[0].z);
-				target.setAttribute('position', data[0].atX + ' ' + data[0].atY + ' ' + data[0].atZ);
-				arc.setAttribute('position', (data[0].atX+data[0].x)/2 + " " + (((data[0].atY+data[0].y)/2)+OPTION.BulletArc) + " " + (data[0].atZ+data[0].z)/2);
+				bullet.setAttribute('position', `${data[0].x} ${data[0].y} ${data[0].z}`);
+				source.setAttribute('position', `${data[0].x} ${data[0].y} ${data[0].z}`);
+				target.setAttribute('position', `${data[0].atX} ${data[0].atY} ${data[0].atZ}`);
+				arc.setAttribute('position', `${(data[0].atX+data[0].x)/2} ${(((data[0].atY+data[0].y)/2)+OPTION.BulletArc)} ${(data[0].atZ+data[0].z)/2}`);
 				track.appendChild(source);
 				track.appendChild(arc);
 				track.appendChild(target);
@@ -201,7 +204,7 @@ function Ship() {
 
 				for (let i = 0; i < data.length; i++) {
 					point = document.createElement('a-curve-point');
-					point.setAttribute('position', data[i].x + ' ' + data[i].y + ' ' + data[i].z);
+					point.setAttribute('position', `${data[i].x} ${data[i].y} ${data[i].z}`);
 					xDistance += Math.abs(data[i].x - previous.x);
 					zDistance += Math.abs(data[i].z - previous.z);
 					track.appendChild(point);
@@ -213,7 +216,7 @@ function Ship() {
 
 				// define time for movement so that speed of difference distance is consistent
 				let duration = (xDistance+zDistance)*OPTION.WaitTimePerTileMoved;
-				ship.dom.setAttribute('alongpath', 'curve: #track; rotate: true; constraint: 0 0 1; delay: '+OPTION.WaitTimeBetweenAction+'; dur: '+duration+';');
+				ship.dom.setAttribute('alongpath', `curve: #track; rotate: true; constraint: 0 0 1; delay: ${OPTION.WaitTimeBetweenAction}; dur: ${duration};`);
 
 				ship.dom.addEventListener('movingended', function() {
 					if (debug.parentNode) {
