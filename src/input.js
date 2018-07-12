@@ -1,4 +1,4 @@
-var input = {
+let input = {
     "init": {
         "ships": [
             {
