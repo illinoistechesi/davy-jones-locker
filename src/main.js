@@ -244,7 +244,7 @@ function Simulation() {
 		if (!EVENTS.SliderMouseDown) {
 			slider.value = data.present;
 		}
-
+		
 		if (EVENTS.SliderMouseUp) {
 			EVENTS.SliderMouseUp = false;
 			data.present = EVENTS.SliderValue;
@@ -253,6 +253,7 @@ function Simulation() {
 			});
 			return;
 		}
+
 		else if (current && !isDone) {
 			switch(current.task.type) {
 				case "MOVE":
@@ -289,10 +290,11 @@ function Simulation() {
 					});
 					break;
 				case "END":
-					slider.addEventListener('change', () => {
-						simulate(data);
-						slider.removeEventListener('change');
-					});
+					// Disabled slider because resetting timeline is not working
+					// slider.addEventListener('change', () => {
+					// 	simulate(data);
+					// 	slider.removeEventListener('change');
+					// });
 					setTimeout(() => {
 						alert("Simulation Done, use slider to playback.");
 					}, 5000);
@@ -307,10 +309,11 @@ function Simulation() {
 					//simulate(data);;
 			}
 		} else {
-			slider.addEventListener('change', () => {
-				simulate(data);
-				slider.removeEventListener('change');
-			});
+			// Disabled slider because resetting timeline is not working
+			// slider.addEventListener('change', () => {
+			// 	simulate(data);
+			// 	slider.removeEventListener('change');
+			// });
 			setTimeout(() => {
 				alert("Simulation Done...");
 			}, 10000);

@@ -14,7 +14,10 @@
 	height: 10px;
 	border-radius: 5px;
 	opacity: 0.4;
+	opacity: 0;
 }
+
+/* Slider is broken, hidden with css until fixed */
 
 #slider::-webkit-slider-thumb {
 	-webkit-appearance: none; /* Override default look */
@@ -24,6 +27,7 @@
 	background: gray;
 	box-shadow: 0px 0px 1px 1px #111111;
 	opacity: 0.9;
+	opacity: 0;
 	-webkit-transition: all 500ms ease-in;
       transition: all 500ms ease-in;
 }

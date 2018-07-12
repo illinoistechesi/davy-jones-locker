@@ -52,6 +52,7 @@ function Ship() {
 
 		update: (domElement, current) => {
 			return new Promise((resolve, reject) => {
+				console.log(domElement);
 				console.log(current);
 				current.states.forEach((state) => {
 					let ship = domElement[state.id];
@@ -63,12 +64,21 @@ function Ship() {
 					ship.dom.setAttribute('position', `${state.x} ${state.y} ${state.z}`);
 					ship.dom.setAttribute('visible', !state.sunk);
 					ship.dom.setAttribute('health', `value: ${heart}`);
+					console.log(heart);
 					ship.dom.removeAttribute('alongpath');
 				});
+				let doc = document.getElementById('scene');
 				let track = document.getElementById('track');
-				while(track.hasChildNodes()) {
-					track.removeChild(track.childNodes[0]);
-				}
+				
+				doc.removeChild(track);
+				track = document.createElement('a-curve');
+				track.setAttribute('id', 'track');
+				track.setAttribute('type', 'Line');
+				doc.appendChild(track);
+
+				// while(track.hasChildNodes()) {
+				// 	track.removeChild(track.childNodes[0]);
+				// }
 				resolve();
 			});
 		},
