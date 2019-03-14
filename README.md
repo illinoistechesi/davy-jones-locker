@@ -1,5 +1,7 @@
 # Davy Jones' Locker
 
+**Checkout the Sample codes section below to run specific simulations**
+
 ## About
 
 Davy Jones' Locker is a visualizer for Battleships, a game created for the Exelon Summer Institute (ESI) at the Illinois Institute of Technology to help incoming college students learn Java.
@@ -23,6 +25,13 @@ gulp build
 ```
 
 ## Sample codes
+
+**Sample codes used to load specific battles in url parameter or input box if parameter is missing**
+
+**Example: for battle: 1v3-1** <br>
+https://illinoistechesi.github.io/davyjoneslocker/?code=1v3-1
+
+
 1v3-1
 1v7-1
 1vD-1
